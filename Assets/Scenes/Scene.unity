@@ -713,7 +713,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a52b2d6eb770b234490a7b5da48f0f79, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d6cbf66107d6a0d4da70bc64b216c895, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -846,7 +846,7 @@ GameObject:
   - component: {fileID: 579354387}
   - component: {fileID: 579354386}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: PauseCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1210,7 +1210,7 @@ GameObject:
   - component: {fileID: 677443132}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

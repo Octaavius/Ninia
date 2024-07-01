@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class ObstacleSpawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     private enum Direction
     {

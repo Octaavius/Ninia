@@ -6,10 +6,6 @@ public class ObstacleScript : MonoBehaviour
 {
     [SerializeField]
     private float speed = 5f; // Speed of the movement
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -19,6 +15,22 @@ public class ObstacleScript : MonoBehaviour
     }
 
     public void setObstacleSpeed(float newSpeed) {
-        
+        speed = newSpeed;   
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Player collided with obstacle!");
+            
+            // Set a boolean to true or perform any other action
+            SomeAction();
+        }
+    }
+
+    private void SomeAction()
+    {
+        Destroy(gameObject);
     }  
 }
