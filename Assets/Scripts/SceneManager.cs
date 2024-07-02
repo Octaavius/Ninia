@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class SceneManager : MonoBehaviour
+public class SceneManagerScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [SerializeField]
+    private Animator transition; 
+    [SerializeField]
+    private float transitionTime = 1.4f;
+    public void PlayGame() {
+        StartCoroutine(LoadGame());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    IEnumerator LoadGame(){
+        transition.SetTrigger("Start");
+        yield return new WaitForSeconds(transitionTime);
+        SceneManager.LoadScene("Game");
     }
 }
