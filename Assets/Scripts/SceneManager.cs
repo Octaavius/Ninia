@@ -13,11 +13,15 @@ public class SceneManagerScript : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
     public void PlayGame() {
+	Debug.Log("change the scene");
         StartCoroutine(LoadGame());
     }
     IEnumerator LoadGame(){
         transition.SetTrigger("Start");
-        yield return new WaitForSeconds(transitionTime);
+        Debug.Log("change the scene2");
         SceneManager.LoadScene("Game");
+        yield return new WaitForSeconds(transitionTime);
+        Debug.Log("change the scene3");
+        
     }
 }
