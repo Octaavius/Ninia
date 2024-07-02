@@ -9,6 +9,9 @@ public class SceneManagerScript : MonoBehaviour
     private Animator transition; 
     [SerializeField]
     private float transitionTime = 1.4f;
+    public void ReturnToMenu() {
+        SceneManager.LoadScene("MainMenu");
+    }
     public void PlayGame() {
         StartCoroutine(LoadGame());
     }

@@ -44,3 +44,6 @@ TagManager:
   - name: Player
     uniqueID: 3543292753
     locked: 0
+  - name: Transition
+    uniqueID: 3990016819
+    locked: 0
