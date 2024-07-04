@@ -7,7 +7,7 @@ public class ObstacleSpawner : MonoBehaviour
     public float minSpawnTime = 1.0f;
     public float maxSpawnTime = 3.0f;
     [SerializeField]
-    private float maxDelta = 5f;
+    private float maxDelta = 1f;
     [SerializeField]
     private Direction spawnDirection = Direction.Down;
     private bool isPause = false;

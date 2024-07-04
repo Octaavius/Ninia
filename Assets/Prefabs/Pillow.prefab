@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 469744613031090986}
   - component: {fileID: 6590099016667756847}
-  - component: {fileID: 6664418337061598705}
+  - component: {fileID: 3116745683476984413}
   m_Layer: 0
   m_Name: Pillow
   m_TagString: Untagged
@@ -80,7 +80,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 32.7, y: 10}
   m_EdgeRadius: 0
---- !u!114 &6664418337061598705
+--- !u!114 &3116745683476984413
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,10 +89,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3791677445985977321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 224a891427869f1459fcbd8cc436b4b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 967f0e21992124fdf91fb91cd9907b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 2
+  scorePrice: 7
 --- !u!1 &5267329142903244177
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +270,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7779030786557143894}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7386a33a722a6b5108315b1b433328af, type: 3}
+  m_Script: {fileID: 11500000, guid: 76a42d797de43cb7c921291c0510e826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: {x: 0, y: 0, z: 50}
+  rotationSpeed: {x: 0, y: 0, z: 100}

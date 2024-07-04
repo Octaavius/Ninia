@@ -5,7 +5,7 @@ using UnityEngine;
 public class PillowRotation : MonoBehaviour
 {
     [SerializeField]
-    private Vector3 rotationSpeed = new Vector3(0, 100, 0);
+    private Vector3 rotationSpeed = new Vector3(0, 0, 100);
 
 
     void FixedUpdate()

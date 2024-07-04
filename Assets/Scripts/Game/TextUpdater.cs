@@ -27,8 +27,8 @@ public class TextUpdater : MonoBehaviour
     }
 
     void Update() {
-        ScoreText.text = GameManager.s_Score.ToString();
-        CoinsText.text = GameManager.s_Coins.ToString();
-        GemsText.text = GameManager.s_Gems.ToString();
+        ScoreText.text = GameManager.GetScore().ToString();
+        CoinsText.text = GameManager.GetCoins().ToString();
+        GemsText.text = GameManager.GetGems().ToString();
     }
 }

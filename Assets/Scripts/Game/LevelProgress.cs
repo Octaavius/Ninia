@@ -13,7 +13,7 @@ public class LevelProgress : MonoBehaviour
     }
 
     void Update() {
-        UpdateGameLevel(GameManager.s_Score);
+        UpdateGameLevel(GameManager.GetScore());
     }    
 
     private void UpdateGameLevel(int score){
@@ -23,7 +23,7 @@ public class LevelProgress : MonoBehaviour
         }
     }
 
-    private GetGameDifficulty(int score) {
+    private GameDifficulty GetGameDifficulty(int score) {
         if(score < 100) {
             return GameDifficulty.Easy;
         } else if (score < 300) {
