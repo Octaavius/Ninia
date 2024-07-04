@@ -156,6 +156,7 @@ MonoBehaviour:
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
   minSpawnTime: 1
   maxSpawnTime: 3
+  maxDelta: 1
   spawnDirection: 1
 --- !u!212 &30650280
 SpriteRenderer:
@@ -633,6 +634,7 @@ MonoBehaviour:
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
   minSpawnTime: 1
   maxSpawnTime: 3
+  maxDelta: 1
   spawnDirection: 2
 --- !u!212 &278000026
 SpriteRenderer:
@@ -2117,6 +2119,7 @@ MonoBehaviour:
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
   minSpawnTime: 1
   maxSpawnTime: 3
+  maxDelta: 1
   spawnDirection: 3
 --- !u!212 &1583488781
 SpriteRenderer:
@@ -2298,6 +2301,7 @@ MonoBehaviour:
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
   minSpawnTime: 1
   maxSpawnTime: 3
+  maxDelta: 1
   spawnDirection: 0
 --- !u!212 &1710230073
 SpriteRenderer:

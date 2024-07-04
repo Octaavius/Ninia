@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleScript : MonoBehaviour
+public class Obstacle : MonoBehaviour
 {
     [SerializeField]
     private float speed = 5f; // Speed of the movement
@@ -10,7 +10,6 @@ public class ObstacleScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // Move the object forward based on its current direction and speed
         transform.Translate(Vector3.up * speed * Time.deltaTime, Space.Self);
     }
 
@@ -25,11 +24,11 @@ public class ObstacleScript : MonoBehaviour
             Debug.Log("Player collided with obstacle!");
             
             // Set a boolean to true or perform any other action
-            SomeAction();
+            ActionOnCollision();
         }
     }
 
-    private void SomeAction()
+    private void ActionOnCollision()
     {
         Destroy(gameObject);
     }  

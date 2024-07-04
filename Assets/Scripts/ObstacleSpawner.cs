@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Spawner : MonoBehaviour
+public class ObstacleSpawner : MonoBehaviour
 {
     private enum Direction
     {
@@ -13,6 +13,8 @@ public class Spawner : MonoBehaviour
     public List<GameObject> obstacles; // List of obstacle prefabs
     public float minSpawnTime = 1.0f; // Minimum spawn time
     public float maxSpawnTime = 3.0f; // Maximum spawn time
+    [SerializeField]
+    private float maxDelta = 5f;
     [SerializeField]
     private Direction spawnDirection = Direction.Down;
     private bool isPause = false;
@@ -34,7 +36,7 @@ public class Spawner : MonoBehaviour
         GameObject obstacle = obstacles[index];
 
         // Spawn the obstacle at the spawner's position
-        Instantiate(obstacle, transform.position, getSpawnRotation()); //downward direction
+        Instantiate(obstacle, getSpawnPosition(), getSpawnRotation()); //downward direction
 
         // Schedule the next spawn
         if(!isPause){
@@ -58,5 +60,28 @@ public class Spawner : MonoBehaviour
             default:
                 return Quaternion.identity;
         }
+    }
+    
+    Vector3 getSpawnPosition()
+    {
+        float randomDelta = Random.Range(-maxDelta, maxDelta);
+        Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
+        Vector2 randomMovement;
+        switch (spawnDirection)
+        {
+            case Direction.Up:
+            case Direction.Down:
+                randomMovement = new Vector2(randomDelta, 0);
+                break;
+            case Direction.Left:
+            case Direction.Right:
+                randomMovement = new Vector2(0, randomDelta);
+                break;
+            default:
+                randomMovement = Vector2.zero;
+                break;
+        }
+        Vector2 newPosition = currentPosition + randomMovement;
+        return new Vector3(newPosition.x, newPosition.y, transform.position.z);
     }
 }
