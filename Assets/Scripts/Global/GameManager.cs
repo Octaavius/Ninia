@@ -4,27 +4,46 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static int s_Score = 0;
+    public static int s_Coins = 0;
+    public static int s_Gems = 0;
+
     public static bool GameIsPaused;
     [SerializeField]
-    private GameObject pauseMenuUI;
+    private GameObject PauseMenuUI;
+
+
+
+
 
     void Awake(){
         GameIsPaused = false;
     }
     public void Pause() {
-        pauseMenuUI.SetActive(true);
+        PauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
 
     public void Resume() {
-        pauseMenuUI.SetActive(false);
+        PauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;    
     }
 
     public void EndGame() {
         
+    }
+
+
+
+    public void AddToScore(int addAmount) {
+        s_Score += addAmount;
+    }
+    public void AddToCoins(int addAmount) {
+        s_Coins += addAmount;
+    }
+    public void AddToGems(int addAmount) {
+        s_Gems += addAmount;
     }
 }

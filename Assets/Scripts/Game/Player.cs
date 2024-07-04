@@ -2,34 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerScript : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField]
     private float maxHitDistance = 500f;
-    private string hitDirection = " ";
+    private Direction hitDirection = Direction.None;
     public LayerMask layersToHit;
 
     void FixedUpdate()
     {
-        if(hitDirection != " "){
+        if(hitDirection != Direction.None){
             hit(hitDirection);
         }
     }
 
-    void hit(string hitDirection){
+    void hit(Direction hitDirection){
         Vector2 origin = transform.position;
         Vector2 direction = Vector2.zero;
         switch(hitDirection){
-            case "up":
+            case Direction.Up:
                 direction = Vector2.up;
                 break;
-            case "down":
+            case Direction.Down:
                 direction = -Vector2.up;
                 break;
-            case "right":
+            case Direction.Right:
                 direction = Vector2.right;
                 break;
-            case "left":
+            case Direction.Left:
                 direction = -Vector2.right;
                 break;
         }
@@ -39,10 +39,10 @@ public class PlayerScript : MonoBehaviour
             Destroy(hit.collider.gameObject);
         }
 
-        setHitDirection(" ");
+        setHitDirection(Direction.None);
     }
 
-    public void setHitDirection(string hitDirectionToAssign){
+    public void setHitDirection(Direction hitDirectionToAssign){
         hitDirection = hitDirectionToAssign;
     }
 }

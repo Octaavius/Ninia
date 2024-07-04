@@ -6,6 +6,8 @@ public class Obstacle : MonoBehaviour
 {
     [SerializeField]
     private float speed = 5f; // Speed of the movement
+    [SerializeField]
+    private int scorePrice = 7;
 
     // Update is called once per frame
     void FixedUpdate()
@@ -30,6 +32,7 @@ public class Obstacle : MonoBehaviour
 
     private void ActionOnCollision()
     {
+        GameManager.AddToScore(scorePrice);
         Destroy(gameObject);
     }  
 }

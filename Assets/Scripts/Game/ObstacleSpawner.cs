@@ -3,34 +3,24 @@ using System.Collections.Generic;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    private enum Direction
-    {
-        Up,
-        Down,
-        Left,
-        Right
-    }
-    public List<GameObject> obstacles; // List of obstacle prefabs
-    public float minSpawnTime = 1.0f; // Minimum spawn time
-    public float maxSpawnTime = 3.0f; // Maximum spawn time
+    public List<GameObject> obstacles;
+    public float minSpawnTime = 1.0f;
+    public float maxSpawnTime = 3.0f;
     [SerializeField]
     private float maxDelta = 5f;
     [SerializeField]
     private Direction spawnDirection = Direction.Down;
     private bool isPause = false;
 
-    private void Start()
-    {
+    private void Start() {
         StartSpawning();
     }
 
-    void StartSpawning()
-    {
+    void StartSpawning() {
         Invoke("SpawnObstacle", Random.Range(minSpawnTime, maxSpawnTime));
     }
 
-    void SpawnObstacle()
-    {
+    void SpawnObstacle() {
         // Randomly select an obstacle from the list
         int index = Random.Range(0, obstacles.Count);
         GameObject obstacle = obstacles[index];
@@ -45,8 +35,7 @@ public class ObstacleSpawner : MonoBehaviour
             
     }
 
-    Quaternion getSpawnRotation()
-    {
+    Quaternion getSpawnRotation() {
         switch (spawnDirection)
         {
             case Direction.Up:
@@ -62,8 +51,7 @@ public class ObstacleSpawner : MonoBehaviour
         }
     }
     
-    Vector3 getSpawnPosition()
-    {
+    Vector3 getSpawnPosition() {
         float randomDelta = Random.Range(-maxDelta, maxDelta);
         Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
         Vector2 randomMovement;

@@ -10,11 +10,11 @@ public class SwipeDetector : MonoBehaviour
     private Vector2 currentTouchPosition;
     private bool stopTouch = false;
     private DoubleTapDetector doubleTapDetector;
-    private PlayerScript playerScript;
+    private Player player;
 
     void Awake(){
         doubleTapDetector = GetComponent<DoubleTapDetector>();
-        playerScript = GetComponent<PlayerScript>();
+        player = GetComponent<Player>();
     }
 
     void Update() {
@@ -58,13 +58,13 @@ public class SwipeDetector : MonoBehaviour
         {
             if (swipeDirection.x > 0)
             {
-                playerScript.setHitDirection("right");
+                player.setHitDirection(Direction.Right);
                 Debug.Log("--> Swipe Right");
                 // Call your function for right swipe
             }
             else
             {
-                playerScript.setHitDirection("left");
+                player.setHitDirection(Direction.Left);
                 Debug.Log("<-- Swipe Left");
                 // Call your function for left swipe
             }
@@ -73,13 +73,13 @@ public class SwipeDetector : MonoBehaviour
         {
             if (swipeDirection.y > 0)
             {
-                playerScript.setHitDirection("up");
+                player.setHitDirection(Direction.Up);
                 Debug.Log("Swipe Up");
                 // Call your function for up swipe
             }
             else
             {
-                playerScript.setHitDirection("down");
+                player.setHitDirection(Direction.Down);
                 Debug.Log("Swipe Down");
                 // Call your function for down swipe
             }
