@@ -9,7 +9,8 @@ public class DoubleTapDetector : MonoBehaviour
     
     void Update()
     {
-        DetectDoubleTap();
+        if(!GameManager.GameIsPaused)
+            DetectDoubleTap();
     }
 
     void DetectDoubleTap()

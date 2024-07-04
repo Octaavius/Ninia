@@ -18,7 +18,8 @@ public class SwipeDetector : MonoBehaviour
     }
 
     void Update() {
-        SwipeDetection();
+        if(!GameManager.GameIsPaused)
+            SwipeDetection();
     }
 
     void SwipeDetection() {

@@ -10,18 +10,21 @@ public class SceneManagerScript : MonoBehaviour
     [SerializeField]
     private float transitionTime = 1.4f;
     public void ReturnToMenu() {
+        StartCoroutine(LoadMenu());
+    }
+    IEnumerator LoadMenu(){
+        transition.SetTrigger("ExitToMenu");
+        yield return new WaitForSecondsRealtime(transitionTime);
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
+
     public void PlayGame() {
-	Debug.Log("change the scene");
         StartCoroutine(LoadGame());
     }
     IEnumerator LoadGame(){
         transition.SetTrigger("Start");
-        Debug.Log("change the scene2");
-        SceneManager.LoadScene("Game");
         yield return new WaitForSeconds(transitionTime);
-        Debug.Log("change the scene3");
-        
+        SceneManager.LoadScene("Game");
     }
 }
