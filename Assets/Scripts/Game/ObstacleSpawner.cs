@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    public List<GameObject> obstacles;
+    public ObstacleManager obsManager;
+    public List<GameObject> obstaclesPrefabs;
     public float minSpawnTime = 1.0f;
     public float maxSpawnTime = 3.0f;
     [SerializeField]
@@ -22,18 +23,20 @@ public class ObstacleSpawner : MonoBehaviour
 
     void SpawnObstacle() {
         // Randomly select an obstacle from the list
-        int index = Random.Range(0, obstacles.Count);
-        GameObject obstacle = obstacles[index];
+        int index = Random.Range(0, obstaclesPrefabs.Count);
+        GameObject obstacle = obstaclesPrefabs[index];
 
         // Spawn the obstacle at the spawner's position
-        Instantiate(obstacle, getSpawnPosition(), getSpawnRotation()); //downward direction
+        GameObject newObstacle = Instantiate(obstacle, getSpawnPosition(), getSpawnRotation()); //downward direction
+        obsManager.AddNewObstacle(newObstacle);
 
         // Schedule the next spawn
         if(!isPause){
             StartSpawning();
-        } 
-            
+        }  
     }
+
+    
 
     Quaternion getSpawnRotation() {
         switch (spawnDirection)

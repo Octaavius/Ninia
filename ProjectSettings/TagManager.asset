@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Pillow
   layers:
   - Default
   - TransparentFX
@@ -11,7 +12,7 @@ TagManager:
   - Player
   - Water
   - UI
-  - 
+  - Obstacle
   - 
   - 
   - 
@@ -44,7 +45,7 @@ TagManager:
   - name: Player
     uniqueID: 3543292753
     locked: 0
-  - name: Pause menu
+  - name: Menu
     uniqueID: 3955954093
     locked: 0
   - name: Transition

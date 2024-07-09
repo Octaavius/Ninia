@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 469744613031090986}
   - component: {fileID: 6590099016667756847}
   - component: {fileID: 3116745683476984413}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pillow
-  m_TagString: Untagged
+  m_TagString: Pillow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,7 +64,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 967f0e21992124fdf91fb91cd9907b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  scorePrice: 7
+  Speed: 2
+  ScorePrice: 7
 --- !u!1 &5267329142903244177
 GameObject:
   m_ObjectHideFlags: 0
