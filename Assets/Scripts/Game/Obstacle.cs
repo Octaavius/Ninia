@@ -6,7 +6,7 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     [SerializeField] private float Speed = 2f; // Speed of the movement
-    [SerializeField] private int ScorePrice = 7;
+    public int ScorePrice = 7;
 
     // Update is called once per frame
     void Awake(){
@@ -14,7 +14,7 @@ public class Obstacle : MonoBehaviour
         Debug.Log(zRotation);
         if (zRotation == 90f || zRotation == 270f)
         {
-            Speed /= 2f;
+            Speed /= 3f;
         }
     }
     void FixedUpdate()

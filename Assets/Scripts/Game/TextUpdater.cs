@@ -9,26 +9,10 @@ public class TextUpdater : MonoBehaviour
     private TMP_Text CoinsText;
     [SerializeField]
     private TMP_Text GemsText;
-
-    void Start()
-    {
-        // // Ensure that the arrays are of the same length
-        // if (textElements.Length != newTexts.Length)
-        // {
-        //     Debug.LogError("Text elements array and new texts array must be of the same length.");
-        //     return;
-        // }
-
-        // // Loop through each text element and change its text
-        // for (int i = 0; i < textElements.Length; i++)
-        // {
-        //     textElements[i].text = newTexts[i];
-        // }
-    }
-
+    public GameManager gameManager;
     void Update() {
-        ScoreText.text = GameManager.GetScore().ToString();
-        CoinsText.text = GameManager.GetCoins().ToString();
-        GemsText.text = GameManager.GetGems().ToString();
+        ScoreText.text = gameManager.GetScore().ToString();
+        CoinsText.text = gameManager.GetCoins().ToString();
+        GemsText.text = gameManager.GetGems().ToString();
     }
 }

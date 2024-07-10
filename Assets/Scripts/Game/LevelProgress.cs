@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelProgress : MonoBehaviour
 {
+    public GameManager gameManager;
     private enum GameDifficulty {
         Easy, 
         Medium,
@@ -13,7 +14,7 @@ public class LevelProgress : MonoBehaviour
     }
 
     void Update() {
-        UpdateGameLevel(GameManager.GetScore());
+        UpdateGameLevel(gameManager.GetScore());
     }    
 
     private void UpdateGameLevel(int score){
