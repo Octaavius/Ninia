@@ -7,7 +7,11 @@ public class ObstacleManager : MonoBehaviour
     private List<GameObject> spawnedObstacles = new();
     public GameManager gameManager;
     public void DestroyObstacle(GameObject obstacle){
-        gameManager.AddToScore(obstacle.GetComponent<Obstacle>().ScorePrice);
+        Obstacle obstacleScript = obstacle.GetComponent<Obstacle>();
+
+        gameManager.AddToScore(obstacleScript.ScorePrice);
+        gameManager.AddToCoins(obstacleScript.CoinsPrice);
+
         spawnedObstacles.Remove(obstacle);
         Destroy(obstacle);
     }

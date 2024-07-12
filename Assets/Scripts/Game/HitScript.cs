@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HitScript : MonoBehaviour
@@ -19,6 +17,7 @@ public class HitScript : MonoBehaviour
     void hit(Direction hitDirection){
         Vector2 origin = transform.position;
         Vector2 direction = Vector2.zero;
+        float actualHitDistance = maxHitDistance;
         switch(hitDirection){
             case Direction.Up:
                 direction = Vector2.up;
@@ -27,13 +26,15 @@ public class HitScript : MonoBehaviour
                 direction = -Vector2.up;
                 break;
             case Direction.Right:
+                actualHitDistance = 2;
                 direction = Vector2.right;
                 break;
             case Direction.Left:
+                actualHitDistance = 2;
                 direction = -Vector2.right;
                 break;
         }
-        RaycastHit2D hit = Physics2D.Raycast(origin, direction, maxHitDistance, layersToHit);
+        RaycastHit2D hit = Physics2D.Raycast(origin, direction, actualHitDistance, layersToHit);
         
         if (hit.collider != null) {
             //here i should add score

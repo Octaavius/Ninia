@@ -222,6 +222,7 @@ MonoBehaviour:
   obsManager: {fileID: 1823422426}
   obstaclesPrefabs:
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
+  - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
   minSpawnTime: 1
   maxSpawnTime: 3
   maxDelta: 1
@@ -585,6 +586,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &222165141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 222165143}
+  - component: {fileID: 222165142}
+  m_Layer: 0
+  m_Name: Player_progress
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &222165142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222165141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41efa0764d1bed601a34f87518c49154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &222165143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222165141}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.28123355, y: 1.3015076, z: -2.5040386}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &278000023
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,6 +730,7 @@ MonoBehaviour:
   obsManager: {fileID: 1823422426}
   obstaclesPrefabs:
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
+  - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
   minSpawnTime: 1
   maxSpawnTime: 3
   maxDelta: 1
@@ -1823,7 +1869,7 @@ GameObject:
   - component: {fileID: 677443130}
   - component: {fileID: 677443132}
   m_Layer: 3
-  m_Name: Player
+  m_Name: Ninja
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1990,7 +2036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleManager: {fileID: 1823422426}
-  maxHitDistance: 500
+  maxHitDistance: 3
   layersToHit:
     serializedVersion: 2
     m_Bits: 64
@@ -3783,6 +3829,7 @@ MonoBehaviour:
   obsManager: {fileID: 1823422426}
   obstaclesPrefabs:
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
+  - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
   minSpawnTime: 1
   maxSpawnTime: 3
   maxDelta: 1
@@ -4048,6 +4095,7 @@ MonoBehaviour:
   obsManager: {fileID: 1823422426}
   obstaclesPrefabs:
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
+  - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
   minSpawnTime: 1
   maxSpawnTime: 3
   maxDelta: 1
@@ -4193,7 +4241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PauseMenuUI: {fileID: 1468088356}
   EndMenuUI: {fileID: 1156354537}
-  player: {fileID: 0}
+  player: {fileID: 222165142}
   HealthScript: {fileID: 677443134}
   obstacleManager: {fileID: 1823422426}
 --- !u!4 &1823422428
@@ -4434,7 +4482,7 @@ GameObject:
   - component: {fileID: 2116697230}
   - component: {fileID: 2116697231}
   m_Layer: 0
-  m_Name: player_sprite
+  m_Name: Ninja_sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4522,3 +4570,4 @@ SceneRoots:
   - {fileID: 165537885}
   - {fileID: 1673017770}
   - {fileID: 1136649105}
+  - {fileID: 222165143}

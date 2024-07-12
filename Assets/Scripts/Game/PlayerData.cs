@@ -1,7 +1,5 @@
-using UnityEngine;
-
 [System.Serializable]
-public class PlayerData : MonoBehaviour
+public class PlayerData
 {
     public int BestScore;
     public int Coins;
@@ -10,5 +8,10 @@ public class PlayerData : MonoBehaviour
         BestScore = player.BestScore;
         Coins = player.Coins;
         Gems = player.Gems;
+    }
+    public PlayerData(){
+        BestScore = 0;
+        Coins = 0;
+        Gems = 0;
     }
 }

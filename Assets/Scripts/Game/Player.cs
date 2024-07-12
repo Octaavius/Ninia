@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -7,6 +5,11 @@ public class Player : MonoBehaviour
     public int BestScore{ get; set; }
     public int Coins{ get; set; }
     public int Gems{ get; set; }
+    
+    void Awake() {
+        LoadPlayer();
+    }
+    
     public void SaveData() {
         SaveSystem.SavePlayer(this);
     }

@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] private float Speed = 2f; // Speed of the movement
+    [SerializeField] private float Speed = 2f;
     public int ScorePrice = 7;
-
-    // Update is called once per frame
+    public int CoinsPrice = 0;
     void Awake(){
         float zRotation = transform.eulerAngles.z;
         Debug.Log(zRotation);

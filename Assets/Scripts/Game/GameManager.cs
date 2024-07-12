@@ -45,12 +45,10 @@ public class GameManager : MonoBehaviour
     }
 
     void UpdateStats(){
-        Debug.Log(Score);
-        Debug.Log(player.BestScore);
         if(Score > player.BestScore)
             player.BestScore = Score;
         player.AddMoney(Coins, Gems);
-        player.SaveData(); 
+        player.SaveData();
     }
 
     void ResetNumbers(){

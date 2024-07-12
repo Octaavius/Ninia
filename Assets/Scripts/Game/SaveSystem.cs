@@ -14,18 +14,32 @@ public static class SaveSystem {
         stream.Close();
     }
 
-    public static PlayerData LoadPlayer () {
+    public static void SaveDefaultPlayer()
+    {
+        BinaryFormatter formatter = new();
+        FileStream stream = File.Create(Path);
+        
+        PlayerData defaultStats = new();
+
+        formatter.Serialize(stream, defaultStats);
+        stream.Close();
+    }
+
+    public static PlayerData LoadPlayer() {
         if(File.Exists(Path)){
+            Debug.Log(Path);
             BinaryFormatter formatter = new();
             FileStream stream = new(Path, FileMode.Open);
 
-            PlayerData data = formatter.Deserialize(stream) as PlayerData;
+            PlayerData data = (PlayerData)formatter.Deserialize(stream);
             stream.Close();
 
             return data;
         } else {
             Debug.LogError("Save file not found in " + Path);
-            return null;
+            SaveDefaultPlayer();
+            
+            return LoadPlayer();
         }
     }
 
