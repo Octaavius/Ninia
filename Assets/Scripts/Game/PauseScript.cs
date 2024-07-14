@@ -7,8 +7,11 @@ public class PauseScript : MonoBehaviour
 {
     public GameObject PauseMenuUI;
     public TMP_Text countdownText;
+
+    private bool cantPause = false;
     
     public void Pause() {
+        if(cantPause) return;
         Time.timeScale = 0f;
         PauseMenuUI.SetActive(true);
         GameManager.GameIsPaused = true;
@@ -22,6 +25,7 @@ public class PauseScript : MonoBehaviour
 
     IEnumerator CountdownRoutine()
     {
+        cantPause = true;
         countdownText.gameObject.SetActive(true);
 
         yield return StartCoroutine(AnimateNumber("3"));
@@ -33,6 +37,7 @@ public class PauseScript : MonoBehaviour
         countdownText.text = "";
 
         countdownText.gameObject.SetActive(false);
+        cantPause = false;
     }
 
     IEnumerator AnimateNumber(string number)
