@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject PauseMenuUI;
     public GameObject EndMenuUI;
     public TMP_Text EndUiScoreText;
+    public Sound sound;
 
     public Player player;
     public Health HealthScript; 
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
         obstacleManager.DestroyAllObstacles();
         EndUiScoreText.text = Score.ToString();
         EndMenuUI.SetActive(true);
+        sound.PlayGameOverSound();
         UpdateStats();
     }
 

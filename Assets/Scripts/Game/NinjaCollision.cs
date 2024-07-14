@@ -5,6 +5,7 @@ using UnityEngine;
 public class NinjaCollision : MonoBehaviour
 {
     [SerializeField] private Health HealthScript;
+    public Sound sound;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ActionOnCollision(collision);
@@ -14,6 +15,7 @@ public class NinjaCollision : MonoBehaviour
         if (collision.CompareTag("Money")) {
             //dont do anything, because we will destroy it later
         } else if (collision.CompareTag("Obstacle")) {
+            sound.PlayHitSound();
             HealthScript.RemoveHeart();
         }
         Destroy(collision.gameObject);

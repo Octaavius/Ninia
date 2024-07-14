@@ -7,6 +7,7 @@ public class HitScript : MonoBehaviour
 
     private Direction hitDirection = Direction.None;
     public LayerMask layersToHit;
+    public Sound sound;
     void FixedUpdate()
     {
         if(hitDirection != Direction.None){
@@ -39,6 +40,8 @@ public class HitScript : MonoBehaviour
         if (hit.collider != null) {
             //here i should add score
             obstacleManager.DestroyObstacle(hit.collider.gameObject);
+            sound.PlaySliceSound();
+
         }
 
         setHitDirection(Direction.None);
