@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     private int Gems = 0;
 
     public static bool GameIsPaused;
-    public GameObject PauseMenuUI;
+    
     public GameObject EndMenuUI;
     public TMP_Text EndUiScoreText;
     public Sound sound;
@@ -19,19 +19,6 @@ public class GameManager : MonoBehaviour
     void Awake(){
         GameIsPaused = false;
     }
-
-    public void Pause() {
-        Time.timeScale = 0f;
-        PauseMenuUI.SetActive(true);
-        GameIsPaused = true;
-    }
-
-    public void Resume() {
-        Time.timeScale = 1f;
-        PauseMenuUI.SetActive(false);
-        GameIsPaused = false;    
-    }
-
     public void EndGame() {
         Time.timeScale = 0f;
         obstacleManager.DestroyAllObstacles();
