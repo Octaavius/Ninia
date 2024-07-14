@@ -2941,7 +2941,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed0f82c844e65370c9238b86820fdbfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transition: {fileID: 165537881}
+  sliceTransition: {fileID: 0}
   transitionTime: 0.5
 --- !u!4 &1165289741
 Transform:
@@ -4241,6 +4241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PauseMenuUI: {fileID: 1468088356}
   EndMenuUI: {fileID: 1156354537}
+  EndUiScoreText: {fileID: 849075976}
   player: {fileID: 222165142}
   HealthScript: {fileID: 677443134}
   obstacleManager: {fileID: 1823422426}

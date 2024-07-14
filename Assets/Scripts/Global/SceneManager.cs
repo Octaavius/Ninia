@@ -6,14 +6,14 @@ using UnityEngine.SceneManagement;
 public class SceneManagerScript : MonoBehaviour
 {
     [SerializeField]
-    private Animator transition; 
+    private SliceTransition sliceTransition; 
     [SerializeField]
     private float transitionTime = 1.4f;
     public void ReturnToMenu() {
         StartCoroutine(LoadMenu());
     }
     IEnumerator LoadMenu(){
-        transition.SetTrigger("ExitToMenu");
+        //transition.SetTrigger("ExitToMenu");
         yield return new WaitForSecondsRealtime(transitionTime);
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
@@ -23,8 +23,8 @@ public class SceneManagerScript : MonoBehaviour
         StartCoroutine(LoadGame());
     }
     IEnumerator LoadGame(){
-        transition.SetTrigger("Start");
-        yield return new WaitForSeconds(transitionTime);
+        sliceTransition.PlayAnimation();
+        yield return new WaitForSeconds(sliceTransition.getAnimationTime());
         SceneManager.LoadScene("Game");
     }
 }

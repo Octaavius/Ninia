@@ -7,7 +7,6 @@ public class Obstacle : MonoBehaviour
     public int CoinsPrice = 0;
     void Awake(){
         float zRotation = transform.eulerAngles.z;
-        Debug.Log(zRotation);
         if (zRotation == 90f || zRotation == 270f)
         {
             Speed /= 3f;

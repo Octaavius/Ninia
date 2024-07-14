@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using TMPro;
 public class GameManager : MonoBehaviour
 {
     private int Score = 0;
@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static bool GameIsPaused;
     public GameObject PauseMenuUI;
     public GameObject EndMenuUI;
+    public TMP_Text EndUiScoreText;
 
     public Player player;
     public Health HealthScript; 
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     public void EndGame() {
         Time.timeScale = 0f;
         obstacleManager.DestroyAllObstacles();
+        EndUiScoreText.text = Score.ToString();
         EndMenuUI.SetActive(true);
         UpdateStats();
     }
