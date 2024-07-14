@@ -52,3 +52,6 @@ TagManager:
   - name: Transition
     uniqueID: 3990016819
     locked: 0
+  - name: Settings
+    uniqueID: 554611231
+    locked: 0
