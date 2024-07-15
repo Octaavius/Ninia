@@ -8,6 +8,7 @@ public class Sound : MonoBehaviour
     public AudioSource gameOverSound; // Assign in the inspector
     public AudioSource gamemusic; // Assign in the inspector
     public AudioSource sliceSound; // Assign in the inspector
+    public AudioSource coinSound; // Assign in the inspector
 
     // Call this method to play the hit sound
     public void PlayHitSound()
@@ -30,5 +31,10 @@ public class Sound : MonoBehaviour
     public void PlaySliceSound()
     {
         sliceSound.Play();
+    }
+
+    public void PlayCoinSound()
+    {
+        coinSound.Play();
     }
 }

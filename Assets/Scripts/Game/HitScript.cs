@@ -38,9 +38,20 @@ public class HitScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(origin, direction, actualHitDistance, layersToHit);
         
         if (hit.collider != null) {
-            //here i should add score
+            // Check the tag of the hit object
+            if (hit.collider.CompareTag("Money"))
+            {
+                // Play coin sound for coins
+                sound.PlayCoinSound();
+            }
+            else if (hit.collider.CompareTag("Obstacle"))
+            {
+                // Play slice sound for pillows
+                sound.PlaySliceSound();
+            }
+            // Destroy the hit object
             obstacleManager.DestroyObstacle(hit.collider.gameObject);
-            sound.PlaySliceSound();
+
 
         }
 
