@@ -1487,8 +1487,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SceneManagerScript, Assembly-CSharp
+      - m_Target: {fileID: 1165289742}
+        m_TargetAssemblyTypeName: SceneManagerGame, Assembly-CSharp
         m_MethodName: ReturnToMenu
         m_Mode: 1
         m_Arguments:
@@ -1940,6 +1940,8 @@ MonoBehaviour:
   effectsAudioSources:
   - {fileID: 732659780}
   - {fileID: 1973868804}
+  - {fileID: 1519902703}
+  - {fileID: 1877131267}
 --- !u!1 &571393189
 GameObject:
   m_ObjectHideFlags: 0
@@ -4889,7 +4891,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1194863922}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1823422429}
+        m_TargetAssemblyTypeName: PauseScript, Assembly-CSharp
+        m_MethodName: OpenSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1194863922
 MonoBehaviour:
   m_ObjectHideFlags: 0
