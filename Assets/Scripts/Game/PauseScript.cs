@@ -1,11 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class PauseScript : MonoBehaviour
 {
     public GameObject PauseMenuUI;
+    public GameObject SettingsUI;
     public TMP_Text countdownText;
 
     private bool cantPause = false;
@@ -55,5 +55,13 @@ public class PauseScript : MonoBehaviour
 
         // Wait for another half second in real time
         yield return new WaitForSecondsRealtime(0.3f);
+    }
+
+    public void OpenSettings(){
+        SettingsUI.SetActive(true);
+    }
+
+    public void CloseSettings() {
+        SettingsUI.SetActive(false);
     }
 }
