@@ -3145,7 +3145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sliceTransition: {fileID: 967161921}
-  transitionTime: 1.4
 --- !u!4 &813090134
 Transform:
   m_ObjectHideFlags: 0
@@ -3825,6 +3824,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiElementToBottom: {fileID: 305890759}
   uiElementToUp: {fileID: 907586570}
+  customCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.86873406
+      value: 0.6666179
+      inSlope: 2.1889453
+      outSlope: 2.1889453
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.20330165
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.7412757
+      outSlope: 1.7412757
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   slice: {fileID: 1481170040}
   startPosition: {x: 5.105, y: 3.424, z: 0}
   endPosition: {x: -5.105, y: -3.424, z: 0}
@@ -5847,7 +5879,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -304950477
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 44c8b49022ac390458c892e881fae03f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

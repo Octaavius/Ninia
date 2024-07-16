@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelProgress : MonoBehaviour
 {
     public GameManager gameManager;
-    private enum GameDifficulty {
+    [HideInInspector] public static GameDifficulty currentGameDifficulty = GameDifficulty.Easy;
+    [HideInInspector] public enum GameDifficulty {
         Easy, 
         Medium,
         Hard,
@@ -18,10 +17,11 @@ public class LevelProgress : MonoBehaviour
     }    
 
     private void UpdateGameLevel(int score){
-        GameDifficulty currentDifficulty = GetGameDifficulty(score);
-        switch(currentDifficulty) {
-            
+        GameDifficulty updatedDifficulty = GetGameDifficulty(score);
+        if(currentGameDifficulty == updatedDifficulty){
+            return;
         }
+        currentGameDifficulty = updatedDifficulty;
     }
 
     private GameDifficulty GetGameDifficulty(int score) {
