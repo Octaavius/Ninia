@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
     public GameObject HeartPrefab;
     public RectTransform HeartParent;
     public List<GameObject> Hearts;
+    public AudioManager AM;
     private float HeartMargin = 115f;
     private int numberOfHearts = 0;
     [SerializeField] private int startNumberOfHearts = 3;
@@ -71,6 +72,7 @@ public class Health : MonoBehaviour
 
         if (numberOfHearts <= 0){
             GameManager.EndGame();
+            AM.PlaySFX(AM.gameOverSound);
         } 
     }
 
