@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
     public GameManager GameManager;
     public GameObject HeartPrefab;
     public RectTransform HeartParent;
-    public List<GameObject> Hearts;
+    private List<GameObject> Hearts = new();
     public AudioManager AM;
     private float HeartMargin = 115f;
     private int numberOfHearts = 0;
@@ -23,14 +23,12 @@ public class Health : MonoBehaviour
     {
         for (int i = 0; i < startNumberOfHearts; i++)
         {
-            Debug.Log("Adding heart");
             AddHeart();
         }
     }
 
     public void AddHeart()
     {
-        Debug.Log("Start of adding");
         if (numberOfHearts >= maxHearts) return;
 
         // Instantiate the new heart
@@ -60,7 +58,6 @@ public class Health : MonoBehaviour
         Hearts.Add(newHeart);
 
         numberOfHearts++;
-        Debug.Log("End of adding");
     }
 
     public void RemoveHeart()

@@ -25,7 +25,7 @@ public class MenuController : MonoBehaviour
     private bool cantPause = false;
 
     // Enum to track menu state
-    public enum MenuState { None, Pause, EndGame }
+    private enum MenuState { None, Pause, EndGame }
     private MenuState currentMenuState = MenuState.None;
 
     void Start()
@@ -50,7 +50,7 @@ public class MenuController : MonoBehaviour
 
     public void Resume()
     {
-        UnifiedMenuUI.SetActive(false);
+        SetMenuState(MenuState.None);
         StartCoroutine(CountdownRoutine());
 
         GameManager.GameIsPaused = false;
@@ -101,7 +101,7 @@ public class MenuController : MonoBehaviour
         scoreText.text = "Score: " + score;
     }
 
-    public void SetMenuState(MenuState state)
+    private void SetMenuState(MenuState state)
     {
         Debug.Log(state);
 

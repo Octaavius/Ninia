@@ -6,11 +6,8 @@ public class GameManager : MonoBehaviour
     private int Coins = 0;
     private int Gems = 0;
     public static bool GameIsPaused;
-    public GameObject EndMenuUI;
-    public TMP_Text EndUiScoreText;
     public AudioManager AM;
     public MenuController menuController;
-
     public Player player;
     public Health HealthScript; 
     public ObstacleManager obstacleManager;
@@ -21,20 +18,12 @@ public class GameManager : MonoBehaviour
     public void EndGame() {
         Time.timeScale = 0f;
         obstacleManager.DestroyAllObstacles();
-        if (menuController != null)
-        {
-            menuController.ShowEndGameMenu(Score);
-        }
-        else
-        {
-            Debug.LogError("MenuController reference not set in GameManager.");
-        }
+        menuController.ShowEndGameMenu(Score);
         UpdateStats();
     }
 
     public void RestartGame(){
         Time.timeScale = 1f;
-        EndMenuUI.SetActive(false);
         ResetNumbers();
         HealthScript.InitializeHearts();
     }
