@@ -1,38 +1,37 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class VolumeManager : MonoBehaviour
 {
     public Slider masterVolumeSlider;
     public Slider musicVolumeSlider;
-    public Slider effectsVolumeSlider;
+    public Slider SFXVolumeSlider;
 
     public AudioSource musicAudioSource;
-    public List<AudioSource> effectsAudioSources; // List of effect audio sources
+    public AudioSource SFXAudioSource;
 
     private float masterVolume = 1f;
     private float musicVolume = 1f;
-    private float effectsVolume = 1f;
+    private float SFXVolume = 1f;
 
     void Start()
     {
         // Load saved volume values
         masterVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
         musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);
-        effectsVolume = PlayerPrefs.GetFloat("EffectsVolume", 1f);
+        SFXVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
 
         // Set the audio sources and sliders to the saved volume values
         SetVolumes();
 
         masterVolumeSlider.value = masterVolume;
         musicVolumeSlider.value = musicVolume;
-        effectsVolumeSlider.value = effectsVolume;
+        SFXVolumeSlider.value = SFXVolume;
 
         // Add listeners to handle value changes
         masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
         musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
-        effectsVolumeSlider.onValueChanged.AddListener(OnEffectsVolumeChanged);
+        SFXVolumeSlider.onValueChanged.AddListener(OnSFXVolumeChanged);
     }
 
     void OnMasterVolumeChanged(float value)
@@ -49,9 +48,9 @@ public class VolumeManager : MonoBehaviour
         PlayerPrefs.SetFloat("MusicVolume", value);
     }
 
-    void OnEffectsVolumeChanged(float value)
+    void OnSFXVolumeChanged(float value)
     {
-        effectsVolume = value;
+        SFXVolume = value;
         SetVolumes();
         PlayerPrefs.SetFloat("EffectsVolume", value);
     }
@@ -59,10 +58,6 @@ public class VolumeManager : MonoBehaviour
     void SetVolumes()
     {
         musicAudioSource.volume = musicVolume * masterVolume;
-        
-        foreach (AudioSource effectAudioSource in effectsAudioSources)
-        {
-            effectAudioSource.volume = effectsVolume * masterVolume;
-        }
+        SFXAudioSource.volume = SFXVolume * masterVolume;
     }
 }

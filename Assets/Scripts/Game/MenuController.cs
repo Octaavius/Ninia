@@ -7,15 +7,19 @@ public class MenuController : MonoBehaviour
 {
     // Unified menu elements
     public GameManager GM;
-    public GameObject UnifiedMenuUI;
+    [Header("Text fields")]
     public TMP_Text countdownText;
     public TMP_Text scoreText;
+    [Header("Buttons")]
     public Button continueButton;
     public Button settingsButton;
     public Button restartButton;
     public Button exitToMenuButton;
+    public Button pauseButton;
 
     // Settings menu
+    [Header("UI Panels")]
+    public GameObject UnifiedMenuUI;
     public GameObject SettingsUI;
 
     private bool cantPause = false;
@@ -34,6 +38,7 @@ public class MenuController : MonoBehaviour
         restartButton.onClick.AddListener(OnRestartButtonClicked);
         settingsButton.onClick.AddListener(OnSettingsButtonClicked);
         exitToMenuButton.onClick.AddListener(OnExitToMenuButtonClicked);
+        pauseButton.onClick.AddListener(OnPauseButtonClicked);
     }
     public void Pause()
     {
@@ -98,6 +103,8 @@ public class MenuController : MonoBehaviour
 
     public void SetMenuState(MenuState state)
     {
+        Debug.Log(state);
+
         currentMenuState = state;
 
         switch (state)
@@ -124,6 +131,10 @@ public class MenuController : MonoBehaviour
     }
 
     // Button action methods
+    public void OnPauseButtonClicked()
+    {
+        Pause();
+    }
     public void OnContinueButtonClicked()
     {
         Resume();

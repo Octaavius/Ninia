@@ -5,9 +5,7 @@ public class GameManager : MonoBehaviour
     private int Score = 0;
     private int Coins = 0;
     private int Gems = 0;
-
     public static bool GameIsPaused;
-    
     public GameObject EndMenuUI;
     public TMP_Text EndUiScoreText;
     public AudioManager AM;
@@ -23,8 +21,6 @@ public class GameManager : MonoBehaviour
     public void EndGame() {
         Time.timeScale = 0f;
         obstacleManager.DestroyAllObstacles();
-        //EndUiScoreText.text = Score.ToString();
-        //EndMenuUI.SetActive(true);
         if (menuController != null)
         {
             menuController.ShowEndGameMenu(Score);
