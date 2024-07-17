@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     
     public GameObject EndMenuUI;
     public TMP_Text EndUiScoreText;
-    public Sound sound;
+    public AudioManager AM;
+    public MenuController menuController;
 
     public Player player;
     public Health HealthScript; 
@@ -22,9 +23,16 @@ public class GameManager : MonoBehaviour
     public void EndGame() {
         Time.timeScale = 0f;
         obstacleManager.DestroyAllObstacles();
-        EndUiScoreText.text = Score.ToString();
-        EndMenuUI.SetActive(true);
-        sound.PlayGameOverSound();
+        //EndUiScoreText.text = Score.ToString();
+        //EndMenuUI.SetActive(true);
+        if (menuController != null)
+        {
+            menuController.ShowEndGameMenu(Score);
+        }
+        else
+        {
+            Debug.LogError("MenuController reference not set in GameManager.");
+        }
         UpdateStats();
     }
 

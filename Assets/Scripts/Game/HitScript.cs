@@ -7,7 +7,7 @@ public class HitScript : MonoBehaviour
 
     private Direction hitDirection = Direction.None;
     public LayerMask layersToHit;
-    public Sound sound;
+    public AudioManager AM;
     void FixedUpdate()
     {
         if(hitDirection != Direction.None){
@@ -42,12 +42,12 @@ public class HitScript : MonoBehaviour
             if (hit.collider.CompareTag("Money"))
             {
                 // Play coin sound for coins
-                sound.PlayCoinSound();
+                AM.PlaySFX(AM.coinSound);
             }
             else if (hit.collider.CompareTag("Obstacle"))
             {
                 // Play slice sound for pillows
-                sound.PlaySliceSound();
+                AM.PlaySFX(AM.sliceSound);
             }
             // Destroy the hit object
             obstacleManager.DestroyObstacle(hit.collider.gameObject);
