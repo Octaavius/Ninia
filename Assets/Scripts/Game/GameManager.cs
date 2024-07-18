@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Health HealthScript; 
     public ObstacleManager obstacleManager;
 
+
     void Awake(){
         GameIsPaused = false;
     }
