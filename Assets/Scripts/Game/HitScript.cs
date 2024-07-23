@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class HitScript : MonoBehaviour
 {
-    public ObstacleManager obstacleManager;
+    ///////////////////////////////////////
+    public ProjectileManager projectileManager;
+    ///////////////////////////////////////
+
     [SerializeField] private float maxHitDistance = 500f;
 
     private Direction hitDirection = Direction.None;
@@ -10,7 +13,7 @@ public class HitScript : MonoBehaviour
     public Sound sound;
     void FixedUpdate()
     {
-        if(hitDirection != Direction.None){
+        if(hitDiretion != Direcction.None){
             hit(hitDirection);
         }
     }
@@ -38,21 +41,8 @@ public class HitScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(origin, direction, actualHitDistance, layersToHit);
         
         if (hit.collider != null) {
-            // Check the tag of the hit object
-            if (hit.collider.CompareTag("Money"))
-            {
-                // Play coin sound for coins
-                sound.PlayCoinSound();
-            }
-            else if (hit.collider.CompareTag("Obstacle"))
-            {
-                // Play slice sound for pillows
-                sound.PlaySliceSound();
-            }
-            // Destroy the hit object
-            obstacleManager.DestroyObstacle(hit.collider.gameObject);
-
-
+            Projectile projectile = hit.collider.GetComponent<Projectile>();
+            projectileManager.DestroyProjectile(projectile);
         }
 
         setHitDirection(Direction.None);

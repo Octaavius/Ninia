@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class LevelProgress : MonoBehaviour
 {
+    ///////////////////////////////////////
     public GameManager gameManager;
+    ///////////////////////////////////////
+    
     [HideInInspector] public static GameDifficulty currentGameDifficulty = GameDifficulty.Easy;
     [HideInInspector] public enum GameDifficulty {
         Easy, 

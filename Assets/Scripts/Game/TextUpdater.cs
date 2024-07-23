@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class TextUpdater : MonoBehaviour
 {
-    [SerializeField]
-    private TMP_Text ScoreText;
-    [SerializeField]
-    private TMP_Text CoinsText;
-    [SerializeField]
-    private TMP_Text GemsText;
+    ///////////////////////////////////////
     public GameManager gameManager;
+    ///////////////////////////////////////
+    
+    [SerializeField] private TMP_Text ScoreText;
+    [SerializeField] private TMP_Text CoinsText;
+    [SerializeField] private TMP_Text GemsText;
     void Update() {
         ScoreText.text = gameManager.GetScore().ToString();
         CoinsText.text = gameManager.GetCoins().ToString();

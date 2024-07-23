@@ -1,10 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class ObstacleSpawner : MonoBehaviour
+public class ProjectileSpawner : MonoBehaviour
 {
-    public ObstacleManager obsManager;
-    public List<GameObject> obstaclesPrefabs;
+    ///////////////////////////////////////
+    public ProjectileManager obsManager;
+    ///////////////////////////////////////
+
+    public List<GameObject> projectilesPrefabs;
     public float minSpawnTime = 1.0f;
     public float maxSpawnTime = 3.0f;
     [SerializeField]
@@ -18,17 +21,17 @@ public class ObstacleSpawner : MonoBehaviour
     }
 
     void StartSpawning() {
-        Invoke("SpawnObstacle", Random.Range(minSpawnTime, maxSpawnTime));
+        Invoke("SpawnProjectile", Random.Range(minSpawnTime, maxSpawnTime));
     }
 
-    void SpawnObstacle() {
-        // Randomly select an obstacle from the list
-        int index = Random.Range(0, obstaclesPrefabs.Count);
-        GameObject obstacle = obstaclesPrefabs[index];
+    void SpawnProjectile() {
+        // Randomly select an projectile from the list
+        int index = Random.Range(0, projectilesPrefabs.Count);
+        GameObject projectile = projectilesPrefabs[index];
 
-        // Spawn the obstacle at the spawner's position
-        GameObject newObstacle = Instantiate(obstacle, getSpawnPosition(), getSpawnRotation()); //downward direction
-        obsManager.AddNewObstacle(newObstacle);
+        // Spawn the projectile at the spawner's position
+        GameObject newProjectile = Instantiate(projectile, getSpawnPosition(), getSpawnRotation()); //downward direction
+        obsManager.AddNewProjectile(newProjectile);
 
         // Schedule the next spawn
         if(!isPause){

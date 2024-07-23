@@ -2,30 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleManager : MonoBehaviour
+public class ProjectileManager : MonoBehaviour
 {
-    private List<GameObject> spawnedObstacles = new();
-    public GameManager gameManager;
-    public void DestroyObstacle(GameObject obstacle){
-        Obstacle obstacleScript = obstacle.GetComponent<Obstacle>();
+    private List<GameObject> spawnedProjectiles = new();
 
-        gameManager.AddToScore(obstacleScript.ScorePrice);
-        gameManager.AddToCoins(obstacleScript.CoinsPrice);
-
-        spawnedObstacles.Remove(obstacle);
-        Destroy(obstacle);
+    public void DestroyProjectile(Projectile projectile){
+        spawnedProjectiles.Remove(projectile);
+        
+        Projectile projectile = projectile.GetComponent<Projectile>();
+        projectile.ActionOnDestroy();
     }
 
-    public void DestroyAllObstacles()
+    public void DestroyAllProjectiles()
     {
-        foreach (GameObject obj in spawnedObstacles)
+        foreach (Projectile projectile in spawnedProjectiles)
         {
-            Destroy(obj);
+            GameObject projectileObject = projectile.gameObject;
+            Destroy(projectileObject);
         }
-        spawnedObstacles = new();
+        spawnedProjectiles = new();
     }
      
-    public void AddNewObstacle(GameObject newObstacle){
-        spawnedObstacles.Add(newObstacle);
+    public void AddNewProjectile(Projectile newProjectile){
+        spawnedProjectiles.Add(newProjectile);
     } 
 }

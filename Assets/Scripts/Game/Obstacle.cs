@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     [SerializeField] private float Speed = 2f;
+    public Vector3 rotationSpeed = new Vector3(0, 0, 100);
     public int ScorePrice = 7;
     public int CoinsPrice = 0;
     void Awake(){
@@ -12,12 +13,21 @@ public class Obstacle : MonoBehaviour
             Speed /= 3f;
         }
     }
-    void FixedUpdate()
+    void Update()
     {
-        transform.Translate(Vector3.up * Speed * Time.deltaTime, Space.Self);
+        MoveForward();
+        Rotate();
     }
 
-    public void setObstacleSpeed(float newSpeed) {
+    private void MoveForward(){
+        transform.Translate(Vector3.up * Speed * Time.deltaTime, Space.Self)
+    }
+    
+    public void Rotate(){
+        transform.Rotate(rotationSpeed * Time.deltaTime);
+    }
+
+    public void setProjectileSpeed(float newSpeed) {
         Speed = newSpeed;   
     }
 }

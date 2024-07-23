@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     public Player player;
     public Health HealthScript; 
-    public ObstacleManager obstacleManager;
+    public ProjectileManager projectileManager;
 
 
     void Awake(){
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     }
     public void EndGame() {
         Time.timeScale = 0f;
-        obstacleManager.DestroyAllObstacles();
+        projectileManager.DestroyAllProjectiles();
         EndUiScoreText.text = Score.ToString();
         EndMenuUI.SetActive(true);
         sound.PlayGameOverSound();

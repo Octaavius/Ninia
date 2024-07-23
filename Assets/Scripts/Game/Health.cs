@@ -3,13 +3,17 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    ///////////////////////////////////////
     public GameManager GameManager;
+    ///////////////////////////////////////
+    
     public GameObject HeartPrefab;
     public RectTransform HeartParent;
     public List<GameObject> Hearts;
+    [SerializeField] private int startNumberOfHearts = 3;
+    
     private float HeartMargin = 115f;
     private int numberOfHearts = 0;
-    [SerializeField] private int startNumberOfHearts = 3;
     private int maxHearts = 5;
     private Vector2 initialPosition = Vector2.zero;
 
@@ -62,7 +66,7 @@ public class Health : MonoBehaviour
         Debug.Log("End of adding");
     }
 
-    public void RemoveHeart()
+    public void RemoveHeart(GameManager gameManager)
     {
         // Destroy the last heart in the list
         Destroy(Hearts[numberOfHearts - 1]);
