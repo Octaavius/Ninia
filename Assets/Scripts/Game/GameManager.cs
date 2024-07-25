@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     
     public GameObject EndMenuUI;
     public TMP_Text EndUiScoreText;
-    public Sound sound;
+    public AudioManager am;
 
     public Player player;
     public Health HealthScript; 
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
         projectileManager.DestroyAllProjectiles();
         EndUiScoreText.text = Score.ToString();
         EndMenuUI.SetActive(true);
-        sound.PlayGameOverSound();
+        am.PlaySFX(am.gameOverSound);
         UpdateStats();
     }
 

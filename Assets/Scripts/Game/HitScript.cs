@@ -10,10 +10,10 @@ public class HitScript : MonoBehaviour
 
     private Direction hitDirection = Direction.None;
     public LayerMask layersToHit;
-    public Sound sound;
+    public AudioManager am;
     void FixedUpdate()
     {
-        if(hitDiretion != Direcction.None){
+        if(hitDirection != Direction.None){
             hit(hitDirection);
         }
     }
@@ -41,8 +41,7 @@ public class HitScript : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(origin, direction, actualHitDistance, layersToHit);
         
         if (hit.collider != null) {
-            Projectile projectile = hit.collider.GetComponent<Projectile>();
-            projectileManager.DestroyProjectile(projectile);
+            projectileManager.DestroyProjectile(hit.collider.gameObject);
         }
 
         setHitDirection(Direction.None);

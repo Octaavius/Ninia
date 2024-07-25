@@ -31,6 +31,7 @@ public class ProjectileSpawner : MonoBehaviour
 
         // Spawn the projectile at the spawner's position
         GameObject newProjectile = Instantiate(projectile, getSpawnPosition(), getSpawnRotation()); //downward direction
+      
         obsManager.AddNewProjectile(newProjectile);
 
         // Schedule the next spawn

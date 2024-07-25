@@ -12,6 +12,6 @@ public class NinjaCollision : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Projectile projectile = collision.GetComponent<Projectile>();
-        projectile.ActionOnCollision(am);
+        projectile.ActionOnCollision();
     }
 }

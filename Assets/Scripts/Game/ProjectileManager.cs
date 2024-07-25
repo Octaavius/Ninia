@@ -6,24 +6,23 @@ public class ProjectileManager : MonoBehaviour
 {
     private List<GameObject> spawnedProjectiles = new();
 
-    public void DestroyProjectile(Projectile projectile){
-        spawnedProjectiles.Remove(projectile);
+    public void DestroyProjectile(GameObject projectileObject){
+        spawnedProjectiles.Remove(projectileObject);
         
-        Projectile projectile = projectile.GetComponent<Projectile>();
+        Projectile projectile = projectileObject.GetComponent<Projectile>();
         projectile.ActionOnDestroy();
     }
 
     public void DestroyAllProjectiles()
     {
-        foreach (Projectile projectile in spawnedProjectiles)
+        foreach (GameObject projectile in spawnedProjectiles)
         {
-            GameObject projectileObject = projectile.gameObject;
-            Destroy(projectileObject);
+            Destroy(projectile);
         }
         spawnedProjectiles = new();
     }
      
-    public void AddNewProjectile(Projectile newProjectile){
+    public void AddNewProjectile(GameObject newProjectile){
         spawnedProjectiles.Add(newProjectile);
     } 
 }

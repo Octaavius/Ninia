@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : Projectile
+public class Pillow : Projectile
 {
     public override void ActionOnCollision(){
 
@@ -8,5 +10,5 @@ public class Coin : Projectile
 
     public override void ActionOnDestroy(){
         
-    }    
+    }
 }
