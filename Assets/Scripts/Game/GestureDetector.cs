@@ -22,12 +22,12 @@ public class GestureDetector : MonoBehaviour
 
     [Header("Double Tap Settings")]
     [SerializeField]
-    private float maxTimeBetweenTaps = 0.5f; // Maximum time interval between taps to consider it a double tap
+    private float maxTimeBetweenTaps = 0.5f;
     private float lastTapTime = 0f;
     private int tapCount = 0;
 
-    public bool swipeDetected = false;
-    public Vector2 swipeDirectionVector2;
+    private bool swipeDetected = false;
+    private Direction swipeDirection;
 
     void Update() {
         if(!GameManager.GameIsPaused){
@@ -54,10 +54,9 @@ public class GestureDetector : MonoBehaviour
                     if (distance >= minSwipeDistance && !stopTouch)
                     {
                         stopTouch = true;
-                        swipeDetected = true;
                         resetTaps();
-                        Direction direction = DetectSwipeDirection();
-                        swipeDirectionVector2 = DirectionToVector2(direction);
+                        swipeDirection = DetectSwipeDirection();
+                        swipeDetected = true;
                     }
                     break;
 
@@ -108,6 +107,18 @@ public class GestureDetector : MonoBehaviour
         {
             resetTaps();
         }
+    }
+    
+    public bool swipeIsDetected() {
+    	return swipeDetected;
+    }
+    
+    public Vector2 swipeDirectionVector2() {
+        return DirectionToVector2(swipeDirection);
+    }
+
+    public void resetSwipe(){
+        swipeDetected = false;
     }
 
     public void resetTaps(){

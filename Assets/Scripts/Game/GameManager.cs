@@ -8,18 +8,24 @@ public class GameManager : MonoBehaviour
 
     public static bool GameIsPaused;
     
+    [Header("EndMenu")]
     public GameObject EndMenuUI;
     public TMP_Text EndUiScoreText;
     public AudioManager am;
 
-    public Player player;
+    public PlayerInfo playerInfo;
     public Health HealthScript; 
     public ProjectileManager projectileManager;
 
+    [Header("Texts to update")]
+    [SerializeField] private TMP_Text ScoreText;
+    [SerializeField] private TMP_Text CoinsText;
+    [SerializeField] private TMP_Text GemsText;
 
     void Awake(){
         GameIsPaused = false;
     }
+
     public void EndGame() {
         Time.timeScale = 0f;
         projectileManager.DestroyAllProjectiles();
@@ -36,11 +42,17 @@ public class GameManager : MonoBehaviour
         HealthScript.InitializeHearts();
     }
 
+    void UpdateTexts() {
+        ScoreText.text = Score.ToString();
+        CoinsText.text = Coins.ToString();
+        GemsText.text = Gems.ToString();
+    }
+    
     void UpdateStats(){
-        if(Score > player.BestScore)
-            player.BestScore = Score;
-        player.AddMoney(Coins, Gems);
-        player.SaveData();
+        if(Score > playerInfo.BestScore)
+            playerInfo.BestScore = Score;
+        playerInfo.AddMoney(Coins, Gems);
+        playerInfo.SaveData();
     }
 
     void ResetNumbers(){
@@ -50,12 +62,15 @@ public class GameManager : MonoBehaviour
     }
     public void AddToScore(int addAmount) {
         Score += addAmount;
+        UpdateTexts();
     }
     public void AddToCoins(int addAmount) {
         Coins += addAmount;
+        UpdateTexts();
     }
     public void AddToGems(int addAmount) {
         Gems += addAmount;
+        UpdateTexts();
     }
     public int GetScore() {
         return Score;

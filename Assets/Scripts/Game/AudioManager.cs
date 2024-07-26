@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [Header("------Audio Sources------")]
+    [Header("Audio Sources")]
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource SFXSource;
 
-    [Header("-----Audio Clips------")]
+    [Header("Audio Clips")]
     public AudioClip hitSound;
     public AudioClip gameOverSound;
-    public AudioClip gamemusic;
+    public AudioClip gameMusic;
     public AudioClip sliceSound;
     public AudioClip coinSound;
 
@@ -32,7 +32,7 @@ public class AudioManager : MonoBehaviour
     }
     private void Start()
     {
-        musicSource.clip = gamemusic;
+        musicSource.clip = gameMusic;
         musicSource.Play();
 
     }

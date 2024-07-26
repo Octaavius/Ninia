@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerInfo : MonoBehaviour
 {
     public int BestScore{ get; set; }
     public int Coins{ get; set; }

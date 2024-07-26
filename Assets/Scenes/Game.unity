@@ -1893,7 +1893,7 @@ Transform:
   m_GameObject: {fileID: 565324907}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.28666604, y: 0.1648357, z: 6.6497173}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1917,7 +1917,7 @@ MonoBehaviour:
   SFXSource: {fileID: 1877131267}
   hitSound: {fileID: 8300000, guid: b0d8a4b7b41b34c49a7c0bcb933349ac, type: 3}
   gameOverSound: {fileID: 8300000, guid: 0b671af4b37ac2b4685b1353565d958d, type: 3}
-  gamemusic: {fileID: 8300000, guid: 50e9c204fef95294fa5ded7cbcc8ea4c, type: 3}
+  gameMusic: {fileID: 0}
   sliceSound: {fileID: 8300000, guid: 8a3f9d4786b9e2045aaf7fb7954868f8, type: 3}
   coinSound: {fileID: 8300000, guid: 6b2bee4e127218d4789cbecb5b64389d, type: 3}
 --- !u!114 &565324913
@@ -1936,11 +1936,7 @@ MonoBehaviour:
   musicVolumeSlider: {fileID: 1230014142}
   effectsVolumeSlider: {fileID: 858842396}
   musicAudioSource: {fileID: 133954667}
-  effectsAudioSources:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 1877131267}
+  effectsAudioSource: {fileID: 1877131267}
 --- !u!1 &571393189
 GameObject:
   m_ObjectHideFlags: 0
@@ -2505,10 +2501,10 @@ GameObject:
   - component: {fileID: 677443128}
   - component: {fileID: 677443133}
   - component: {fileID: 677443127}
+  - component: {fileID: 677443137}
   - component: {fileID: 677443136}
   - component: {fileID: 677443135}
   - component: {fileID: 677443134}
-  - component: {fileID: 677443130}
   - component: {fileID: 677443132}
   m_Layer: 3
   m_Name: Ninja
@@ -2580,21 +2576,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &677443130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 677443125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ce370ec0083c0dcca1222d15797583d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minSwipeDistance: 50
-  doubleTapDetector: {fileID: 677443132}
-  hitScript: {fileID: 677443136}
 --- !u!114 &677443132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2604,10 +2585,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 677443125}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64b91ab2b5f2cbdf4841a9bbe8d48a38, type: 3}
+  m_Script: {fileID: 11500000, guid: 732e0e8d2cb6f79b0962ccd8ba1ba2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTimeBetweenTaps: 0.47
+  minSwipeDistance: 80
+  maxTimeBetweenTaps: 0.5
 --- !u!50 &677443133
 Rigidbody2D:
   serializedVersion: 4
@@ -2647,7 +2629,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ccdb81240603244698753f507640903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 1823422427}
   HeartPrefab: {fileID: 7247933736080725917, guid: 780cf9c90e72f0a4b8d99f93627968fa, type: 3}
   HeartParent: {fileID: 1217004373}
   Hearts: []
@@ -2664,8 +2645,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317e9725d7f5cb64fa7d6742e72e25c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthScript: {fileID: 677443134}
-  am: {fileID: 565324912}
 --- !u!114 &677443136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2678,12 +2657,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bcef24ce8f17418364430a1cd95e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileManager: {fileID: 1823422426}
-  maxHitDistance: 3
+  maxHitDistance: 4.3
   layersToHit:
     serializedVersion: 2
     m_Bits: 64
-  am: {fileID: 565324912}
+--- !u!114 &677443137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677443125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c62e464e578b55cda91b72d0b11e9be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 1823422427}
+  audioManager: {fileID: 565324912}
+  projectileManager: {fileID: 1823422426}
 --- !u!1 &714442082
 GameObject:
   m_ObjectHideFlags: 0
@@ -6489,7 +6481,6 @@ GameObject:
   - component: {fileID: 1823422428}
   - component: {fileID: 1823422427}
   - component: {fileID: 1823422426}
-  - component: {fileID: 1823422425}
   - component: {fileID: 1823422429}
   m_Layer: 0
   m_Name: GameManager
@@ -6498,22 +6489,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1823422425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823422424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01868e7f3ad1b375bfe68f7f37d5236, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameManager: {fileID: 1823422427}
-  ScoreText: {fileID: 1473961528}
-  CoinsText: {fileID: 934223350}
-  GemsText: {fileID: 582900945}
 --- !u!114 &1823422426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6540,10 +6515,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndMenuUI: {fileID: 1156354537}
   EndUiScoreText: {fileID: 849075976}
-  am: {fileID: 0}
-  player: {fileID: 222165142}
+  am: {fileID: 565324912}
+  playerInfo: {fileID: 0}
   HealthScript: {fileID: 677443134}
-  projectileManager: {fileID: 0}
+  projectileManager: {fileID: 1823422426}
+  ScoreText: {fileID: 1473961528}
+  CoinsText: {fileID: 934223350}
+  GemsText: {fileID: 582900945}
 --- !u!4 &1823422428
 Transform:
   m_ObjectHideFlags: 0

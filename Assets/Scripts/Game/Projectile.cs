@@ -22,8 +22,8 @@ public abstract class Projectile : MonoBehaviour
         Rotate();
     }
 
-    public abstract void ActionOnDestroy(); 
-    public abstract void ActionOnCollision();
+    public abstract void ActionOnDestroy(ref AudioManager am, ref GameManager gameManager); 
+    public abstract void ActionOnCollision(ref AudioManager am, ref Health healthScript, ref GameManager gameManager);
 
     private void MoveForward(){
         transform.Translate(Vector3.up * Speed * Time.deltaTime, Space.Self);

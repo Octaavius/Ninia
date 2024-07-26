@@ -9,7 +9,7 @@ public class VolumeManager : MonoBehaviour
     public Slider effectsVolumeSlider;
 
     public AudioSource musicAudioSource;
-    public List<AudioSource> effectsAudioSources; // List of effect audio sources
+    public AudioSource effectsAudioSource;
 
     private float masterVolume = 1f;
     private float musicVolume = 1f;
@@ -60,9 +60,6 @@ public class VolumeManager : MonoBehaviour
     {
         musicAudioSource.volume = musicVolume * masterVolume;
         
-        foreach (AudioSource effectAudioSource in effectsAudioSources)
-        {
-            effectAudioSource.volume = effectsVolume * masterVolume;
-        }
+        effectsAudioSource.volume = effectsVolume * masterVolume;
     }
 }

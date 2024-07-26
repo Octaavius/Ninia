@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Pillow : Projectile
 {
-    public override void ActionOnCollision(){
-	Destroy(gameObject);
+    [SerializeField] private int scorePrice = 12;
+    public override void ActionOnCollision(ref AudioManager am, ref Health healthScript, ref GameManager gameManager){
+	    healthScript.RemoveHeart(ref gameManager);
+        Destroy(gameObject);
     }
 
-    public override void ActionOnDestroy(){
+    public override void ActionOnDestroy(ref AudioManager am, ref GameManager gameManager){
+        gameManager.AddToScore(scorePrice);
         Destroy(gameObject);
     }
 }
+
