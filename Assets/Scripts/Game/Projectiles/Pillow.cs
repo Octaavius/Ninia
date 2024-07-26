@@ -6,7 +6,8 @@ public class Pillow : Projectile
 {
     [SerializeField] private int scorePrice = 12;
     public override void ActionOnCollision(ref AudioManager am, ref Health healthScript, ref GameManager gameManager){
-	    healthScript.RemoveHeart(ref gameManager);
+	    am.PlaySFX(am.collisionSound);
+        healthScript.RemoveHeart(ref gameManager);
         Destroy(gameObject);
     }
 

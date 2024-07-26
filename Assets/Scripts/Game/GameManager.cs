@@ -1,5 +1,8 @@
 using UnityEngine;
 using TMPro;
+
+[RequireComponent(typeof(MenuController))]
+[RequireComponent(typeof(ProjectileManager))]
 public class GameManager : MonoBehaviour
 {
     private int Score = 0;
@@ -8,11 +11,8 @@ public class GameManager : MonoBehaviour
 
     public static bool GameIsPaused;
     
-    [Header("EndMenu")]
-    public GameObject EndMenuUI;
-    public TMP_Text EndUiScoreText;
+    private MenuController menuController;
     public AudioManager am;
-
     public PlayerInfo playerInfo;
     public Health HealthScript; 
     public ProjectileManager projectileManager;
@@ -24,21 +24,21 @@ public class GameManager : MonoBehaviour
 
     void Awake(){
         GameIsPaused = false;
+        menuController = GetComponent<MenuController>();
+        projectileManager = GetComponent<ProjectileManager>();
     }
 
     public void EndGame() {
         Time.timeScale = 0f;
         projectileManager.DestroyAllProjectiles();
-        EndUiScoreText.text = Score.ToString();
-        EndMenuUI.SetActive(true);
-        am.PlaySFX(am.gameOverSound);
+        menuController.ShowEndGameMenu(Score);
         UpdateStats();
     }
 
     public void RestartGame(){
         Time.timeScale = 1f;
-        EndMenuUI.SetActive(false);
         ResetNumbers();
+        UpdateTexts();
         HealthScript.InitializeHearts();
     }
 

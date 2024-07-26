@@ -9,10 +9,10 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource SFXSource;
 
     [Header("Audio Clips")]
-    public AudioClip hitSound;
+    public AudioClip collisionSound;
     public AudioClip gameOverSound;
     public AudioClip gameMusic;
-    public AudioClip sliceSound;
+    public AudioClip hitSound;
     public AudioClip coinSound;
 
     public static AudioManager instance;

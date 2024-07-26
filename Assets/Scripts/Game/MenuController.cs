@@ -6,7 +6,10 @@ using UnityEngine.UI;
 public class MenuController : MonoBehaviour
 {
     // Unified menu elements
+    [Header("Managers")]
     public GameManager GM;
+    public SceneManagerGame sceneManager;
+    
     [Header("Text fields")]
     public TMP_Text countdownText;
     public TMP_Text scoreText;
@@ -142,6 +145,7 @@ public class MenuController : MonoBehaviour
     
     public void OnRestartButtonClicked()
     {
+        SetMenuState(MenuState.None);
         GM.RestartGame();
         // Restart the game logic
         // For example, reload the current scene
@@ -157,8 +161,10 @@ public class MenuController : MonoBehaviour
     {
         // Exit to main menu logic
         // For example, load the main menu scene
-        // SceneManager.LoadScene("MainMenu");
-        GM.EndGame();
+        
+        //DO WE NEED THIS?
+        //GM.EndGame();
+        sceneManager.ReturnToMenu();
     }
 
     public void CloseSettings()
