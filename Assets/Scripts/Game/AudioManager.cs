@@ -5,8 +5,8 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     [Header("Audio Sources")]
-    [SerializeField] AudioSource musicSource;
-    [SerializeField] AudioSource SFXSource;
+    [SerializeField] public AudioSource musicSource;
+    [SerializeField] public AudioSource SFXSource;
 
     [Header("Audio Clips")]
     public AudioClip collisionSound;
@@ -15,14 +15,13 @@ public class AudioManager : MonoBehaviour
     public AudioClip hitSound;
     public AudioClip coinSound;
 
-    public static AudioManager instance;
-
+    public static AudioManager Instance { get; private set; }
    
     private void Awake()
     {
-        if ( instance == null)
+        if ( Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else

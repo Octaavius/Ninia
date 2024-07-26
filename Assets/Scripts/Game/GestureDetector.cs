@@ -30,7 +30,7 @@ public class GestureDetector : MonoBehaviour
     private Direction swipeDirection;
 
     void Update() {
-        if(!GameManager.GameIsPaused){
+        if(!GameManager.Instance.GameIsPaused){
             SwipeDetection();
             DetectDoubleTap();
         }

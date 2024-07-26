@@ -8,8 +8,8 @@ public class VolumeManager : MonoBehaviour
     public Slider musicVolumeSlider;
     public Slider effectsVolumeSlider;
 
-    public AudioSource musicAudioSource;
-    public AudioSource effectsAudioSource;
+    private AudioSource musicAudioSource;
+    private AudioSource effectsAudioSource;
 
     private float masterVolume = 1f;
     private float musicVolume = 1f;
@@ -17,6 +17,8 @@ public class VolumeManager : MonoBehaviour
 
     void Start()
     {
+    	musicAudioSource = AudioManager.Instance.musicSource;
+    	effectsAudioSource = AudioManager.Instance.SFXSource;
         // Load saved volume values
         masterVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
         musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1f);

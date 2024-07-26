@@ -53,7 +53,7 @@ public class Health : MonoBehaviour
         numberOfHearts++;
     }
 
-    public void RemoveHeart(ref GameManager gameManager)
+    public void RemoveHeart()
     {
         // Destroy the last heart in the list
         Destroy(Hearts[numberOfHearts - 1]);
@@ -61,7 +61,7 @@ public class Health : MonoBehaviour
         numberOfHearts--;
 
         if (numberOfHearts <= 0){
-            gameManager.EndGame();
+            GameManager.Instance.EndGame();
         } 
     }
 

@@ -11,15 +11,15 @@ public class Hit : MonoBehaviour
     	gestureDetector = GetComponent<GestureDetector>();
     }
     
-    public void HitCheck(ref ProjectileManager pm, ref AudioManager am, ref GameManager gm)
+    public void HitCheck()
     {
         if(gestureDetector.swipeIsDetected()){
             gestureDetector.resetSwipe();
-            hit(ref pm, ref am, ref gm);
+            hit();
         }
     }
 
-    void hit(ref ProjectileManager projectileManager, ref AudioManager audioManager, ref GameManager gameManager){
+    void hit(){
         Vector2 origin = transform.position;
         Vector2 direction = gestureDetector.swipeDirectionVector2();
         float actualHitDistance = maxHitDistance;
@@ -31,8 +31,9 @@ public class Hit : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(origin, direction, actualHitDistance, layersToHit);
         
         if (hit.collider != null) {
-	    audioManager.PlaySFX(audioManager.hitSound);
-            projectileManager.DestroyProjectile(hit.collider.gameObject, ref audioManager, ref gameManager);
+            Debug.Log("hit detected");
+	        AudioManager.Instance.PlaySFX(AudioManager.Instance.hitSound);
+            ProjectileManager.Instance.DestroyProjectile(hit.collider.gameObject);
         }        
     }
 }

@@ -1,36 +1,38 @@
 using UnityEngine;
 using TMPro;
 
-[RequireComponent(typeof(MenuController))]
-[RequireComponent(typeof(ProjectileManager))]
 public class GameManager : MonoBehaviour
 {
     private int Score = 0;
     private int Coins = 0;
     private int Gems = 0;
 
-    public static bool GameIsPaused;
+    [HideInInspector]public bool GameIsPaused;
     
     private MenuController menuController;
-    public AudioManager am;
     public PlayerInfo playerInfo;
-    public Health HealthScript; 
-    public ProjectileManager projectileManager;
+    public NinjaController ninjaController; 
 
     [Header("Texts to update")]
     [SerializeField] private TMP_Text ScoreText;
     [SerializeField] private TMP_Text CoinsText;
     [SerializeField] private TMP_Text GemsText;
 
+    public static GameManager Instance { get; private set; }
+
     void Awake(){
-        GameIsPaused = false;
+        if (Instance == null) {
+            Instance = this;
+        } else {
+            Destroy(gameObject);
+        }
         menuController = GetComponent<MenuController>();
-        projectileManager = GetComponent<ProjectileManager>();
+        GameIsPaused = false;
     }
 
     public void EndGame() {
         Time.timeScale = 0f;
-        projectileManager.DestroyAllProjectiles();
+        ProjectileManager.Instance.DestroyAllProjectiles();
         menuController.ShowEndGameMenu(Score);
         UpdateStats();
     }
@@ -39,7 +41,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         ResetNumbers();
         UpdateTexts();
-        HealthScript.InitializeHearts();
+        ninjaController.InitializeNinja();
     }
 
     void UpdateTexts() {

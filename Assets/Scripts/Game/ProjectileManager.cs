@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class ProjectileManager : MonoBehaviour
 {
+    public static ProjectileManager Instance { get; private set; }
+    
     private List<GameObject> spawnedProjectiles = new();
 
-    public void DestroyProjectile(GameObject projectileObject, ref AudioManager audioManager, ref GameManager gameManager){
+    void Awake(){
+        if (Instance == null) {
+            Instance = this;
+        } else {
+            Destroy(gameObject);
+        }
+    }
+
+    public void DestroyProjectile(GameObject projectileObject){
         spawnedProjectiles.Remove(projectileObject);
         
         Projectile projectile = projectileObject.GetComponent<Projectile>();
-        projectile.ActionOnDestroy(ref audioManager, ref gameManager);
+        projectile.ActionOnDestroy();
     }
 
     public void DestroyAllProjectiles()

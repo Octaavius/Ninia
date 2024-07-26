@@ -14,13 +14,13 @@ public class PauseScript : MonoBehaviour
         if(cantPause) return;
         Time.timeScale = 0f;
         PauseMenuUI.SetActive(true);
-        GameManager.GameIsPaused = true;
+        GameManager.Instance.GameIsPaused = true;
     }
     public void Resume() {
         PauseMenuUI.SetActive(false);
         StartCoroutine(CountdownRoutine()); 
         
-        GameManager.GameIsPaused = false;    
+        GameManager.Instance.GameIsPaused = false;    
     }
 
     IEnumerator CountdownRoutine()

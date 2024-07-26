@@ -4,12 +4,7 @@ using TMPro;
 using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
-{
-    // Unified menu elements
-    [Header("Managers")]
-    public GameManager GM;
-    public SceneManagerGame sceneManager;
-    
+{   
     [Header("Text fields")]
     public TMP_Text countdownText;
     public TMP_Text scoreText;
@@ -19,6 +14,7 @@ public class MenuController : MonoBehaviour
     public Button restartButton;
     public Button exitToMenuButton;
     public Button pauseButton;
+    public Button backFromSettingsButton;
 
     // Settings menu
     [Header("UI Panels")]
@@ -42,13 +38,14 @@ public class MenuController : MonoBehaviour
         settingsButton.onClick.AddListener(OnSettingsButtonClicked);
         exitToMenuButton.onClick.AddListener(OnExitToMenuButtonClicked);
         pauseButton.onClick.AddListener(OnPauseButtonClicked);
+        backFromSettingsButton.onClick.AddListener(CloseSettings);
     }
     public void Pause()
     {
         if (cantPause) return;
         Time.timeScale = 0f;
         ShowPauseMenu();
-        GameManager.GameIsPaused = true;
+        GameManager.Instance.GameIsPaused = true;
     }
 
     public void Resume()
@@ -56,7 +53,7 @@ public class MenuController : MonoBehaviour
         SetMenuState(MenuState.None);
         StartCoroutine(CountdownRoutine());
 
-        GameManager.GameIsPaused = false;
+        GameManager.Instance.GameIsPaused = false;
     }
 
     IEnumerator CountdownRoutine()
@@ -146,7 +143,7 @@ public class MenuController : MonoBehaviour
     public void OnRestartButtonClicked()
     {
         SetMenuState(MenuState.None);
-        GM.RestartGame();
+        GameManager.Instance.RestartGame();
         // Restart the game logic
         // For example, reload the current scene
         // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -164,7 +161,7 @@ public class MenuController : MonoBehaviour
         
         //DO WE NEED THIS?
         //GM.EndGame();
-        sceneManager.ReturnToMenu();
+        SceneManagerGame.Instance.ReturnToMenu();
     }
 
     public void CloseSettings()

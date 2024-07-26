@@ -3,10 +3,6 @@ using System.Collections.Generic;
 
 public class ProjectileSpawner : MonoBehaviour
 {
-    ///////////////////////////////////////
-    public ProjectileManager obsManager;
-    ///////////////////////////////////////
-
     public List<GameObject> projectilesPrefabs;
     public float minSpawnTime = 1.0f;
     public float maxSpawnTime = 3.0f;
@@ -32,7 +28,7 @@ public class ProjectileSpawner : MonoBehaviour
         // Spawn the projectile at the spawner's position
         GameObject newProjectile = Instantiate(projectile, getSpawnPosition(), getSpawnRotation()); //downward direction
       
-        obsManager.AddNewProjectile(newProjectile);
+        ProjectileManager.Instance.AddNewProjectile(newProjectile);
 
         // Schedule the next spawn
         if(!isPause){
