@@ -16,6 +16,11 @@ public class ProjectileManager : MonoBehaviour
         }
     }
 
+    public List<GameObject> GetAllProjectiles()
+    {
+        return new List<GameObject>(spawnedProjectiles);
+    }
+
     public void DestroyProjectile(GameObject projectileObject){
         spawnedProjectiles.Remove(projectileObject);
         

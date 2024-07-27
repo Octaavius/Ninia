@@ -14,6 +14,11 @@ public class ProjectileSpawner : MonoBehaviour
 
     private void Start() {
         StartSpawning();
+        LevelProgress.OnDifficultyChanged += AdjustDifficulty;
+    }
+    private void OnDestroy()
+    {
+        LevelProgress.OnDifficultyChanged -= AdjustDifficulty;
     }
 
     void StartSpawning() {
@@ -26,7 +31,7 @@ public class ProjectileSpawner : MonoBehaviour
         GameObject projectile = projectilesPrefabs[index];
 
         // Spawn the projectile at the spawner's position
-        GameObject newProjectile = Instantiate(projectile, getSpawnPosition(), getSpawnRotation()); //downward direction
+        GameObject newProjectile = Instantiate(projectile, getSpawnPosition(), getSpawnDirection()); //downward direction
       
         ProjectileManager.Instance.AddNewProjectile(newProjectile);
 
@@ -36,9 +41,7 @@ public class ProjectileSpawner : MonoBehaviour
         }  
     }
 
-    
-
-    Quaternion getSpawnRotation() {
+    Quaternion getSpawnDirection() {
         switch (spawnDirection)
         {
             case Direction.Up:
@@ -74,5 +77,26 @@ public class ProjectileSpawner : MonoBehaviour
         }
         Vector2 newPosition = currentPosition + randomMovement;
         return new Vector3(newPosition.x, newPosition.y, transform.position.z);
+    }
+
+    void AdjustDifficulty(int newDifficulty)
+    {
+        Debug.Log($"Adjusting difficulty to {newDifficulty}");
+        minSpawnTime = Mathf.Max(0.2f, 1.0f - 0.1f * newDifficulty);
+        maxSpawnTime = Mathf.Max(0.5f, 3.0f - 0.2f * newDifficulty);
+        AdjustProjectileSpeed(2f + 0.5f * newDifficulty);
+    }
+
+    void AdjustProjectileSpeed(float newSpeed)
+    {
+        foreach (GameObject projectile in ProjectileManager.Instance.GetAllProjectiles())
+        {
+            Projectile proj = projectile.GetComponent<Projectile>();
+            if (proj != null)
+            {
+                proj.setProjectileSpeed(newSpeed);
+                Debug.Log($"Projectile speed set to {newSpeed}");
+            }
+        }
     }
 }

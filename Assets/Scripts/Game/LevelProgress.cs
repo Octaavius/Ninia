@@ -1,40 +1,27 @@
 using UnityEngine;
 
 public class LevelProgress : MonoBehaviour
-{   
-    [HideInInspector] public static GameDifficulty currentGameDifficulty = GameDifficulty.Easy;
-    [HideInInspector] public enum GameDifficulty {
-        Easy, 
-        Medium,
-        Hard,
-        Challenging,
-        Impossible
-    }
+{
+    public delegate void DifficultyChanged(int newDifficulty);
+    public static event DifficultyChanged OnDifficultyChanged;
 
-    void Update() {
+    private int currentDifficulty = 0;
+    private int nextDifficultyScore = 100;
+
+    void Update()
+    {
         UpdateGameLevel(GameManager.Instance.GetScore());
-    }    
-
-    private void UpdateGameLevel(int score){
-        GameDifficulty updatedDifficulty = GetGameDifficulty(score);
-        if(currentGameDifficulty == updatedDifficulty){
-            return;
-        }
-        currentGameDifficulty = updatedDifficulty;
     }
 
-    private GameDifficulty GetGameDifficulty(int score) {
-        if(score < 100) {
-            return GameDifficulty.Easy;
-        } else if (score < 300) {
-            return GameDifficulty.Medium;
-        } else if (score < 600) {
-            return GameDifficulty.Hard;
-        } else if (score < 1000) {
-            return GameDifficulty.Challenging;
-        } else {
-            return GameDifficulty.Impossible;
+    private void UpdateGameLevel(int score)
+    {
+        Debug.Log($"Current score: {score}");
+        if (score >= nextDifficultyScore)
+        {
+            currentDifficulty++;
+            nextDifficultyScore = nextDifficultyScore + 200 * currentDifficulty;
+            Debug.Log($"Difficulty increased to {currentDifficulty}");
+            OnDifficultyChanged?.Invoke(currentDifficulty);
         }
     }
-
 }
