@@ -7,6 +7,7 @@ public class ProjectileManager : MonoBehaviour
     public static ProjectileManager Instance { get; private set; }
     
     private List<GameObject> spawnedProjectiles = new();
+    private List<GameObject> activeProjectiles = new List<GameObject>();
 
     void Awake(){
         if (Instance == null) {
@@ -15,10 +16,9 @@ public class ProjectileManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     public List<GameObject> GetAllProjectiles()
     {
-        return new List<GameObject>(spawnedProjectiles);
+        return new List<GameObject>(activeProjectiles);
     }
 
     public void DestroyProjectile(GameObject projectileObject){

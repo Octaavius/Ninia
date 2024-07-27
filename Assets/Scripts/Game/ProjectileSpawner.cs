@@ -11,6 +11,7 @@ public class ProjectileSpawner : MonoBehaviour
     [SerializeField]
     private Direction spawnDirection = Direction.Down;
     private bool isPause = false;
+    private float currentProjectileSpeed = 2f; // Default speed
 
     private void Start() {
         StartSpawning();
@@ -32,7 +33,16 @@ public class ProjectileSpawner : MonoBehaviour
 
         // Spawn the projectile at the spawner's position
         GameObject newProjectile = Instantiate(projectile, getSpawnPosition(), getSpawnDirection()); //downward direction
-      
+
+
+        // Set the speed of the newly spawned projectile
+        Projectile proj = newProjectile.GetComponent<Projectile>();
+        if (proj != null)
+        {
+            proj.setProjectileSpeed(currentProjectileSpeed);
+            Debug.Log($"New projectile speed set to {currentProjectileSpeed}");
+        }
+
         ProjectileManager.Instance.AddNewProjectile(newProjectile);
 
         // Schedule the next spawn
@@ -82,9 +92,12 @@ public class ProjectileSpawner : MonoBehaviour
     void AdjustDifficulty(int newDifficulty)
     {
         Debug.Log($"Adjusting difficulty to {newDifficulty}");
-        minSpawnTime = Mathf.Max(0.2f, 1.0f - 0.1f * newDifficulty);
-        maxSpawnTime = Mathf.Max(0.5f, 3.0f - 0.2f * newDifficulty);
-        AdjustProjectileSpeed(2f + 0.5f * newDifficulty);
+        minSpawnTime = Mathf.Max(0.01f, 1.0f - 0.3f * newDifficulty);
+        maxSpawnTime = Mathf.Max(0.01f, 3.0f - 1.0f * newDifficulty);
+        float newSpeed = 2f + 0.5f * newDifficulty;
+        AdjustProjectileSpeed(newSpeed);
+        currentProjectileSpeed = newSpeed; // Update the speed for future projectiles
+
     }
 
     void AdjustProjectileSpeed(float newSpeed)

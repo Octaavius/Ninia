@@ -15,7 +15,6 @@ public class LevelProgress : MonoBehaviour
 
     private void UpdateGameLevel(int score)
     {
-        Debug.Log($"Current score: {score}");
         if (score >= nextDifficultyScore)
         {
             currentDifficulty++;
