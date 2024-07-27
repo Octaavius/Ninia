@@ -7003,6 +7003,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e872907506241864fbc3b81c30f34865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ProjectilesPrefabs:
+  - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
+  - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
 --- !u!114 &1823422427
 MonoBehaviour:
   m_ObjectHideFlags: 0

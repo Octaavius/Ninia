@@ -5,10 +5,9 @@ using UnityEngine;
 public class ProjectileManager : MonoBehaviour
 {
     public static ProjectileManager Instance { get; private set; }
-    
+
     private List<GameObject> spawnedProjectiles = new();
-    private List<GameObject> activeProjectiles = new List<GameObject>();
-    private List<GameObject> projectiles = new();
+    [SerializeField] private List<GameObject> ProjectilesPrefabs = new();
 
     void Awake(){
         if (Instance == null) {
@@ -16,6 +15,11 @@ public class ProjectileManager : MonoBehaviour
         } else {
             Destroy(gameObject);
         }
+    }
+
+    public List<GameObject> getProjectilesPrefabs()
+    {
+        return ProjectilesPrefabs;
     }
     public List<GameObject> GetAllProjectiles()
     {

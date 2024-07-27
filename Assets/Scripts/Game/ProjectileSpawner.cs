@@ -14,13 +14,11 @@ public class ProjectileSpawner : MonoBehaviour
 
     private void Start() {
         StartSpawning();
-        SetDifficulty(0);
         LevelProgress.OnDifficultyChanged += AdjustDifficulty;
     }
     private void OnDestroy()
     {
         LevelProgress.OnDifficultyChanged -= AdjustDifficulty;
-        SetDifficulty(0);
     }
 
     void StartSpawning() {
@@ -84,24 +82,14 @@ public class ProjectileSpawner : MonoBehaviour
     void AdjustDifficulty(int newDifficulty)
     {
         Debug.Log($"Adjusting difficulty to {newDifficulty}");
-        minSpawnTime = Mathf.Max(0.01f, 1.0f - 0.3f * newDifficulty);
-        maxSpawnTime = Mathf.Max(0.01f, 3.0f - 1.0f * newDifficulty);
-    }
-
-    void AdjustProjectileSpeed(float newSpeed)
-    {
-        foreach (GameObject projectile in ProjectileManager.Instance.GetAllProjectiles())
+        minSpawnTime = Mathf.Max(0.01f, 1.0f - 0.2f * newDifficulty);
+        maxSpawnTime = Mathf.Max(0.01f, 3.0f - 0.5f * newDifficulty);
+        List<GameObject> projectiles = ProjectileManager.Instance.getProjectilesPrefabs();
+        foreach (GameObject projectile in projectiles)
         {
-            Projectile proj = projectile.GetComponent<Projectile>();
-            if (proj != null)
-            {
-                proj.setProjectileSpeed(newSpeed);
-                Debug.Log($"Projectile speed set to {newSpeed}");
-            }
+            Projectile projectileScript = projectile.GetComponent<Projectile>();
+            projectileScript.setProjectileSpeed(2.0f + 0.5f * newDifficulty);
+            Debug.Log("Projectile speed set to: " + (2.0f + 0.5f * newDifficulty));
         }
-    }
-    void SetDifficulty(int difficulty)
-    {
-        AdjustDifficulty(difficulty);
     }
 }
