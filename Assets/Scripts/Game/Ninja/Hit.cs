@@ -32,7 +32,7 @@ public class Hit : MonoBehaviour
         
         if (hit.collider != null) {
             Debug.Log("hit detected");
-	        AudioManager.Instance.PlaySFX(AudioManager.Instance.hitSound);
+	        AudioManager.Instance.PlaySFX(AudioManager.Instance.sliceSound);
             ProjectileManager.Instance.DestroyProjectile(hit.collider.gameObject);
         }        
     }

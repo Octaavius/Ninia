@@ -33,11 +33,11 @@ public class MenuController : MonoBehaviour
         SetMenuState(MenuState.None);
 
         // Assign button click listeners
-        continueButton.onClick.AddListener(OnContinueButtonClicked);
+        continueButton.onClick.AddListener(Resume);
         restartButton.onClick.AddListener(OnRestartButtonClicked);
         settingsButton.onClick.AddListener(OnSettingsButtonClicked);
         exitToMenuButton.onClick.AddListener(OnExitToMenuButtonClicked);
-        pauseButton.onClick.AddListener(OnPauseButtonClicked);
+        pauseButton.onClick.AddListener(Pause);
         backFromSettingsButton.onClick.AddListener(CloseSettings);
     }
     public void Pause()
@@ -130,23 +130,10 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    // Button action methods
-    public void OnPauseButtonClicked()
-    {
-        Pause();
-    }
-    public void OnContinueButtonClicked()
-    {
-        Resume();
-    }
-    
     public void OnRestartButtonClicked()
     {
         SetMenuState(MenuState.None);
         GameManager.Instance.RestartGame();
-        // Restart the game logic
-        // For example, reload the current scene
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     
     public void OnSettingsButtonClicked()
@@ -156,11 +143,6 @@ public class MenuController : MonoBehaviour
     
     public void OnExitToMenuButtonClicked()
     {
-        // Exit to main menu logic
-        // For example, load the main menu scene
-        
-        //DO WE NEED THIS?
-        //GM.EndGame();
         SceneManagerGame.Instance.ReturnToMenu();
     }
 
