@@ -1,11 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Effect : MonoBehaviour
 {
     public int effectDuration = 5;
     private Coroutine effectCoroutine;
+
+    // Define an event to notify when the effect is activated
+    public delegate void EffectActivatedHandler();
+    public event EffectActivatedHandler OnEffectActivated;
 
     public abstract void ActivateEffect();
     protected abstract void DisactivateEffect();
@@ -23,14 +26,12 @@ public abstract class Effect : MonoBehaviour
     {
         ActivateEffect();
         Debug.Log("Effect Activated");
+        
+        // Trigger the event when the effect is activated
+        OnEffectActivated?.Invoke();
 
         yield return new WaitForSeconds(effectDuration);
         DisactivateEffect();
         Debug.Log("Effect Disactivated");
-    }
-
-    public void ResetEffect()
-    {
-        StartEffect();
     }
 }
