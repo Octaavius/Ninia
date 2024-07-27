@@ -6024,7 +6024,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 295855426}
+      - m_Target: {fileID: 393212540}
         m_TargetAssemblyTypeName: Effect, Assembly-CSharp
         m_MethodName: StartEffect
         m_Mode: 1
@@ -6962,7 +6962,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 295855426}
+      - m_Target: {fileID: 340046829}
         m_TargetAssemblyTypeName: Effect, Assembly-CSharp
         m_MethodName: StartEffect
         m_Mode: 1
