@@ -9,7 +9,7 @@ public class Coin : Projectile
     }
 
     public override void ActionOnDestroy(){
-        //am.PlaySFX
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.coinSound);
         GameManager.Instance.AddToCoins(price);
         Destroy(gameObject);
     }    

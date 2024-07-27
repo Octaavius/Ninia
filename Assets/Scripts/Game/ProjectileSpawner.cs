@@ -14,11 +14,13 @@ public class ProjectileSpawner : MonoBehaviour
 
     private void Start() {
         StartSpawning();
+        SetDifficulty(0);
         LevelProgress.OnDifficultyChanged += AdjustDifficulty;
     }
     private void OnDestroy()
     {
         LevelProgress.OnDifficultyChanged -= AdjustDifficulty;
+        SetDifficulty(0);
     }
 
     void StartSpawning() {
@@ -84,7 +86,6 @@ public class ProjectileSpawner : MonoBehaviour
         Debug.Log($"Adjusting difficulty to {newDifficulty}");
         minSpawnTime = Mathf.Max(0.01f, 1.0f - 0.3f * newDifficulty);
         maxSpawnTime = Mathf.Max(0.01f, 3.0f - 1.0f * newDifficulty);
-
     }
 
     void AdjustProjectileSpeed(float newSpeed)
@@ -98,5 +99,9 @@ public class ProjectileSpawner : MonoBehaviour
                 Debug.Log($"Projectile speed set to {newSpeed}");
             }
         }
+    }
+    void SetDifficulty(int difficulty)
+    {
+        AdjustDifficulty(difficulty);
     }
 }
