@@ -7,9 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(NinjaCollision))]
 public class NinjaController : MonoBehaviour
 {
-    private Health healthScript;
-    private Hit hitScript;
-    private NinjaCollision collisionScript;
+    public Health healthScript;
+    public Hit hitScript;
+    public NinjaCollision collisionScript;
 
     void Awake(){
         healthScript = GetComponent<Health>();

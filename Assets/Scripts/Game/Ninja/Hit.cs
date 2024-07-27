@@ -1,11 +1,14 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(GestureDetector))]
 public class Hit : MonoBehaviour
 {
     private GestureDetector gestureDetector;
+    public float timeBetweenMultipleHits = 0.05f;
     [SerializeField] private float maxHitDistance = 500f;
     public LayerMask layersToHit;
+    private int numberOfHits = 1;
     
     void Awake(){
     	gestureDetector = GetComponent<GestureDetector>();
@@ -15,11 +18,11 @@ public class Hit : MonoBehaviour
     {
         if(gestureDetector.swipeIsDetected()){
             gestureDetector.resetSwipe();
-            hit();
+            StartCoroutine(hit());
         }
     }
 
-    void hit(){
+    private IEnumerator hit(){
         Vector2 origin = transform.position;
         Vector2 direction = gestureDetector.swipeDirectionVector2();
         float actualHitDistance = maxHitDistance;
@@ -28,12 +31,19 @@ public class Hit : MonoBehaviour
             actualHitDistance /= 2;
         }
 
-        RaycastHit2D hit = Physics2D.Raycast(origin, direction, actualHitDistance, layersToHit);
-        
-        if (hit.collider != null) {
-            Debug.Log("hit detected");
-	        AudioManager.Instance.PlaySFX(AudioManager.Instance.sliceSound);
-            ProjectileManager.Instance.DestroyProjectile(hit.collider.gameObject);
-        }        
+        for(int i = 0; i < numberOfHits; i++){
+            RaycastHit2D hit = Physics2D.Raycast(origin, direction, actualHitDistance, layersToHit);
+            
+            if (hit.collider != null) {
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.sliceSound);
+                ProjectileManager.Instance.DestroyProjectile(hit.collider.gameObject);
+            }     
+
+            yield return new WaitForSeconds(timeBetweenMultipleHits);   
+        }
+    }
+
+    public void setNumberOfHits(int newNumberOfHits){
+        numberOfHits = newNumberOfHits;
     }
 }

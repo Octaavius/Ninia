@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     private int Coins = 0;
     private int Gems = 0;
 
+    private int ScoreMultiplier = 1;
+    private int CoinsMultiplier = 1;
+
     [HideInInspector]public bool GameIsPaused;
     
     private MenuController menuController;
@@ -62,12 +65,18 @@ public class GameManager : MonoBehaviour
         Coins = 0;
         Gems = 0;
     }
+    public void SetScoreMultiplier(int newScoreMultiplier){
+        ScoreMultiplier = newScoreMultiplier;
+    }
+    public void SetCoinsMultiplier(int newCoinsMultiplier){
+        CoinsMultiplier = newCoinsMultiplier;
+    }
     public void AddToScore(int addAmount) {
-        Score += addAmount;
+        Score += addAmount * ScoreMultiplier;
         UpdateTexts();
     }
     public void AddToCoins(int addAmount) {
-        Coins += addAmount;
+        Coins += addAmount * CoinsMultiplier;
         UpdateTexts();
     }
     public void AddToGems(int addAmount) {
