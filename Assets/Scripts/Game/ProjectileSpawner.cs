@@ -14,11 +14,11 @@ public class ProjectileSpawner : MonoBehaviour
 
     private void Start() {
         StartSpawning();
-        LevelProgress.OnDifficultyChanged += AdjustDifficulty;
+        LevelProgress.Instance.OnDifficultyChanged += AdjustDifficulty;
     }
     private void OnDestroy()
     {
-        LevelProgress.OnDifficultyChanged -= AdjustDifficulty;
+        LevelProgress.Instance.OnDifficultyChanged -= AdjustDifficulty;
     }
 
     void StartSpawning() {
@@ -90,6 +90,17 @@ public class ProjectileSpawner : MonoBehaviour
             Projectile projectileScript = projectile.GetComponent<Projectile>();
             projectileScript.setProjectileSpeed(2.0f + 0.5f * newDifficulty);
             Debug.Log("Projectile speed set to: " + (2.0f + 0.5f * newDifficulty));
+        }
+    }
+
+    void ResetDifficulty(){
+        minSpawnTime = 1f;
+        maxSpawnTime = 3f;
+        List<GameObject> projectiles = ProjectileManager.Instance.getProjectilesPrefabs();
+        foreach (GameObject projectile in projectiles)
+        {
+            Projectile projectileScript = projectile.GetComponent<Projectile>();
+            projectileScript.setProjectileSpeed(2.0f);
         }
     }
 }

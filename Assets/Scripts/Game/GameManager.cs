@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
         ProjectileManager.Instance.DestroyAllProjectiles();
         menuController.ShowEndGameMenu(Score);
         UpdateStats();
+        LevelProgress.Instance.currentDifficulty = 0;
     }
 
     public void RestartGame(){

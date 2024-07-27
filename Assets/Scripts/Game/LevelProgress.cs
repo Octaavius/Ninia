@@ -2,10 +2,20 @@ using UnityEngine;
 
 public class LevelProgress : MonoBehaviour
 {
-    public delegate void DifficultyChanged(int newDifficulty);
-    public static event DifficultyChanged OnDifficultyChanged;
+    public static LevelProgress Instance {get; private set;}
 
-    private int currentDifficulty = 0;
+    void Awake(){
+        if (Instance == null) {
+            Instance = this;
+        } else {
+            Destroy(gameObject);
+        }
+    }
+    
+    public delegate void DifficultyChanged(int newDifficulty);
+    public event DifficultyChanged OnDifficultyChanged;
+
+    public int currentDifficulty = 0;
     private int nextDifficultyScore = 100;
 
     void Update()
