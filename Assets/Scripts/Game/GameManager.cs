@@ -4,13 +4,15 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     private int Score = 0;
+    private int AddedCoins = 0;
     private int Coins = 0;
     private int Gems = 0;
+    private int AddedGems = 0;
 
     private int ScoreMultiplier = 1;
     private int CoinsMultiplier = 1;
 
-    [HideInInspector]public bool GameIsPaused;
+    [HideInInspector] public bool GameIsPaused;
     
     private MenuController menuController;
     public PlayerInfo playerInfo;
@@ -54,17 +56,23 @@ public class GameManager : MonoBehaviour
         GemsText.text = Gems.ToString();
     }
     
-    void UpdateStats(){
+    public void UpdateStats(){
         if(Score > playerInfo.BestScore)
             playerInfo.BestScore = Score;
-        playerInfo.AddMoney(Coins, Gems);
+        int coinsToAdd =  Coins - AddedCoins;
+        int gemsToAdd = Gems - AddedGems;
+        AddedCoins = Coins;
+        AddedGems = Gems;
+        playerInfo.AddMoney(coinsToAdd, gemsToAdd);
         playerInfo.SaveData();
     }
 
     void ResetNumbers(){
         Score = 0;
         Coins = 0;
+        AddedCoins = 0;
         Gems = 0;
+        AddedGems = 0;
     }
     public void SetScoreMultiplier(int newScoreMultiplier){
         ScoreMultiplier = newScoreMultiplier;

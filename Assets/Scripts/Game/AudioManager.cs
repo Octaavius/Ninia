@@ -12,8 +12,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip collisionSound;
     public AudioClip gameOverSound;
     public AudioClip gameMusic;
-    public AudioClip sliceSound;
     public AudioClip coinSound;
+    public AudioClip hitSound;
 
     public static AudioManager Instance { get; private set; }
    

@@ -43,6 +43,7 @@ public class MenuController : MonoBehaviour
     public void Pause()
     {
         if (cantPause) return;
+        GameManager.Instance.UpdateStats();
         Time.timeScale = 0f;
         ShowPauseMenu();
         GameManager.Instance.GameIsPaused = true;
@@ -150,5 +151,12 @@ public class MenuController : MonoBehaviour
     public void CloseSettings()
     {
         SettingsUI.SetActive(false);
+    }
+
+    void OnApplicationPause(bool pauseStatus)
+    {
+        if(pauseStatus == true){
+            Pause();
+        }
     }
 }
