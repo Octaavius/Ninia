@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8654708299658292146}
   - component: {fileID: 3509307099605453491}
   - component: {fileID: 7906478939765443751}
+  - component: {fileID: 1978549251690719774}
   m_Layer: 6
   m_Name: Coin
   m_TagString: Money
@@ -92,10 +93,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteToRotate: {fileID: 5377110092797343249}
-  Speed: 2
+  Speed: 3
   rotationSpeed: {x: 0, y: 0, z: 100}
-  ScorePrice: 7
-  CoinsPrice: 0
+  price: 7
+  magnetAnimation: {fileID: 1978549251690719774}
+--- !u!114 &1978549251690719774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78614872330638774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2819ee316b89e6a5cb8f24e62e1b9b45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPosition: {x: 0, y: 0, z: 0}
+  animationDuration: 0.5
 --- !u!1 &5377110092797343249
 GameObject:
   m_ObjectHideFlags: 0

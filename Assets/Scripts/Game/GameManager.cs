@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private int ScoreMultiplier = 1;
     private int CoinsMultiplier = 1;
 
+    public bool magnetEffectActivated = false;
+
     [HideInInspector] public bool GameIsPaused;
     
     private MenuController menuController;
