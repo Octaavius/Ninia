@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using static LevelProgress;
 
 public class Spawner : MonoBehaviour
 {
@@ -30,7 +29,7 @@ public class Spawner : MonoBehaviour
 
     void StartSpawning()
     {
-       Invoke("SpawnProjectile", Random.Range(minSpawnTime, maxSpawnTime));
+       Invoke("SpawnProjectiles", Random.Range(minSpawnTime, maxSpawnTime));
     }
     public void OnDifficultyChanged(int newDifficulty)
     {
@@ -84,12 +83,34 @@ public class Spawner : MonoBehaviour
         maxSpawnTime = newMaxSpawnTime;
     }
 
-    public void SpawnProjectile()
+    public void SpawnProjectiles()
     {
         int index = Random.Range(0, projectilesPrefabs.Count);
         GameObject projectilePrefab = projectilesPrefabs[index];
         GameObject newProjectile = Instantiate(projectilePrefab, GetSpawnPosition(), GetSpawnDirection());
         ProjectileManager.Instance.AddNewProjectile(newProjectile);
+        if (!isPause)
+        {
+            StartSpawning();
+        }
+    }
+
+    public void SpawnCoins()
+    {
+        GameObject coinPrefab = projectilesPrefabs[0];
+        GameObject newCoinProjectile = Instantiate(coinPrefab, GetSpawnPosition(), GetSpawnDirection());
+        ProjectileManager.Instance.AddNewProjectile(newCoinProjectile);
+        if (!isPause)
+        {
+            StartSpawning();
+        }
+    }
+
+    public void SpawnPillows()
+    {
+        GameObject gameObject = projectilesPrefabs[1];
+        GameObject newPillowProjectile = Instantiate(gameObject, GetSpawnPosition(), GetSpawnDirection());
+        ProjectileManager.Instance.AddNewProjectile(newPillowProjectile);
         if (!isPause)
         {
             StartSpawning();
