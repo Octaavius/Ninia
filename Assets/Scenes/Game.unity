@@ -418,7 +418,6 @@ GameObject:
   - component: {fileID: 88735483}
   - component: {fileID: 88735482}
   - component: {fileID: 88735481}
-  - component: {fileID: 88735484}
   m_Layer: 5
   m_Name: DoubleCoinsEffect
   m_TagString: Untagged
@@ -523,8 +522,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1624066146, guid: c5e096119755e4844a236f4ad3cb94d6, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: dfacad508fa08ce58bde60a8afa10783, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -541,20 +540,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 88735479}
   m_CullTransparentMesh: 1
---- !u!114 &88735484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 88735479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 0, z: 0, w: 0}
-  m_Softness: {x: 0, y: 0}
 --- !u!1 &108778013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1462,6 +1447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectDuration: 15
+  isActive: 0
 --- !u!114 &295855427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1474,7 +1460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a7ce1adac515ec99921f8fe2bafa34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownOverlay: {fileID: 1761497521}
+  durationOverlay: {fileID: 1761497521}
 --- !u!1 &335452059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1656,6 +1642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectDuration: 15
+  isActive: 0
 --- !u!114 &340046830
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1668,7 +1655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a7ce1adac515ec99921f8fe2bafa34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownOverlay: {fileID: 1142765424}
+  durationOverlay: {fileID: 1142765424}
 --- !u!1 &352276157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1924,6 +1911,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectDuration: 15
+  isActive: 0
 --- !u!114 &393212541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1936,7 +1924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a7ce1adac515ec99921f8fe2bafa34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownOverlay: {fileID: 967607237}
+  durationOverlay: {fileID: 967607237}
 --- !u!1 &404400732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2024,7 +2012,6 @@ GameObject:
   - component: {fileID: 477900396}
   - component: {fileID: 477900395}
   - component: {fileID: 477900394}
-  - component: {fileID: 477900393}
   m_Layer: 5
   m_Name: ShieldEffect
   m_TagString: Untagged
@@ -2053,20 +2040,6 @@ RectTransform:
   m_AnchoredPosition: {x: 125.00006, y: 350}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &477900393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477900391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 0, z: 0, w: 0}
-  m_Softness: {x: 0, y: 0}
 --- !u!114 &477900394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2143,8 +2116,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1624066146, guid: c5e096119755e4844a236f4ad3cb94d6, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: dfacad508fa08ce58bde60a8afa10783, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3041,7 +3014,7 @@ MonoBehaviour:
   HeartParent: {fileID: 1217004373}
   Hearts: []
   startNumberOfHearts: 3
-  shieldActivated: 0
+  shield: {fileID: 2092813110}
 --- !u!114 &677443135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3099,7 +3072,7 @@ GameObject:
   - component: {fileID: 701592502}
   - component: {fileID: 701592501}
   m_Layer: 5
-  m_Name: CooldownOverlay
+  m_Name: DurationOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3118,14 +3091,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.92156863}
+  m_Color: {r: 0.23416716, g: 0.7735849, b: 0.22988607, a: 0.85882354}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1624066146, guid: c5e096119755e4844a236f4ad3cb94d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dfacad508fa08ce58bde60a8afa10783, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3159,8 +3132,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &714442082
 GameObject:
@@ -4373,7 +4346,7 @@ GameObject:
   - component: {fileID: 967607238}
   - component: {fileID: 967607237}
   m_Layer: 5
-  m_Name: CooldownOverlay
+  m_Name: DurationOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4392,14 +4365,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.92156863}
+  m_Color: {r: 0.23416716, g: 0.7735849, b: 0.22988607, a: 0.85882354}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1624066146, guid: c5e096119755e4844a236f4ad3cb94d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dfacad508fa08ce58bde60a8afa10783, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4433,8 +4406,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &970776230
 GameObject:
@@ -5090,7 +5063,7 @@ GameObject:
   - component: {fileID: 1142765425}
   - component: {fileID: 1142765424}
   m_Layer: 5
-  m_Name: CooldownOverlay
+  m_Name: DurationOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5112,8 +5085,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1142765424
 MonoBehaviour:
@@ -5128,14 +5101,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.92156863}
+  m_Color: {r: 0.23416716, g: 0.7735849, b: 0.22988607, a: 0.85882354}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1624066146, guid: c5e096119755e4844a236f4ad3cb94d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dfacad508fa08ce58bde60a8afa10783, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6440,7 +6413,7 @@ GameObject:
   - component: {fileID: 1578428724}
   - component: {fileID: 1578428723}
   m_Layer: 5
-  m_Name: CooldownOverlay
+  m_Name: DurationOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6463,7 +6436,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1578428723
 MonoBehaviour:
@@ -6478,14 +6451,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.92156863}
+  m_Color: {r: 0.23416716, g: 0.7735849, b: 0.22988607, a: 0.85882354}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1624066146, guid: c5e096119755e4844a236f4ad3cb94d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dfacad508fa08ce58bde60a8afa10783, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6818,7 +6791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a7ce1adac515ec99921f8fe2bafa34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownOverlay: {fileID: 701592501}
+  durationOverlay: {fileID: 701592501}
 --- !u!114 &1652486727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6832,6 +6805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectDuration: 15
+  isActive: 0
 --- !u!1 &1664875941
 GameObject:
   m_ObjectHideFlags: 0
@@ -6844,7 +6818,6 @@ GameObject:
   - component: {fileID: 1664875946}
   - component: {fileID: 1664875945}
   - component: {fileID: 1664875944}
-  - component: {fileID: 1664875943}
   m_Layer: 5
   m_Name: MagnetEffect
   m_TagString: Untagged
@@ -6873,20 +6846,6 @@ RectTransform:
   m_AnchoredPosition: {x: -150, y: 750}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1664875943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1664875941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 0, z: 0, w: 0}
-  m_Softness: {x: 0, y: 0}
 --- !u!114 &1664875944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6963,8 +6922,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1624066146, guid: c5e096119755e4844a236f4ad3cb94d6, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: dfacad508fa08ce58bde60a8afa10783, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -7150,7 +7109,6 @@ GameObject:
   - component: {fileID: 1681405642}
   - component: {fileID: 1681405641}
   - component: {fileID: 1681405640}
-  - component: {fileID: 1681405643}
   m_Layer: 5
   m_Name: PenetrationEffect
   m_TagString: Untagged
@@ -7255,8 +7213,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1624066146, guid: c5e096119755e4844a236f4ad3cb94d6, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: dfacad508fa08ce58bde60a8afa10783, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -7273,20 +7231,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1681405638}
   m_CullTransparentMesh: 1
---- !u!114 &1681405643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1681405638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 0, z: 0, w: 0}
-  m_Softness: {x: 0, y: 0}
 --- !u!1 &1703597407
 GameObject:
   m_ObjectHideFlags: 0
@@ -7536,7 +7480,7 @@ GameObject:
   - component: {fileID: 1761497522}
   - component: {fileID: 1761497521}
   m_Layer: 5
-  m_Name: CooldownOverlay
+  m_Name: DurationOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7559,7 +7503,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1761497521
 MonoBehaviour:
@@ -7574,14 +7518,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.92156863}
+  m_Color: {r: 0.23416716, g: 0.7735849, b: 0.22988607, a: 0.85882354}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1624066146, guid: c5e096119755e4844a236f4ad3cb94d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dfacad508fa08ce58bde60a8afa10783, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8198,7 +8142,6 @@ GameObject:
   - component: {fileID: 2016372497}
   - component: {fileID: 2016372496}
   - component: {fileID: 2016372495}
-  - component: {fileID: 2016372498}
   m_Layer: 5
   m_Name: DoubleScoreEffect
   m_TagString: Untagged
@@ -8296,15 +8239,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.23092759, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.120666504, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1624066146, guid: c5e096119755e4844a236f4ad3cb94d6, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: dfacad508fa08ce58bde60a8afa10783, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -8321,20 +8264,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016372493}
   m_CullTransparentMesh: 1
---- !u!114 &2016372498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016372493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 0, z: 0, w: 0}
-  m_Softness: {x: 0, y: 0}
 --- !u!1 &2069790185
 GameObject:
   m_ObjectHideFlags: 0
@@ -8514,7 +8443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a7ce1adac515ec99921f8fe2bafa34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownOverlay: {fileID: 1578428723}
+  durationOverlay: {fileID: 1578428723}
 --- !u!114 &2092813110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8528,6 +8457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectDuration: 15
+  isActive: 0
   ShieldObject: {fileID: 1297024036}
 --- !u!1 &2116697229
 GameObject:
