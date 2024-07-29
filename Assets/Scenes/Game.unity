@@ -2831,6 +2831,7 @@ MonoBehaviour:
   layersToHit:
     serializedVersion: 2
     m_Bits: 64
+  afterHitEffect: {fileID: 699703058052827229, guid: 8598b9cde20cfb09dad32b6909510068, type: 3}
 --- !u!114 &677443137
 MonoBehaviour:
   m_ObjectHideFlags: 0

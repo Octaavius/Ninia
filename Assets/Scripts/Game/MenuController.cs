@@ -104,8 +104,6 @@ public class MenuController : MonoBehaviour
 
     private void SetMenuState(MenuState state)
     {
-        Debug.Log(state);
-
         currentMenuState = state;
 
         switch (state)
