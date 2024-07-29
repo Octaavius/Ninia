@@ -33,8 +33,8 @@ public class Hit : MonoBehaviour
         }
         float effectZRotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
 
+        Instantiate(afterHitEffect, transform.position, Quaternion.Euler(0, 0, effectZRotation));
         for(int i = 0; i < numberOfHits; i++){
-            Instantiate(afterHitEffect, transform.position, Quaternion.Euler(0, 0, effectZRotation));
             RaycastHit2D hit = Physics2D.Raycast(origin, direction, actualHitDistance, layersToHit);
             
             if (hit.collider != null) { //player hit something

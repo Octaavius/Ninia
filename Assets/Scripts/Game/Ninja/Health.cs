@@ -14,11 +14,6 @@ public class Health : MonoBehaviour
     private int maxHearts = 5;
     private Vector2 initialPosition = Vector2.zero;
 
-    void Start()
-    {
-        InitializeHearts();
-    }
-
     public void InitializeHearts()
     {
         for (int i = 0; i < startNumberOfHearts; i++)
