@@ -5,9 +5,10 @@ public abstract class Projectile : MonoBehaviour
     [Header("Sprite To Rotate")]
     public GameObject spriteToRotate;
     [Header("Projectile basic settings")]
-    [SerializeField] private float Speed = 2f;
+    [SerializeField] private float Speed = 2.0f;
     public Vector3 rotationSpeed = new Vector3(0, 0, 100);
     void Awake(){
+        Debug.Log("Initial Speed: " + Speed);
         float zRotation = transform.eulerAngles.z;
         if (zRotation == 90f || zRotation == 270f)
         {
@@ -31,8 +32,8 @@ public abstract class Projectile : MonoBehaviour
         spriteToRotate.transform.Rotate(rotationSpeed * Time.deltaTime);
     }
 
-    public void setProjectileSpeed(float newSpeed) {
-        Speed = newSpeed; 
+    public void SetProjectileSpeed(float newSpeed) {
+        Speed = newSpeed;
         Debug.Log("Speed set to: " + Speed);
     }
 

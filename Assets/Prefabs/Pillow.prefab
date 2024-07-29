@@ -95,8 +95,7 @@ MonoBehaviour:
   spriteToRotate: {fileID: 7779030786557143894}
   Speed: 2
   rotationSpeed: {x: 0, y: 0, z: 100}
-  ScorePrice: 7
-  CoinsPrice: 0
+  scorePrice: 12
 --- !u!1 &5267329142903244177
 GameObject:
   m_ObjectHideFlags: 0

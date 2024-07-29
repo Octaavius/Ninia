@@ -216,13 +216,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 30650278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7be9f421a3e0ebeb80e9e5fa84eb9c7, type: 3}
+  m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectilesPrefabs:
   - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
-  minSpawnTime: 1
+  minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
   spawnDirection: 1
@@ -235,6 +235,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 57363296}
+  - component: {fileID: 57363297}
   m_Layer: 0
   m_Name: Spawners
   m_TagString: Untagged
@@ -261,6 +262,18 @@ Transform:
   - {fileID: 1583488779}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &57363297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57363295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a7ed37a1829874d98eea9a3a53af6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &66578388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,13 +1331,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 278000023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7be9f421a3e0ebeb80e9e5fa84eb9c7, type: 3}
+  m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectilesPrefabs:
   - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
-  minSpawnTime: 1
+  minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
   spawnDirection: 2
@@ -6196,13 +6209,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1583488778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7be9f421a3e0ebeb80e9e5fa84eb9c7, type: 3}
+  m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectilesPrefabs:
   - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
-  minSpawnTime: 1
+  minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
   spawnDirection: 3
@@ -7113,13 +7126,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1710230070}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7be9f421a3e0ebeb80e9e5fa84eb9c7, type: 3}
+  m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectilesPrefabs:
   - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
-  minSpawnTime: 1
+  minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
   spawnDirection: 0

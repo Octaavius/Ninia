@@ -44,5 +44,5 @@ public class ProjectileManager : MonoBehaviour
      
     public void AddNewProjectile(GameObject newProjectile){
         spawnedProjectiles.Add(newProjectile);
-    } 
+    }
 }

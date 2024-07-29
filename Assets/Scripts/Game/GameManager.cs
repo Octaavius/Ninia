@@ -42,13 +42,16 @@ public class GameManager : MonoBehaviour
         ProjectileManager.Instance.DestroyAllProjectiles();
         menuController.ShowEndGameMenu(Score);
         UpdateStats();
-        LevelProgress.Instance.currentDifficulty = 0;
+        LevelProgress.Instance.ResetLevelProgress();
+        SpawnerManager.Instance.ResetSpawners();
     }
 
     public void RestartGame(){
         Time.timeScale = 1f;
         ResetNumbers();
         UpdateTexts();
+        LevelProgress.Instance.ResetLevelProgress();
+        SpawnerManager.Instance.ResetSpawners();
         ninjaController.InitializeNinja();
     }
 

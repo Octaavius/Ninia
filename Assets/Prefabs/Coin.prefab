@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteToRotate: {fileID: 5377110092797343249}
-  Speed: 3
+  Speed: 2
   rotationSpeed: {x: 0, y: 0, z: 100}
   price: 7
   magnetAnimation: {fileID: 1978549251690719774}
