@@ -11,8 +11,7 @@ public class GameManager : MonoBehaviour
 
     private int ScoreMultiplier = 1;
     private int CoinsMultiplier = 1;
-
-    public bool magnetEffectActivated = false;
+    [HideInInspector] public bool magnetEffectActivated = false;
 
     [HideInInspector] public bool GameIsPaused;
     
@@ -47,6 +46,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void EndGame() {
+    	AudioManager.Instance.PlaySFX(AudioManager.Instance.gameOverSound);
         Time.timeScale = 0f;
         ProjectileManager.Instance.DestroyAllProjectiles();
         menuController.ShowEndGameMenu(Score);
