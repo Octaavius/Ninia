@@ -37,8 +37,8 @@ public class SpawnerManager : MonoBehaviour
     {
         foreach (var spawner in spawners)
         {
-            float newMinSpawnTime = Mathf.Max(0.01f, spawner.minSpawnTime - 0.2f * newDifficulty);
-            float newMaxSpawnTime = Mathf.Max(0.01f, spawner.maxSpawnTime - 1.0f * newDifficulty);
+            float newMinSpawnTime = Mathf.Max(0.5f, spawner.minSpawnTime - 0.05f * newDifficulty);
+            float newMaxSpawnTime = Mathf.Max(0.5f, spawner.maxSpawnTime - 0.05f * newDifficulty);
 
             Debug.Log($"Setting spawn rate for {spawner.name} to {newMinSpawnTime} - {newMaxSpawnTime}");
             spawner.AdjustSpawnRate(newMinSpawnTime, newMaxSpawnTime);
@@ -51,8 +51,8 @@ public class SpawnerManager : MonoBehaviour
         foreach (GameObject projectile in projectiles)
         {
             Projectile projectileScript = projectile.GetComponent<Projectile>();
-            projectileScript.SetProjectileSpeed(2.0f + 0.5f * newDifficulty);
-            Debug.Log("Projectile speed set to: " + (2.0f + 0.5f * newDifficulty));
+            projectileScript.SetProjectileSpeed(2.0f + 0.1f * newDifficulty);
+            Debug.Log("Projectile speed set to: " + (2.0f + 0.1f * newDifficulty));
         }
     }
 
