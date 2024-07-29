@@ -3,8 +3,10 @@ using System.Collections;
 
 public class Coin : Projectile
 {
-    [SerializeField] private int price = 7;  
+    [SerializeField] private int price = 7;
+    [SerializeField] private float spawnChance = 0.1f;
     public MagnetAnimation magnetAnimation;
+    public override float GetSpawnChance() => spawnChance;
 
     void Start()
     {

@@ -5,6 +5,8 @@ using UnityEngine;
 public class Pillow : Projectile
 {
     [SerializeField] private int scorePrice = 12;
+    [SerializeField] private float spawnChance = 0.9f;
+    public override float GetSpawnChance() => spawnChance;
     public override void ActionOnCollision(ref Health healthScript){
 	    AudioManager.Instance.PlaySFX(AudioManager.Instance.collisionSound);
         healthScript.RemoveHeart();

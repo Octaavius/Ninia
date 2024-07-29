@@ -96,6 +96,7 @@ MonoBehaviour:
   Speed: 2
   rotationSpeed: {x: 0, y: 0, z: 100}
   price: 7
+  spawnChance: 0.1
   magnetAnimation: {fileID: 1978549251690719774}
 --- !u!114 &1978549251690719774
 MonoBehaviour:

@@ -35,7 +35,13 @@ public class Spawner : MonoBehaviour
     {
         if (SpawnerManager.Instance != null)
         {
-           SpawnerManager.Instance.AdjustDifficulty(newDifficulty);
+            SpawnerManager.Instance.AdjustDifficulty(newDifficulty);
+        }
+        GameObject medkitPrefab = projectilesPrefabs.Find(p => p.GetComponent<Projectile>().name == "Medkit");
+        if (medkitPrefab != null)
+        {
+            GameObject newMedkit = Instantiate(medkitPrefab, GetSpawnPosition(), GetSpawnDirection());
+            ProjectileManager.Instance.AddNewProjectile(newMedkit);
         }
     }
     public Quaternion GetSpawnDirection() //Spawn direction is the direction the projectile will move
@@ -76,7 +82,6 @@ public class Spawner : MonoBehaviour
         Vector2 newPosition = currentPosition + randomMovement;
         return new Vector3(newPosition.x, newPosition.y, transform.position.z);
     }
-
     public void AdjustSpawnRate(float newMinSpawnTime, float newMaxSpawnTime)
     {
         minSpawnTime = newMinSpawnTime;
@@ -85,10 +90,49 @@ public class Spawner : MonoBehaviour
 
     public void SpawnProjectiles()
     {
-        int index = Random.Range(0, projectilesPrefabs.Count);
-        GameObject projectilePrefab = projectilesPrefabs[index];
-        GameObject newProjectile = Instantiate(projectilePrefab, GetSpawnPosition(), GetSpawnDirection());
-        ProjectileManager.Instance.AddNewProjectile(newProjectile);
+        List<GameObject> availableProjectiles = new List<GameObject>();
+        foreach (var prefab in projectilesPrefabs)
+        {
+            Projectile projectileScript = prefab.GetComponent<Projectile>();
+            if (projectileScript != null && !(projectileScript is Medkit))
+            {
+                availableProjectiles.Add(prefab);
+            }
+        }
+
+        if (availableProjectiles.Count == 0)
+        {
+            Debug.LogWarning("No projectiles available for spawning.");
+            return;
+        }
+
+        float totalChance = 0f;
+        foreach (var prefab in availableProjectiles)
+        {
+            Projectile projectileScript = prefab.GetComponent<Projectile>();
+            totalChance += projectileScript.GetSpawnChance();
+        }
+
+        float randomValue = Random.Range(0f, totalChance);
+        float cumulativeChance = 0f;
+        GameObject selectedProjectile = null;
+        foreach (var prefab in availableProjectiles)
+        {
+            Projectile projectileScript = prefab.GetComponent<Projectile>();
+            cumulativeChance += projectileScript.GetSpawnChance();
+            if (randomValue <= cumulativeChance)
+            {
+                selectedProjectile = prefab;
+                break;
+            }
+        }
+
+        if (selectedProjectile != null)
+        {
+            GameObject newProjectile = Instantiate(selectedProjectile, GetSpawnPosition(), GetSpawnDirection());
+            ProjectileManager.Instance.AddNewProjectile(newProjectile);
+        }
+
         if (!isPause)
         {
             StartSpawning();
