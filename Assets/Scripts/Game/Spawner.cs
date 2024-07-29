@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Spawner : MonoBehaviour
 {
@@ -31,13 +32,26 @@ public class Spawner : MonoBehaviour
     {
        Invoke("SpawnProjectiles", Random.Range(minSpawnTime, maxSpawnTime));
     }
+
+    private void TriggerPause()
+    {
+        StartCoroutine(PauseForSeconds(2f));
+    }
+
+    private IEnumerator PauseForSeconds(float seconds)
+    {
+        isPause = true;
+        CancelInvoke("SpawnProjectiles");
+        yield return new WaitForSeconds(seconds);
+        isPause = false;
+        StartSpawning();
+    }
+
     public void OnDifficultyChanged(int newDifficulty)
     {
-        if (SpawnerManager.Instance != null)
-        {
-            SpawnerManager.Instance.AdjustDifficulty(newDifficulty);
-        }
-        GameObject medkitPrefab = projectilesPrefabs.Find(p => p.GetComponent<Projectile>().name == "Medkit");
+        TriggerPause();
+        SpawnerManager.Instance.AdjustDifficulty(newDifficulty);
+        GameObject medkitPrefab = projectilesPrefabs.Find(p => p.GetComponent<Projectile>() is Medkit);
         if (medkitPrefab != null)
         {
             GameObject newMedkit = Instantiate(medkitPrefab, GetSpawnPosition(), GetSpawnDirection());

@@ -8,7 +8,7 @@ public class LevelProgress : MonoBehaviour
     public delegate void DifficultyChanged(int newDifficulty);
     public event DifficultyChanged OnDifficultyChanged;
 
-    public int currentDifficulty = 0;
+    [HideInInspector] public int currentDifficulty = 0;
     private int nextDifficultyScore = 100;
 
     void Awake()
@@ -34,8 +34,6 @@ public class LevelProgress : MonoBehaviour
         {
             currentDifficulty++;
             nextDifficultyScore = nextDifficultyScore + 100 * currentDifficulty;
-            Debug.Log($"Difficulty increased to {currentDifficulty}");
-            Debug.Log($"Next difficulty score: {nextDifficultyScore}");
             OnDifficultyChanged?.Invoke(currentDifficulty);
         }
     }

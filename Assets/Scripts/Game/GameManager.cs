@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     	AudioManager.Instance.PlaySFX(AudioManager.Instance.gameOverSound);
         Time.timeScale = 0f;
         ProjectileManager.Instance.DestroyAllProjectiles();
+        EffectsManager.Instance.RemoveAllEffects();
         menuController.ShowEndGameMenu(Score);
         UpdateStats();
         LevelProgress.Instance.ResetLevelProgress();

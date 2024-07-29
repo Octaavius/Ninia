@@ -23,14 +23,12 @@ public class SpawnerManager : MonoBehaviour
 
     public void RegisterSpawner(Spawner spawner)
     {
-        Debug.Log("Registering spawner: " + spawner.name);
         spawners.Add(spawner);
 
         // Subscribe to the OnDifficultyChanged event
         if (LevelProgress.Instance != null)
         {
             LevelProgress.Instance.OnDifficultyChanged += spawner.OnDifficultyChanged;
-            Debug.Log("Subscribed to OnDifficultyChanged event");
         }
     }
     public void AdjustSpawnRates(int newDifficulty)
@@ -40,7 +38,6 @@ public class SpawnerManager : MonoBehaviour
             float newMinSpawnTime = Mathf.Max(0.5f, spawner.minSpawnTime - 0.05f * newDifficulty);
             float newMaxSpawnTime = Mathf.Max(0.5f, spawner.maxSpawnTime - 0.05f * newDifficulty);
 
-            Debug.Log($"Setting spawn rate for {spawner.name} to {newMinSpawnTime} - {newMaxSpawnTime}");
             spawner.AdjustSpawnRate(newMinSpawnTime, newMaxSpawnTime);
         }
     }
@@ -52,7 +49,6 @@ public class SpawnerManager : MonoBehaviour
         {
             Projectile projectileScript = projectile.GetComponent<Projectile>();
             projectileScript.SetProjectileSpeed(2.0f + 0.1f * newDifficulty);
-            Debug.Log("Projectile speed set to: " + (2.0f + 0.1f * newDifficulty));
         }
     }
 
@@ -60,7 +56,6 @@ public class SpawnerManager : MonoBehaviour
     {
         if (newDifficulty != currentDifficulty)
         {
-            Debug.Log("Adjusting SpawnRate, ProjectileSpeed to: " + newDifficulty);
             currentDifficulty = newDifficulty;
             AdjustSpawnRates(newDifficulty);
             AdjustProjectileSpeed(newDifficulty);

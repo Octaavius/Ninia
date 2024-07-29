@@ -8,7 +8,6 @@ public abstract class Projectile : MonoBehaviour
     [SerializeField] private float Speed = 2.0f;
     public Vector3 rotationSpeed = new Vector3(0, 0, 100);
     void Awake(){
-        Debug.Log("Initial Speed: " + Speed);
         float zRotation = transform.eulerAngles.z;
         if (zRotation == 90f || zRotation == 270f)
         {
@@ -35,6 +34,5 @@ public abstract class Projectile : MonoBehaviour
 
     public void SetProjectileSpeed(float newSpeed) {
         Speed = newSpeed;
-        Debug.Log("Speed set to: " + Speed);
     }
 }

@@ -23,6 +23,7 @@ public abstract class Effect : MonoBehaviour
     }
 
     public void StopEffect(){
+        if(effectCoroutine == null) return;
         StopCoroutine(effectCoroutine);
         DisactivateEffect();
         isActive = false;
