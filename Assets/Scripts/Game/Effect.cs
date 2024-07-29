@@ -15,15 +15,15 @@ public abstract class Effect : MonoBehaviour
 
     public void StartEffect()
     {
-        StopEffect();
+        if (effectCoroutine != null){
+            StopCoroutine(effectCoroutine);
+        }
         isActive = true;
         effectCoroutine = StartCoroutine(EffectCoroutine());
     }
 
     public void StopEffect(){
-        if (effectCoroutine != null){
-            StopCoroutine(effectCoroutine);
-        }
+        StopCoroutine(effectCoroutine);
         DisactivateEffect();
         isActive = false;
     }

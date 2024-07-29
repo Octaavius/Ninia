@@ -3013,7 +3013,7 @@ MonoBehaviour:
   HeartPrefab: {fileID: 7247933736080725917, guid: 780cf9c90e72f0a4b8d99f93627968fa, type: 3}
   HeartParent: {fileID: 1217004373}
   Hearts: []
-  startNumberOfHearts: 3
+  startNumberOfHearts: 5
   shield: {fileID: 2092813110}
 --- !u!114 &677443135
 MonoBehaviour:
@@ -5742,7 +5742,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1e1e39dfa623ded03ab0b60de8cde5d0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -8459,6 +8459,7 @@ MonoBehaviour:
   effectDuration: 15
   isActive: 0
   ShieldObject: {fileID: 1297024036}
+  fadeDuration: 0.2
 --- !u!1 &2116697229
 GameObject:
   m_ObjectHideFlags: 0
