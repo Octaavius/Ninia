@@ -27,6 +27,6 @@ public class SpriteAnimator : MonoBehaviour
             currentFrame = currentFrame + 1;
             yield return new WaitForSeconds(frameTime);
         }
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }
