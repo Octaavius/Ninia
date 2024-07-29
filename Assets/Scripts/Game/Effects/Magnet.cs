@@ -7,7 +7,7 @@ public class Magnet : Effect
 {
     public static event Action OnMagnetEffectActivatedChanged;
 
-    public override void ActivateEffect()
+    protected override void ActivateEffect()
     {
         GameManager.Instance.magnetEffectActivated = true;
         OnMagnetEffectActivatedChanged?.Invoke();

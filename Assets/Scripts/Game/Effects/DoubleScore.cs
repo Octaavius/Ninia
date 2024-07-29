@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DoubleScore : Effect
 {
-    public override void ActivateEffect(){
+    protected override void ActivateEffect(){
         GameManager.Instance.SetScoreMultiplier(2);
     }
     protected override void DisactivateEffect(){

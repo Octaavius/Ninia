@@ -8,6 +8,7 @@ public class Health : MonoBehaviour
     public List<GameObject> Hearts;
     [SerializeField] private int startNumberOfHearts = 3;
     
+    public bool shieldActivated = false;
     private float HeartMargin = 115f;
     private int numberOfHearts = 0;
     private int maxHearts = 5;
@@ -55,6 +56,9 @@ public class Health : MonoBehaviour
 
     public void RemoveHeart()
     {
+        if(shieldActivated){
+            return;
+        }
         // Destroy the last heart in the list
         Destroy(Hearts[numberOfHearts - 1]);
         Hearts.RemoveAt(numberOfHearts - 1);
