@@ -1,44 +1,41 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EffectButtonCooldown : MonoBehaviour
+public class EffectButtonDuration : MonoBehaviour
 {
-    public Image cooldownOverlay;
-    private float cooldownTime;
+    public Image durationOverlay;
+    private float effectDuration;
 
-    private bool isCooldown = false;
-    private float cooldownTimer;
+    private float durationTimer;
 
     private Effect effect;
 
     void Start()
     {
         effect = GetComponent<Effect>();
-        cooldownTime = effect.effectDuration;
+        effectDuration = effect.effectDuration;
 
         effect.OnEffectActivated += UseButton;
     }
 
     void Update()
     {
-        if (isCooldown)
+        if (effect.isActive)
         {
-            cooldownTimer -= Time.deltaTime;
-            if (cooldownTimer <= 0)
+            durationTimer -= Time.deltaTime;
+            if (durationTimer <= 0)
             {
-                cooldownTimer = 0;
-                isCooldown = false;
+                durationTimer = 0;
             }
-            cooldownOverlay.fillAmount = cooldownTimer / cooldownTime;
+            durationOverlay.fillAmount = durationTimer / effectDuration;
+        } else {
+            durationTimer = 0;
+            durationOverlay.fillAmount = 0;
         }
     }
 
     public void UseButton()
     {
-        // if (!isCooldown)
-        // {
-            isCooldown = true;
-            cooldownTimer = cooldownTime;
-        //}
+        durationTimer = effectDuration;
     }
 }

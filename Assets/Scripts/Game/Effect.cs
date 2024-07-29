@@ -5,6 +5,7 @@ public abstract class Effect : MonoBehaviour
 {
     public int effectDuration = 5;
     private Coroutine effectCoroutine;
+    [HideInInspector] public bool isActive = false;
 
     public delegate void EffectActivatedHandler();
     public event EffectActivatedHandler OnEffectActivated;
@@ -14,20 +15,24 @@ public abstract class Effect : MonoBehaviour
 
     public void StartEffect()
     {
-        if (effectCoroutine != null)
-        {
+        StopEffect();
+        isActive = true;
+        effectCoroutine = StartCoroutine(EffectCoroutine());
+    }
+
+    public void StopEffect(){
+        if (effectCoroutine != null){
             StopCoroutine(effectCoroutine);
         }
-        effectCoroutine = StartCoroutine(EffectCoroutine());
+        DisactivateEffect();
+        isActive = false;
     }
 
     private IEnumerator EffectCoroutine() 
     {
         ActivateEffect();
-
         OnEffectActivated?.Invoke();
-
         yield return new WaitForSeconds(effectDuration);
-        DisactivateEffect();
+        isActive = false;
     }
 }

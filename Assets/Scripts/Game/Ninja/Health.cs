@@ -8,7 +8,7 @@ public class Health : MonoBehaviour
     public List<GameObject> Hearts;
     [SerializeField] private int startNumberOfHearts = 3;
     
-    public bool shieldActivated = false;
+    [SerializeField] private Shield shield;
     private float HeartMargin = 115f;
     private int numberOfHearts = 0;
     private int maxHearts = 5;
@@ -51,7 +51,8 @@ public class Health : MonoBehaviour
 
     public void RemoveHeart()
     {
-        if(shieldActivated){
+        if(shield.isActive){
+            shield.StopEffect();
             return;
         }
         // Destroy the last heart in the list
