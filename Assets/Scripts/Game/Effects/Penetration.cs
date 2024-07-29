@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Penetration : Effect
 {
-    public override void ActivateEffect(){
+    protected override void ActivateEffect(){
         GameManager.Instance.ninjaController.hitScript.setNumberOfHits(2);
     }
     protected override void DisactivateEffect(){

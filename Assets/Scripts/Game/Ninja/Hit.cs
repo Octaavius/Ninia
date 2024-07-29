@@ -8,6 +8,7 @@ public class Hit : MonoBehaviour
     public float timeBetweenMultipleHits = 0.05f;
     [SerializeField] private float maxHitDistance = 500f;
     public LayerMask layersToHit;
+    public GameObject afterHitEffect;
     private int numberOfHits = 1;
     
     void Awake(){
@@ -30,8 +31,10 @@ public class Hit : MonoBehaviour
         if(direction == Vector2.right || direction == Vector2.left) {
             actualHitDistance /= 2;
         }
+        float effectZRotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
 
         for(int i = 0; i < numberOfHits; i++){
+            Instantiate(afterHitEffect, transform.position, Quaternion.Euler(0, 0, effectZRotation));
             RaycastHit2D hit = Physics2D.Raycast(origin, direction, actualHitDistance, layersToHit);
             
             if (hit.collider != null) { //player hit something
