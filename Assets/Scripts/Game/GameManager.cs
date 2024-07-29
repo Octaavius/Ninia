@@ -35,6 +35,15 @@ public class GameManager : MonoBehaviour
         }
         menuController = GetComponent<MenuController>();
         GameIsPaused = false;
+        InitializeGame();
+    }
+
+    private void InitializeGame() {
+        ResetNumbers();
+        UpdateTexts();
+        ninjaController.InitializeNinja();
+        SpawnerManager.Instance.ResetSpawners();
+        LevelProgress.Instance.ResetLevelProgress();
     }
 
     public void EndGame() {
@@ -48,11 +57,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame(){
         Time.timeScale = 1f;
-        ResetNumbers();
-        UpdateTexts();
-        LevelProgress.Instance.ResetLevelProgress();
-        SpawnerManager.Instance.ResetSpawners();
-        ninjaController.InitializeNinja();
+        InitializeGame();
     }
 
     void UpdateTexts() {
