@@ -33,6 +33,7 @@ public abstract class Effect : MonoBehaviour
         ActivateEffect();
         OnEffectActivated?.Invoke();
         yield return new WaitForSeconds(effectDuration);
+        DisactivateEffect();
         isActive = false;
     }
 }
