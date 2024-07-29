@@ -23,10 +23,8 @@ public abstract class Projectile : MonoBehaviour
 
     public abstract void ActionOnDestroy(); 
     public abstract void ActionOnCollision(ref Health healthScript);
-
-    public virtual float GetSpawnChance(){
-        return 0.0f; // Default implementation, should be overridden
-    }
+    public virtual float GetSpawnChance(){return 0f;}
+    
     private void MoveForward(){
         transform.Translate(Vector3.up * Speed * Time.deltaTime, Space.Self);
     }
@@ -38,9 +36,5 @@ public abstract class Projectile : MonoBehaviour
     public void SetProjectileSpeed(float newSpeed) {
         Speed = newSpeed;
         Debug.Log("Speed set to: " + Speed);
-    }
-    public void GetSpawnChnce()
-    {
-
     }
 }

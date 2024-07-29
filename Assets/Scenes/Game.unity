@@ -3015,7 +3015,7 @@ MonoBehaviour:
   HeartPrefab: {fileID: 7247933736080725917, guid: 780cf9c90e72f0a4b8d99f93627968fa, type: 3}
   HeartParent: {fileID: 1217004373}
   Hearts: []
-  startNumberOfHearts: 5
+  startNumberOfHearts: 3
   shield: {fileID: 2092813110}
 --- !u!114 &677443135
 MonoBehaviour:
