@@ -5,9 +5,12 @@ using UnityEngine;
 public class Shield : Effect
 {
     public GameObject ShieldObject;
- 
-    private SpriteRenderer ShieldSpriteRenderer;
     public float fadeDuration = 1f;
+
+    private int ShieldHp = 3;
+    private int ShieldCurrentHp = 0;
+    private SpriteRenderer ShieldSpriteRenderer;
+    private float currentAlpha = 0f;
 
     void Start(){
         ShieldSpriteRenderer = ShieldObject.GetComponent<SpriteRenderer>();
@@ -16,6 +19,8 @@ public class Shield : Effect
     protected override void ActivateEffect()
     {
         ShieldObject.SetActive(true);
+        ShieldCurrentHp = ShieldHp;
+        currentAlpha = 1f;
         FadeTo(1f, fadeDuration);
     }
 
@@ -33,5 +38,15 @@ public class Shield : Effect
                      ShieldSpriteRenderer.color = new Color(ShieldSpriteRenderer.color.r, ShieldSpriteRenderer.color.g, ShieldSpriteRenderer.color.b, alpha);
                 })
                 .setOnComplete(onComplete);
+    }
+
+    public void DecreaseShieldHp(){
+        ShieldCurrentHp--;
+        if (ShieldCurrentHp == 0){
+            StopEffect();
+            return;
+        }
+        currentAlpha = currentAlpha - 1f / ShieldHp;
+        FadeTo(currentAlpha, fadeDuration);
     }
 }

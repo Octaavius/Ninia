@@ -142,7 +142,6 @@ public class MenuController : MonoBehaviour
     
     public void OnExitToMenuButtonClicked()
     {
-        LevelProgress.Instance.currentDifficulty = 0;
         SceneManagerGame.Instance.ReturnToMenu();
     }
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Medkit : Projectile
 {
-    public override void ActionOnCollision(ref Health healthScript)
+    public override void ActionOnCollision()
     {
         Destroy(gameObject);
     }

@@ -8,11 +8,12 @@ public class LevelProgress : MonoBehaviour
     public delegate void DifficultyChanged(int newDifficulty);
     public event DifficultyChanged OnDifficultyChanged;
 
-    [HideInInspector] public int currentDifficulty = 0;
+    private int currentDifficulty = 0;
     private int nextDifficultyScore = 100;
 
     void Awake()
     {
+        SpawnerManager.Instance.currentDifficulty = currentDifficulty;
         if (Instance == null)
         {
             Instance = this;

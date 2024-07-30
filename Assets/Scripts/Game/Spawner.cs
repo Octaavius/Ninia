@@ -15,8 +15,6 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log($"Spawner {gameObject.name} initial minSpawnTime: {minSpawnTime}, maxSpawnTime: {maxSpawnTime}");
-
         if (SpawnerManager.Instance != null)
         {
             SpawnerManager.Instance.RegisterSpawner(this);
@@ -35,7 +33,7 @@ public class Spawner : MonoBehaviour
 
     private void TriggerPause()
     {
-        StartCoroutine(PauseForSeconds(2f));
+        StartCoroutine(PauseForSeconds(1f));
     }
 
     private IEnumerator PauseForSeconds(float seconds)
@@ -49,13 +47,14 @@ public class Spawner : MonoBehaviour
 
     public void OnDifficultyChanged(int newDifficulty)
     {
-        TriggerPause();
         SpawnerManager.Instance.AdjustDifficulty(newDifficulty);
+        if(newDifficulty == 0) return;
         GameObject medkitPrefab = projectilesPrefabs.Find(p => p.GetComponent<Projectile>() is Medkit);
         if (medkitPrefab != null)
         {
             GameObject newMedkit = Instantiate(medkitPrefab, GetSpawnPosition(), GetSpawnDirection());
             ProjectileManager.Instance.AddNewProjectile(newMedkit);
+            TriggerPause();
         }
     }
     public Quaternion GetSpawnDirection() //Spawn direction is the direction the projectile will move
@@ -104,6 +103,10 @@ public class Spawner : MonoBehaviour
 
     public void SpawnProjectiles()
     {
+        if(GameManager.Instance.spawnOnlyCoins){
+            SpawnCoins();
+            return;
+        }
         List<GameObject> availableProjectiles = new List<GameObject>();
         foreach (var prefab in projectilesPrefabs)
         {

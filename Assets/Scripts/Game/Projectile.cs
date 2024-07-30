@@ -21,7 +21,7 @@ public abstract class Projectile : MonoBehaviour
     }
 
     public abstract void ActionOnDestroy(); 
-    public abstract void ActionOnCollision(ref Health healthScript);
+    public abstract void ActionOnCollision();
     public virtual float GetSpawnChance(){return 0f;}
     
     private void MoveForward(){

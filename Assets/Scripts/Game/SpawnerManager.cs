@@ -7,7 +7,7 @@ public class SpawnerManager : MonoBehaviour
     public static SpawnerManager Instance { get; private set; }
 
     private List<Spawner> spawners = new List<Spawner>();
-    int currentDifficulty = LevelProgress.Instance.currentDifficulty;
+    public int currentDifficulty;
 
     void Awake()
     {

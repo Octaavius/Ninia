@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour
 
     private int ScoreMultiplier = 1;
     private int CoinsMultiplier = 1;
+    
     [HideInInspector] public bool magnetEffectActivated = false;
+    [HideInInspector] public bool spawnOnlyCoins;
 
     [HideInInspector] public bool GameIsPaused;
     
@@ -42,7 +44,8 @@ public class GameManager : MonoBehaviour
         UpdateTexts();
         ninjaController.InitializeNinja();
         SpawnerManager.Instance.ResetSpawners();
-        LevelProgress.Instance.ResetLevelProgress();
+        if(LevelProgress.Instance != null)
+            LevelProgress.Instance.ResetLevelProgress();
     }
 
     public void EndGame() {
@@ -52,7 +55,6 @@ public class GameManager : MonoBehaviour
         EffectsManager.Instance.RemoveAllEffects();
         menuController.ShowEndGameMenu(Score);
         UpdateStats();
-        LevelProgress.Instance.ResetLevelProgress();
         SpawnerManager.Instance.ResetSpawners();
     }
 

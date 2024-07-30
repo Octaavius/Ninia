@@ -52,7 +52,7 @@ public class Health : MonoBehaviour
     public void RemoveHeart()
     {
         if(shield.isActive){
-            shield.StopEffect();
+            shield.DecreaseShieldHp();
             return;
         }
         // Destroy the last heart in the list

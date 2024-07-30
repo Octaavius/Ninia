@@ -22,7 +22,7 @@ public class Coin : Projectile
         Magnet.OnMagnetEffectActivatedChanged -= OnMagnetEffectActivatedChanged;
     }
 
-    public override void ActionOnCollision(ref Health healthScript){
+    public override void ActionOnCollision(){
         Destroy(gameObject);
     }
 
