@@ -17,7 +17,7 @@ public class TimeSlow : Effect
                 .setEase(LeanTweenType.easeInOutQuad)
                 .setIgnoreTimeScale(true);
         
-        if(!GameManager.Instance.GameIsNotOver || GameManager.Instance.GameIsPaused) return;
+        if(GameManager.Instance.GameIsOver || GameManager.Instance.GameIsPaused) return;
         
         LeanTween.value(gameObject, UpdateTimeScale, Time.timeScale, 1f, 1f)
                 .setEase(LeanTweenType.easeInOutQuad);

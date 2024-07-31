@@ -28,12 +28,13 @@ public class Spawner : MonoBehaviour
 
     void StartSpawning()
     {
-       Invoke("SpawnProjectiles", Random.Range(minSpawnTime, maxSpawnTime));
+        Debug.Log("spawning");
+        Invoke("SpawnProjectiles", Random.Range(minSpawnTime, maxSpawnTime));
     }
 
     private void TriggerPause()
     {
-        StartCoroutine(PauseForSeconds(1f));
+        StartCoroutine(PauseForSeconds(.6f));
     }
 
     private IEnumerator PauseForSeconds(float seconds)
@@ -52,6 +53,7 @@ public class Spawner : MonoBehaviour
         GameObject medkitPrefab = projectilesPrefabs.Find(p => p.GetComponent<Projectile>() is Medkit);
         if (medkitPrefab != null)
         {
+            //TriggerPause();
             GameObject newMedkit = Instantiate(medkitPrefab, GetSpawnPosition(), GetSpawnDirection());
             ProjectileManager.Instance.AddNewProjectile(newMedkit);
             TriggerPause();
