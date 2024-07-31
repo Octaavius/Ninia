@@ -8,11 +8,10 @@ public class EffectButtonDuration : MonoBehaviour
 
     private float durationTimer;
 
-    private Effect effect;
+    [SerializeField] private Effect effect;
 
     void Start()
     {
-        effect = GetComponent<Effect>();
         effectDuration = effect.effectDuration;
 
         effect.OnEffectActivated += UseButton;

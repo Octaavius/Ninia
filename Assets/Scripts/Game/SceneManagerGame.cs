@@ -19,6 +19,7 @@ public class SceneManagerGame : MonoBehaviour
     }
     IEnumerator LoadMenu(){
         FadeInScript.PlayFadeIn();
+        EffectsManager.Instance.RemoveAllEffects();
         yield return new WaitForSecondsRealtime(FadeInScript.animationDuration);
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");

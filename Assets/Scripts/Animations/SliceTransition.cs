@@ -1,5 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+
 public class SliceTransition : MonoBehaviour
 {
     public RectTransform uiElementToBottom;
@@ -18,18 +20,18 @@ public class SliceTransition : MonoBehaviour
         screenWidth = Display.main.systemWidth;
     }
     public void PlayAnimation() {
-        // Set the object's position to the start position
+        DisableRaycast(uiElementToBottom);
+        DisableRaycast(uiElementToUp);
+        
         slice.transform.position = startPosition;
 
-        // Activate the object
         slice.SetActive(true);
 
-        // Move the object from the start position to the end position using DoTween
         LeanTween.move(slice, endPosition, 0.5f)
             .setOnComplete(() => {
                 UIMoveToBottom();
                 UIMoveToUp();
-                }); // Optional: callback when animation completes
+                });
     }
 
     void UIMoveToBottom()
@@ -51,5 +53,18 @@ public class SliceTransition : MonoBehaviour
 
     public float getAnimationTime() {
         return movingTime + slicingTime;
+    }
+
+    void DisableRaycast(RectTransform uiElement)
+    {
+        if (uiElement != null)
+        {
+            // Get all Graphic components in the RectTransform
+            Graphic[] graphics = uiElement.GetComponentsInChildren<Graphic>();
+            foreach (Graphic graphic in graphics)
+            {
+                graphic.raycastTarget = false;
+            }
+        }
     }
 }

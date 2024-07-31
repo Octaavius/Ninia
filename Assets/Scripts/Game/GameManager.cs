@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool spawnOnlyCoins;
 
     [HideInInspector] public bool GameIsPaused;
+    [HideInInspector] public bool GameIsNotOver;
     
     private MenuController menuController;
     public PlayerInfo playerInfo;
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void InitializeGame() {
+        GameIsNotOver = true;
         ResetNumbers();
         UpdateTexts();
         ninjaController.InitializeNinja();
@@ -49,13 +51,14 @@ public class GameManager : MonoBehaviour
     }
 
     public void EndGame() {
-    	AudioManager.Instance.PlaySFX(AudioManager.Instance.gameOverSound);
+    	GameIsNotOver = false;
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.gameOverSound);
+        EffectsManager.Instance.RemoveAllEffects();
         Time.timeScale = 0f;
         ProjectileManager.Instance.DestroyAllProjectiles();
-        EffectsManager.Instance.RemoveAllEffects();
         menuController.ShowEndGameMenu(Score);
-        UpdateStats();
         SpawnerManager.Instance.ResetSpawners();
+        UpdateStats();
     }
 
     public void RestartGame(){

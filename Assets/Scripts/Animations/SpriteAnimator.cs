@@ -25,7 +25,7 @@ public class SpriteAnimator : MonoBehaviour
         {
             spriteRenderer.sprite = animationFrames[currentFrame];
             currentFrame = currentFrame + 1;
-            yield return new WaitForSeconds(frameTime);
+            yield return new WaitForSecondsRealtime(frameTime);
         }
         Destroy(transform.parent.gameObject);
     }

@@ -38,7 +38,7 @@ public class Hit : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(origin, direction, actualHitDistance, layersToHit);
             
             if (hit.collider != null) { //player hits something
-                AudioManager.Instance.PlaySFX(AudioManager.Instance.hitSound);
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.sliceSound);
                 ProjectileManager.Instance.DestroyProjectile(hit.collider.gameObject);
             }     
 

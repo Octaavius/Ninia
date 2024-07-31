@@ -5,15 +5,14 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     [Header("Audio Sources")]
-    [SerializeField] public AudioSource musicSource;
-    [SerializeField] public AudioSource SFXSource;
+    public AudioSource musicSource;
+    public AudioSource SFXSource;
 
     [Header("Audio Clips")]
     public AudioClip collisionSound;
     public AudioClip gameOverSound;
     public AudioClip gameMusic;
     public AudioClip coinSound;
-    public AudioClip hitSound;
     public AudioClip sliceSound;
 
     public static AudioManager Instance { get; private set; }

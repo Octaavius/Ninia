@@ -9914,10 +9914,10 @@ MonoBehaviour:
   musicSource: {fileID: 1709478998}
   SFXSource: {fileID: 1098248610}
   collisionSound: {fileID: 8300000, guid: b0d8a4b7b41b34c49a7c0bcb933349ac, type: 3}
-  gameOverSound: {fileID: 8300000, guid: 0b671af4b37ac2b4685b1353565d958d, type: 3}
+  gameOverSound: {fileID: 8300000, guid: 78281d0ccb5266af4b79d48814ffe6d2, type: 3}
   gameMusic: {fileID: 8300000, guid: 50e9c204fef95294fa5ded7cbcc8ea4c, type: 3}
-  hitSound: {fileID: 8300000, guid: 8a3f9d4786b9e2045aaf7fb7954868f8, type: 3}
   coinSound: {fileID: 8300000, guid: 6b2bee4e127218d4789cbecb5b64389d, type: 3}
+  sliceSound: {fileID: 8300000, guid: 8a3f9d4786b9e2045aaf7fb7954868f8, type: 3}
 --- !u!4 &1350153734
 Transform:
   m_ObjectHideFlags: 0

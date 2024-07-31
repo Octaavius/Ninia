@@ -22,6 +22,7 @@ public class MenuController : MonoBehaviour
     public GameObject SettingsUI;
 
     private bool cantPause = false;
+    private float previousTimeScale;
 
     // Enum to track menu state
     private enum MenuState { None, Pause, EndGame }
@@ -44,9 +45,10 @@ public class MenuController : MonoBehaviour
     {
         if (cantPause) return;
         GameManager.Instance.UpdateStats();
+        GameManager.Instance.GameIsPaused = true;
+        previousTimeScale = Time.timeScale;
         Time.timeScale = 0f;
         ShowPauseMenu();
-        GameManager.Instance.GameIsPaused = true;
     }
 
     public void Resume()
@@ -66,7 +68,7 @@ public class MenuController : MonoBehaviour
         yield return StartCoroutine(AnimateNumber("2"));
         yield return StartCoroutine(AnimateNumber("1"));
 
-        Time.timeScale = 1f;
+        Time.timeScale = previousTimeScale;
 
         countdownText.text = "";
 
@@ -152,6 +154,7 @@ public class MenuController : MonoBehaviour
 
     void OnApplicationPause(bool pauseStatus)
     {
+        if(currentMenuState != MenuState.None) return;
         if(pauseStatus == true){
             Pause();
         }
