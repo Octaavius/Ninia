@@ -2773,7 +2773,6 @@ MonoBehaviour:
   gameOverSound: {fileID: 8300000, guid: 78281d0ccb5266af4b79d48814ffe6d2, type: 3}
   gameMusic: {fileID: 8300000, guid: 50e9c204fef95294fa5ded7cbcc8ea4c, type: 3}
   coinSound: {fileID: 8300000, guid: 6b2bee4e127218d4789cbecb5b64389d, type: 3}
-  hitSound: {fileID: 8300000, guid: 8a3f9d4786b9e2045aaf7fb7954868f8, type: 3}
   sliceSound: {fileID: 8300000, guid: 8a3f9d4786b9e2045aaf7fb7954868f8, type: 3}
 --- !u!1 &571393189
 GameObject:
@@ -5538,6 +5537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectDuration: 15
   isActive: 0
+  PassiveScore: 2
 --- !u!1 &1165289739
 GameObject:
   m_ObjectHideFlags: 0
@@ -6872,8 +6872,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3e0ac26f1b4b96480a586e8ce8d814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 5
+  effectDuration: 7
   isActive: 0
+  timeMultiplier: 0.5
+  audioSpeedMultiplier: 0.8
 --- !u!1 &1506026428
 GameObject:
   m_ObjectHideFlags: 0
@@ -8368,6 +8370,7 @@ MonoBehaviour:
   magnetEffectActivated: 0
   spawnOnlyCoins: 0
   GameIsPaused: 0
+  GameIsOver: 0
   playerInfo: {fileID: 222165142}
   ninjaController: {fileID: 677443137}
   ScoreText: {fileID: 1473961528}

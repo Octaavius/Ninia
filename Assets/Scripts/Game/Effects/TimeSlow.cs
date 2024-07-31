@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class TimeSlow : Effect
 {
+    [SerializeField] private float timeMultiplier = 0.5f;
+    [SerializeField] private float audioSpeedMultiplier = 0.8f;
+
     protected override void ActivateEffect()
     {
-        LeanTween.value(gameObject, UpdateTimeScale, Time.timeScale, 0.5f, 1f).setEase(LeanTweenType.easeInOutQuad)
+        LeanTween.value(gameObject, UpdateTimeScale, Time.timeScale, timeMultiplier, 1f).setEase(LeanTweenType.easeInOutQuad)
                 .setIgnoreTimeScale(true);
-        LeanTween.value(gameObject, UpdatePitch, AudioManager.Instance.musicSource.pitch, 0.8f, 1f).setEase(LeanTweenType.easeInOutQuad);
+        LeanTween.value(gameObject, UpdatePitch, AudioManager.Instance.musicSource.pitch, audioSpeedMultiplier, 1f).setEase(LeanTweenType.easeInOutQuad);
     }
 
     protected override void DisactivateEffect()

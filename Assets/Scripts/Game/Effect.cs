@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Effect : MonoBehaviour
 {
-    public int effectDuration = 5;
+    public float effectDuration = 5f;
     private Coroutine effectCoroutine;
     [HideInInspector] public bool isActive = false;
 
