@@ -14,29 +14,21 @@ public class GestureDetector : MonoBehaviour
 {
 
     [Header("Swipe Settings")]
-    [SerializeField]
-    private float minSwipeDistance = 80f;
+    [SerializeField] private float minSwipeDistance = 80f;
     private Vector2 startTouchPosition;
     private Vector2 currentTouchPosition;
     private bool stopTouch = false;
 
     [Header("Double Tap Settings")]
-    [SerializeField]
-    private float maxTimeBetweenTaps = 0.5f;
+    [SerializeField] private float maxTimeBetweenTaps = 0.5f;
     private float lastTapTime = 0f;
     private int tapCount = 0;
+    [HideInInspector] public bool doubleTapDetected;
 
-    private bool swipeDetected = false;
     private Direction swipeDirection;
 
-    void Update() {
-        if(!GameManager.Instance.GameIsPaused){
-            SwipeDetection();
-            DetectDoubleTap();
-        }
-    }
-
-    void SwipeDetection() {
+    public Direction DetectSwipe()
+    {
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -46,6 +38,15 @@ public class GestureDetector : MonoBehaviour
                 case TouchPhase.Began:
                     stopTouch = false;
                     startTouchPosition = touch.position;
+                    if (Time.time - lastTapTime < maxTimeBetweenTaps)
+                    {
+                        tapCount++;
+                    }
+                    else
+                    {
+                        tapCount = 1;
+                    }
+                    lastTapTime = Time.time;
                     break;
 
                 case TouchPhase.Moved:
@@ -55,16 +56,21 @@ public class GestureDetector : MonoBehaviour
                     {
                         stopTouch = true;
                         resetTaps();
-                        swipeDirection = DetectSwipeDirection();
-                        swipeDetected = true;
+                        return DetectSwipeDirection();
                     }
                     break;
 
                 case TouchPhase.Ended:
                     stopTouch = false;
+                    if (tapCount == 2)
+                    {
+                        doubleTapDetected = true;
+                        resetTaps();
+                    }
                     break;
             }
         }
+        return Direction.None;
     }
 
     Direction DetectSwipeDirection() {
@@ -85,52 +91,11 @@ public class GestureDetector : MonoBehaviour
         }
     }
 
-    void DetectDoubleTap() {
-        if (Input.touchCount > 0) {
-            Touch touch = Input.GetTouch(0);
-
-            if (touch.phase == TouchPhase.Ended) {
-                tapCount++;
-                if (tapCount == 1) {
-                    lastTapTime = Time.time;
-                } else if (tapCount == 2) {
-                    if (Time.time - lastTapTime <= maxTimeBetweenTaps) {
-                        OnDoubleTap();
-                    }
-                    resetTaps();
-                }
-            }
-        }
-
-        // Reset tap count if time exceeds maxTimeBetweenTaps
-        if (tapCount == 1 && Time.time - lastTapTime > maxTimeBetweenTaps)
-        {
-            resetTaps();
-        }
-    }
-    
-    public bool swipeIsDetected() {
-    	return swipeDetected;
-    }
-    
-    public Vector2 swipeDirectionVector2() {
-        return DirectionToVector2(swipeDirection);
-    }
-
-    public void resetSwipe(){
-        swipeDetected = false;
-    }
-
     public void resetTaps(){
         tapCount = 0;
     }
 
-    void OnDoubleTap()
-    {
-        Debug.Log("Double Tap Detected");
-    }
-
-    Vector2 DirectionToVector2(Direction direction){
+    public Vector2 DirectionToVector2(Direction direction){
         switch (direction)
         {
             case Direction.Up:

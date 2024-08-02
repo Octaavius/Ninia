@@ -27,13 +27,22 @@ public class ProjectileManager : MonoBehaviour
     } 
 
     public void DestroyProjectile(GameObject projectileObject){
-        spawnedProjectiles.Remove(projectileObject);
+        if(projectileObject == null) return;
         
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         projectile.ActionOnDestroy();
     }
 
     public void DestroyAllProjectiles()
+    {
+        foreach (GameObject projectile in spawnedProjectiles)
+        {
+            DestroyProjectile(projectile);
+        }
+        spawnedProjectiles = new();
+    }
+
+    public void RemoveAllProjectiles()
     {
         foreach (GameObject projectile in spawnedProjectiles)
         {

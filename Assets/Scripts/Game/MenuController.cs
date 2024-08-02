@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class MenuController : MonoBehaviour
 {   
     [Header("Text fields")]
-    public TMP_Text countdownText;
+    public GameObject countdown;
+    private TMP_Text countdownText;
     public TMP_Text scoreText;
     [Header("Buttons")]
     public Button continueButton;
@@ -30,6 +31,7 @@ public class MenuController : MonoBehaviour
 
     void Start()
     {
+        countdownText = countdown.transform.GetChild(0).gameObject.GetComponent<TMP_Text>();
         // Initially hide the menu
         SetMenuState(MenuState.None);
 
@@ -55,14 +57,12 @@ public class MenuController : MonoBehaviour
     {
         SetMenuState(MenuState.None);
         StartCoroutine(CountdownRoutine());
-
-        GameManager.Instance.GameIsPaused = false;
     }
 
     IEnumerator CountdownRoutine()
     {
         cantPause = true;
-        countdownText.gameObject.SetActive(true);
+        countdown.SetActive(true);
 
         yield return StartCoroutine(AnimateNumber("3"));
         yield return StartCoroutine(AnimateNumber("2"));
@@ -72,8 +72,10 @@ public class MenuController : MonoBehaviour
 
         countdownText.text = "";
 
-        countdownText.gameObject.SetActive(false);
+        countdown.SetActive(false);
         cantPause = false;
+
+        GameManager.Instance.GameIsPaused = false;
     }
 
     IEnumerator AnimateNumber(string number)

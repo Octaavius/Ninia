@@ -9,7 +9,7 @@ public class Health : MonoBehaviour
     [SerializeField] private int startNumberOfHearts = 3;
     
     [SerializeField] private Shield shield;
-    private float HeartMargin = 115f;
+    private float HeartMargin = 125f;
     private int numberOfHearts = 0;
     private int maxHearts = 5;
     private Vector2 initialPosition = Vector2.zero;

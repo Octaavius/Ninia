@@ -15,29 +15,39 @@ public class Hit : MonoBehaviour
     	gestureDetector = GetComponent<GestureDetector>();
     }
     
-    public void HitCheck()
+    public void HitCheck(ref UltimatePower ulti)
     {
-        if(gestureDetector.swipeIsDetected()){
-            gestureDetector.resetSwipe();
-            StartCoroutine(hit());
-        }
+        if(GameManager.Instance.GameIsPaused) return;
+        Direction swipeDirection = gestureDetector.DetectSwipe();
+        
+        if(swipeDirection == Direction.None) return;
+        
+        Vector2 swipeVector = gestureDetector.DirectionToVector2(swipeDirection);
+
+        StartCoroutine(hit(swipeVector, ulti));
     }
 
-    private IEnumerator hit(){
+    public bool UltimateActivationTry(){ 
+        bool valueToReturn = gestureDetector.doubleTapDetected;
+        gestureDetector.doubleTapDetected = false;
+        return valueToReturn;
+    }
+
+    private IEnumerator hit(Vector2 swipeVector, UltimatePower ulti){
         Vector2 origin = transform.position;
-        Vector2 direction = gestureDetector.swipeDirectionVector2();
         float actualHitDistance = maxHitDistance;
 
-        if(direction == Vector2.right || direction == Vector2.left) {
+        if(swipeVector == Vector2.right || swipeVector == Vector2.left) {
             actualHitDistance /= 2;
         }
-        float effectZRotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        float AfterHitEffectZRotation = Mathf.Atan2(swipeVector.y, swipeVector.x) * Mathf.Rad2Deg - 90f;
 
-        Instantiate(afterHitEffect, transform.position, Quaternion.Euler(0, 0, effectZRotation));
+        Instantiate(afterHitEffect, transform.position, Quaternion.Euler(0, 0, AfterHitEffectZRotation));
         for(int i = 0; i < numberOfHits; i++){
-            RaycastHit2D hit = Physics2D.Raycast(origin, direction, actualHitDistance, layersToHit);
+            RaycastHit2D hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, layersToHit);
             
             if (hit.collider != null) { //player hits something
+                ulti.AddCharge();
                 AudioManager.Instance.PlaySFX(AudioManager.Instance.sliceSound);
                 ProjectileManager.Instance.DestroyProjectile(hit.collider.gameObject);
             }     

@@ -5,20 +5,30 @@ using UnityEngine;
 public class TimeSlow : Effect
 {
     [SerializeField] private float timeMultiplier = 0.5f;
-    [SerializeField] private float audioSpeedMultiplier = 0.8f;
+    [SerializeField] private float audioSpeedMultiplier = 0.8f; 
+
+    private int timeSlowLeanTween;
+    private int musicSlowLeanTween;
 
     protected override void ActivateEffect()
     {
-        LeanTween.value(gameObject, UpdateTimeScale, Time.timeScale, timeMultiplier, 1f).setEase(LeanTweenType.easeInOutQuad)
-                .setIgnoreTimeScale(true);
-        LeanTween.value(gameObject, UpdatePitch, AudioManager.Instance.musicSource.pitch, audioSpeedMultiplier, 1f).setEase(LeanTweenType.easeInOutQuad);
+        timeSlowLeanTween = LeanTween.value(gameObject, UpdateTimeScale, Time.timeScale, timeMultiplier, 1f)
+                .setEase(LeanTweenType.easeInOutQuad)
+                .id;
+        
+        musicSlowLeanTween = LeanTween.value(gameObject, UpdatePitch, AudioManager.Instance.musicSource.pitch, audioSpeedMultiplier, 1f)
+                .setEase(LeanTweenType.easeInOutQuad)
+                .id;
     }
 
     protected override void DisactivateEffect()
     {
+        LeanTween.cancel(timeSlowLeanTween);
+        LeanTween.cancel(musicSlowLeanTween);
+
+        
         LeanTween.value(gameObject, UpdatePitch, AudioManager.Instance.musicSource.pitch, 1f, 1f)
-                .setEase(LeanTweenType.easeInOutQuad)
-                .setIgnoreTimeScale(true);
+                .setEase(LeanTweenType.easeInOutQuad);
         
         if(GameManager.Instance.GameIsOver || GameManager.Instance.GameIsPaused) return;
         
@@ -28,6 +38,13 @@ public class TimeSlow : Effect
 
     private void UpdateTimeScale(float value)
     {
+        if(GameManager.Instance.GameIsOver){
+            LeanTween.cancel(timeSlowLeanTween);
+            return;
+        }
+        if(GameManager.Instance.GameIsPaused){
+            return;
+        }
         Time.timeScale = value;
     }
     private void UpdatePitch(float value)

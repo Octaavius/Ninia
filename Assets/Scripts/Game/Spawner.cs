@@ -28,7 +28,6 @@ public class Spawner : MonoBehaviour
 
     void StartSpawning()
     {
-        Debug.Log("spawning");
         Invoke("SpawnProjectiles", Random.Range(minSpawnTime, maxSpawnTime));
     }
 
