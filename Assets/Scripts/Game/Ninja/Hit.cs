@@ -17,14 +17,11 @@ public class Hit : MonoBehaviour
     
     public void HitCheck(ref UltimatePower ulti)
     {
-        if(GameManager.Instance.GameIsPaused) return;
-        Direction swipeDirection = gestureDetector.DetectSwipe();
+        if(!gestureDetector.swipeDetected) return;
         
-        if(swipeDirection == Direction.None) return;
-        
-        Vector2 swipeVector = gestureDetector.DirectionToVector2(swipeDirection);
+        gestureDetector.resetSwipe();
 
-        StartCoroutine(hit(swipeVector, ulti));
+        StartCoroutine(hit(ulti));
     }
 
     public bool UltimateActivationTry(){ 
@@ -33,9 +30,13 @@ public class Hit : MonoBehaviour
         return valueToReturn;
     }
 
-    private IEnumerator hit(Vector2 swipeVector, UltimatePower ulti){
+    private IEnumerator hit(UltimatePower ulti){
         Vector2 origin = transform.position;
         float actualHitDistance = maxHitDistance;
+
+        Direction swipeDirection = gestureDetector.swipeDirection;
+        Vector2 swipeVector = gestureDetector.DirectionToVector2(swipeDirection);
+ 
 
         if(swipeVector == Vector2.right || swipeVector == Vector2.left) {
             actualHitDistance /= 2;

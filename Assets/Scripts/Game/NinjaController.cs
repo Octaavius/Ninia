@@ -21,14 +21,15 @@ public class NinjaController : MonoBehaviour
     }
 
     public void InitializeNinja(){
+        ulti.ResetUltimatePower();
         healthScript.InitializeHearts();
     }
 
     void FixedUpdate(){
+        hitScript.HitCheck(ref ulti);
         if(hitScript.UltimateActivationTry()){
             ulti.TryActivate();
         }
-        hitScript.HitCheck(ref ulti);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

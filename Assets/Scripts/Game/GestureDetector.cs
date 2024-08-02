@@ -12,12 +12,13 @@ public enum Direction {
 
 public class GestureDetector : MonoBehaviour
 {
-
     [Header("Swipe Settings")]
     [SerializeField] private float minSwipeDistance = 80f;
     private Vector2 startTouchPosition;
     private Vector2 currentTouchPosition;
     private bool stopTouch = false;
+    [HideInInspector] public bool swipeDetected = false;
+    [HideInInspector] public Direction swipeDirection;
 
     [Header("Double Tap Settings")]
     [SerializeField] private float maxTimeBetweenTaps = 0.5f;
@@ -25,9 +26,12 @@ public class GestureDetector : MonoBehaviour
     private int tapCount = 0;
     [HideInInspector] public bool doubleTapDetected;
 
-    private Direction swipeDirection;
+    void Update(){
+        if(GameManager.Instance.GameIsPaused) return;
+        DetectSwipe();
+    }
 
-    public Direction DetectSwipe()
+    public void DetectSwipe()
     {
         if (Input.touchCount > 0)
         {
@@ -36,6 +40,7 @@ public class GestureDetector : MonoBehaviour
             switch (touch.phase)
             {
                 case TouchPhase.Began:
+                    Debug.Log("touch started");
                     stopTouch = false;
                     startTouchPosition = touch.position;
                     if (Time.time - lastTapTime < maxTimeBetweenTaps)
@@ -56,11 +61,13 @@ public class GestureDetector : MonoBehaviour
                     {
                         stopTouch = true;
                         resetTaps();
-                        return DetectSwipeDirection();
+                        swipeDirection = DetectSwipeDirection();    
+                        swipeDetected = true;
                     }
                     break;
 
                 case TouchPhase.Ended:
+                    Debug.Log("touch ended");
                     stopTouch = false;
                     if (tapCount == 2)
                     {
@@ -70,25 +77,28 @@ public class GestureDetector : MonoBehaviour
                     break;
             }
         }
-        return Direction.None;
     }
 
     Direction DetectSwipeDirection() {
-        Vector2 swipeDirection = currentTouchPosition - startTouchPosition;
-        if (Mathf.Abs(swipeDirection.x) > Mathf.Abs(swipeDirection.y))
+        Vector2 swipeVector = currentTouchPosition - startTouchPosition;
+        if (Mathf.Abs(swipeVector.x) > Mathf.Abs(swipeVector.y))
         {
-            if (swipeDirection.x > 0) {
+            if (swipeVector.x > 0) {
                 return Direction.Right;
             } else {
                 return Direction.Left;
             }
         } else {
-            if (swipeDirection.y > 0) {
+            if (swipeVector.y > 0) {
                 return Direction.Up;
             } else {
                 return Direction.Down;
             }
         }
+    }
+
+    public void resetSwipe(){
+        swipeDetected = false;
     }
 
     public void resetTaps(){

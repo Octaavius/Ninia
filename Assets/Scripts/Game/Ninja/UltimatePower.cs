@@ -29,8 +29,7 @@ public class UltimatePower : MonoBehaviour
 
         ProjectileManager.Instance.DestroyAllProjectiles();
         
-        currentUltimateCharge = 0f;
-        ultiIsReady = false;
+        ResetUltimatePower();
     } 
 
     public void AddCharge(){
@@ -54,6 +53,11 @@ public class UltimatePower : MonoBehaviour
         } else {
             ultimateBarImage.color = defaultColor;
         }
+    }
+
+    public void ResetUltimatePower(){
+        currentUltimateCharge = 0f;
+        ultiIsReady = false;
     }
 
 }
