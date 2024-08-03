@@ -12,8 +12,8 @@ public class SliceTransition : MonoBehaviour
     public Vector3 endPosition;
     private float screenHeight;
     private float screenWidth;
-    [SerializeField]private float movingTime = 1f;
-    [SerializeField]private float slicingTime = 0.5f;
+    [SerializeField] private float movingTime = 1f;
+    [SerializeField] private float slicingTime = 0.5f;
     
     void Start() {
         screenHeight = Display.main.systemHeight;
