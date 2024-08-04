@@ -9,6 +9,7 @@ public class OnlyCoins : Effect
     public int PassiveScore = 2;
 
     protected override void ActivateEffect(){
+        StopPassiveScoreAdding();
         GameManager.Instance.spawnOnlyCoins = true;
         StartPassiveScoreAdding();
     }

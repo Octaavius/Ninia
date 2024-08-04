@@ -29,9 +29,9 @@ public class UltimatePower : MonoBehaviour
     }
 
     public void TryActivate(){
-        shakeAnimation.TriggerShake();
         if(!ultiIsReady) return;
         
+        shakeAnimation.TriggerShake();
         
         AudioManager.Instance.PlaySFX(AudioManager.Instance.boomSound);
 

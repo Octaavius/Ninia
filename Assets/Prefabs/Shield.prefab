@@ -91,10 +91,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b78b2480d25f84186d94c2d93261be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteToRotate: {fileID: 5286026436189747816}
   Speed: 2
   spawnChance: 0.002
-  rotationSpeed: {x: 0, y: 0, z: 0}
+  rotationSpeed: {x: 0, y: 0, z: 100}
 --- !u!1 &5286026436189747816
 GameObject:
   m_ObjectHideFlags: 0

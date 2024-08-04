@@ -2,8 +2,8 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
-    [Header("Sprite To Rotate")]
-    public GameObject spriteToRotate;
+    //[Header("Sprite To Rotate")]
+    private GameObject spriteToRotate;
     [Header("Projectile basic settings")]
     [SerializeField] public float Speed = 2.0f;
     public float spawnChance;
@@ -14,6 +14,8 @@ public abstract class Projectile : MonoBehaviour
         {
             Speed /= 3f;
         }
+
+        spriteToRotate = transform.GetChild(0).gameObject;
     }
     void Update()
     {

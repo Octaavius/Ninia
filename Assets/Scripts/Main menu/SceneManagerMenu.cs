@@ -7,7 +7,7 @@ public class SceneManagerMenu : MonoBehaviour
 {
     public static SceneManagerMenu Instance { get; private set; }
 
-    public bool transitionStarted = false;
+    [HideInInspector] public bool transitionStarted = false;
 
     void Awake(){
         if (Instance == null) {

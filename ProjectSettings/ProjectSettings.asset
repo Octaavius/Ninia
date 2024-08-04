@@ -821,7 +821,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: 
+    Android: LEVELPLAY_DEPENDENCIES_INSTALLED
     EmbeddedLinux: 
     GameCoreScarlett: 
     GameCoreXboxOne: 
