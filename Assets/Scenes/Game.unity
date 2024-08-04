@@ -223,6 +223,11 @@ MonoBehaviour:
   - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
   - {fileID: 7208632165741971746, guid: 07703eae5d0c3464ca46a8bdd8ab8e02, type: 3}
+  - {fileID: 8585960199572660824, guid: 51e8561f7a039534fa881975f12a3692, type: 3}
+  - {fileID: 2473892036989924854, guid: e4565500e0f246448bc9ff3107c97d1c, type: 3}
+  - {fileID: 2473892036989924854, guid: fdcd782201b0394438f93ffffee6dd13, type: 3}
+  - {fileID: 2473892036989924854, guid: 2744d5d11f6d9524fa2fa352cee1a5d1, type: 3}
+  spawnPoint: {fileID: 0}
   minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
@@ -1415,6 +1420,11 @@ MonoBehaviour:
   - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
   - {fileID: 7208632165741971746, guid: 07703eae5d0c3464ca46a8bdd8ab8e02, type: 3}
+  - {fileID: 8585960199572660824, guid: 51e8561f7a039534fa881975f12a3692, type: 3}
+  - {fileID: 2473892036989924854, guid: e4565500e0f246448bc9ff3107c97d1c, type: 3}
+  - {fileID: 2473892036989924854, guid: fdcd782201b0394438f93ffffee6dd13, type: 3}
+  - {fileID: 2473892036989924854, guid: 2744d5d11f6d9524fa2fa352cee1a5d1, type: 3}
+  spawnPoint: {fileID: 0}
   minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
@@ -7287,6 +7297,11 @@ MonoBehaviour:
   - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
   - {fileID: 7208632165741971746, guid: 07703eae5d0c3464ca46a8bdd8ab8e02, type: 3}
+  - {fileID: 8585960199572660824, guid: 51e8561f7a039534fa881975f12a3692, type: 3}
+  - {fileID: 2473892036989924854, guid: e4565500e0f246448bc9ff3107c97d1c, type: 3}
+  - {fileID: 2473892036989924854, guid: fdcd782201b0394438f93ffffee6dd13, type: 3}
+  - {fileID: 2473892036989924854, guid: 2744d5d11f6d9524fa2fa352cee1a5d1, type: 3}
+  spawnPoint: {fileID: 0}
   minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
@@ -8267,6 +8282,11 @@ MonoBehaviour:
   - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
   - {fileID: 7208632165741971746, guid: 07703eae5d0c3464ca46a8bdd8ab8e02, type: 3}
+  - {fileID: 8585960199572660824, guid: 51e8561f7a039534fa881975f12a3692, type: 3}
+  - {fileID: 2473892036989924854, guid: e4565500e0f246448bc9ff3107c97d1c, type: 3}
+  - {fileID: 2473892036989924854, guid: fdcd782201b0394438f93ffffee6dd13, type: 3}
+  - {fileID: 2473892036989924854, guid: 2744d5d11f6d9524fa2fa352cee1a5d1, type: 3}
+  spawnPoint: {fileID: 0}
   minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
@@ -8611,6 +8631,11 @@ MonoBehaviour:
   ScoreText: {fileID: 1473961528}
   CoinsText: {fileID: 934223350}
   GemsText: {fileID: 582900945}
+  spawners:
+  - {fileID: 30650282}
+  - {fileID: 1710230074}
+  - {fileID: 278000027}
+  - {fileID: 1583488782}
 --- !u!4 &1823422428
 Transform:
   m_ObjectHideFlags: 0
