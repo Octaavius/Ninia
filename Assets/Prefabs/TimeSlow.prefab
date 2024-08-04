@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9dac1b728099e34ea01aa3a30f8d4bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteToRotate: {fileID: 2473892036989924854}
+  spriteToRotate: {fileID: 208372511605583714}
   Speed: 2
   spawnChance: 0.002
   rotationSpeed: {x: 0, y: 0, z: 0}
