@@ -93,10 +93,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteToRotate: {fileID: 7779030786557143894}
-  Speed: 2
+  Speed: 2.3
+  spawnChance: 0.8
   rotationSpeed: {x: 0, y: 0, z: 100}
   scorePrice: 12
-  spawnChance: 0.9
 --- !u!1 &5267329142903244177
 GameObject:
   m_ObjectHideFlags: 0

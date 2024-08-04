@@ -5,7 +5,8 @@ public abstract class Projectile : MonoBehaviour
     [Header("Sprite To Rotate")]
     public GameObject spriteToRotate;
     [Header("Projectile basic settings")]
-    [SerializeField] private float Speed = 2.0f;
+    [SerializeField] public float Speed = 2.0f;
+    public float spawnChance;
     public Vector3 rotationSpeed = new Vector3(0, 0, 100);
     void Awake(){
         float zRotation = transform.eulerAngles.z;
@@ -22,8 +23,8 @@ public abstract class Projectile : MonoBehaviour
 
     public abstract void ActionOnDestroy(); 
     public abstract void ActionOnCollision();
-    public virtual float GetSpawnChance(){return 0f;}
-    
+    public virtual float GetSpawnChance() => 0.0f;
+
     private void MoveForward(){
         transform.Translate(Vector3.up * Speed * Time.deltaTime, Space.Self);
     }
@@ -32,7 +33,18 @@ public abstract class Projectile : MonoBehaviour
         spriteToRotate.transform.Rotate(rotationSpeed * Time.deltaTime);
     }
 
-    public void SetProjectileSpeed(float newSpeed) {
+    public void SetProjectileSpeed(float newSpeed){
         Speed = newSpeed;
+    }
+    public float GetCurrentSpeed(){
+        return Speed;
+    }
+    public void SetSpawnChance(float newSpawnChance){
+        spawnChance = newSpawnChance;
+    }
+    protected void ActivateEffect<T>() where T : Effect
+    {
+        T effect = EffectsManager.Instance.GetComponentInChildren<T>();
+        effect.StartEffect();
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -27,6 +28,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text CoinsText;
     [SerializeField] private TMP_Text GemsText;
 
+    [Header("Spawners")]
+    public List<Spawner> spawners;
+
     public static GameManager Instance { get; private set; }
 
     void Awake(){
@@ -46,7 +50,8 @@ public class GameManager : MonoBehaviour
         UpdateTexts();
         ninjaController.InitializeNinja();
         SpawnerManager.Instance.ResetSpawners();
-        if(LevelProgress.Instance != null)
+        SpawnerManager.Instance.StartSpawning(spawners.ToArray());
+        if (LevelProgress.Instance != null)
             LevelProgress.Instance.ResetLevelProgress();
     }
 

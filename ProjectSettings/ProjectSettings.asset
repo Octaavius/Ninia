@@ -831,7 +831,7 @@ PlayerSettings:
     PS5: 
     QNX: 
     Stadia: 
-    Standalone: 340
+    Standalone: 340;LEVELPLAY_DEPENDENCIES_INSTALLED
     VisionOS: 
     WebGL: 
     Windows Store Apps: 

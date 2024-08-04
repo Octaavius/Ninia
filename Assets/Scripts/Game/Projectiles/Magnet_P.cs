@@ -1,8 +1,8 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class Medkit : Projectile
+public class Magnet_P : Projectile
 {
     private float SpawnChance;
     public override float GetSpawnChance() => SpawnChance;
@@ -13,7 +13,7 @@ public class Medkit : Projectile
 
     public override void ActionOnDestroy()
     {
-        GameManager.Instance.ninjaController.healthScript.AddHeart();
+        ActivateEffect<Magnet>();
         Destroy(gameObject);
     }
 }

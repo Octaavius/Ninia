@@ -23,12 +23,10 @@ public class LevelProgress : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     void Update()
     {
         UpdateGameLevel(GameManager.Instance.GetScore());
     }
-
     private void UpdateGameLevel(int score)
     {
         if (score >= nextDifficultyScore)
@@ -38,7 +36,6 @@ public class LevelProgress : MonoBehaviour
             OnDifficultyChanged?.Invoke(currentDifficulty);
         }
     }
-
     public void ResetLevelProgress()
     {
         currentDifficulty = 0;
