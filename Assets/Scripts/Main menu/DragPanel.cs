@@ -15,6 +15,10 @@ public class DragPanel : MonoBehaviour
     private Vector2 previousTouchPosition;
     private bool isDragging = false;
 
+    private int mainLeanTween = -1;
+    private int shopLeanTween = -1;
+    private int levelLeanTween = -1;
+
     void Start()
     {
         currentPanel = MainPanel; // Start with the MainPanel as the active panel
@@ -22,6 +26,7 @@ public class DragPanel : MonoBehaviour
 
     void Update()
     {
+        if (SceneManagerMenu.Instance.transitionStarted) return;
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -29,6 +34,7 @@ public class DragPanel : MonoBehaviour
             switch (touch.phase)
             {
                 case TouchPhase.Began:
+                    currentTouchPosition = touch.position;
                     initialTouchPosition = touch.position;
                     previousTouchPosition = touch.position;
                     isDragging = true;
@@ -63,6 +69,8 @@ public class DragPanel : MonoBehaviour
     {
         float swipeDeltaX = currentTouchPosition.x - initialTouchPosition.x;
 
+        Debug.Log(swipeDeltaX);
+
         if (Mathf.Abs(swipeDeltaX) > swipeThreshold)
         {
             if (swipeDeltaX < 0)
@@ -78,52 +86,70 @@ public class DragPanel : MonoBehaviour
         }
 
         // Snap back to the current panel's position if no panel change occurred
-        currentPanel.anchoredPosition = Vector2.zero;
+        ResetPanelsPosition();
+    }
+
+    private void ResetPanelsPosition()
+    {
+        Vector2 mainTargetPos = Vector2.zero;
+        Vector2 levelTargetPos = Vector2.zero;
+        Vector2 shopTargetPos = Vector2.zero;
+
+        if (currentPanel == MainPanel)
+        {
+            shopTargetPos = new Vector2(-Screen.width, 0);
+            mainTargetPos = Vector2.zero;
+            levelTargetPos = new Vector2(Screen.width, 0);
+        }
+        else if (currentPanel == LevelPanel)
+        {
+            mainTargetPos = new Vector2(-Screen.width, 0);
+            levelTargetPos = Vector2.zero;
+            shopTargetPos = new Vector2(-2 * Screen.width, 0);
+        }
+        else if (currentPanel == ShopPanel)
+        {
+            mainTargetPos = new Vector2(Screen.width, 0);
+            shopTargetPos = Vector2.zero;
+            levelTargetPos = new Vector2(2 * Screen.width, 0);
+        }
+
+        float transitionDuration = 0.2f; // Duration of the transition in seconds
+
+        mainLeanTween = LeanTween.move(MainPanel, mainTargetPos, transitionDuration).setEase(LeanTweenType.easeOutQuad).id;
+        shopLeanTween = LeanTween.move(LevelPanel, levelTargetPos, transitionDuration).setEase(LeanTweenType.easeOutQuad).id;
+        levelLeanTween = LeanTween.move(ShopPanel, shopTargetPos, transitionDuration).setEase(LeanTweenType.easeOutQuad).id;
     }
 
     private void ChangePanelRight()
     {
         if (currentPanel == MainPanel)
         {
-            // Switch to the LevelPanel (right panel)
             currentPanel = LevelPanel;
-            MainPanel.anchoredPosition = new Vector2(-Screen.width, 0);
-            LevelPanel.anchoredPosition = Vector2.zero;
-            ShopPanel.anchoredPosition = new Vector2(-2 * Screen.width, 0);
-            Debug.Log("Switched to the right panel (LevelPanel).");
+            ResetPanelsPosition();
         }
         else if (currentPanel == ShopPanel)
         {
-            // Switch to the MainPanel (center panel)
             currentPanel = MainPanel;
-            ShopPanel.anchoredPosition = new Vector2(-Screen.width, 0);
-            MainPanel.anchoredPosition = Vector2.zero;
-            LevelPanel.anchoredPosition = new Vector2(Screen.width, 0);
-            Debug.Log("Switched to the center panel (MainPanel).");
+            ResetPanelsPosition();
+        } else {
+            ResetPanelsPosition();
         }
-        // Do nothing if already on the rightmost panel (LevelPanel)
     }
 
     private void ChangePanelLeft()
     {
         if (currentPanel == MainPanel)
         {
-            // Switch to the ShopPanel (left panel)
             currentPanel = ShopPanel;
-            MainPanel.anchoredPosition = new Vector2(Screen.width, 0);
-            ShopPanel.anchoredPosition = Vector2.zero;
-            LevelPanel.anchoredPosition = new Vector2(Screen.width * 2, 0);
-            Debug.Log("Switched to the left panel (ShopPanel).");
+            ResetPanelsPosition();
         }
         else if (currentPanel == LevelPanel)
         {
-            // Switch to the MainPanel (center panel)
             currentPanel = MainPanel;
-            LevelPanel.anchoredPosition = new Vector2(Screen.width, 0);
-            MainPanel.anchoredPosition = Vector2.zero;
-            ShopPanel.anchoredPosition = new Vector2(-Screen.width, 0);
-            Debug.Log("Switched to the center panel (MainPanel).");
+            ResetPanelsPosition();
+        } else {
+            ResetPanelsPosition();
         }
-        // Do nothing if already on the leftmost panel (ShopPanel)
     }
 }
