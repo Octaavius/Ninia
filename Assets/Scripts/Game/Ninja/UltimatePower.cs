@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class UltimatePower : MonoBehaviour
 {
+    private ShakeAnimation shakeAnimation;
+
     [SerializeField] private Image ultimateBarImage; 
     private float currentUltimateCharge = 0f;
     private const float maxUltimateCharge = 1f;
@@ -17,13 +19,19 @@ public class UltimatePower : MonoBehaviour
     // [Header("Camera to Shake")]
     // public Transform cameraTransform;
 
+    void Start() {
+	shakeAnimation = GetComponent<ShakeAnimation>();
+    }
+
     void Update(){
         PassiveUltimateChargeDecrease();
         UpdateUltimateBar();
     }
 
     public void TryActivate(){
+        shakeAnimation.TriggerShake();
         if(!ultiIsReady) return;
+        
         
         AudioManager.Instance.PlaySFX(AudioManager.Instance.boomSound);
 
