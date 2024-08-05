@@ -40,7 +40,6 @@ public class GestureDetector : MonoBehaviour
             switch (touch.phase)
             {
                 case TouchPhase.Began:
-                    Debug.Log("touch started");
                     stopTouch = false;
                     startTouchPosition = touch.position;
                     if (Time.time - lastTapTime < maxTimeBetweenTaps)
@@ -67,7 +66,6 @@ public class GestureDetector : MonoBehaviour
                     break;
 
                 case TouchPhase.Ended:
-                    Debug.Log("touch ended");
                     stopTouch = false;
                     if (tapCount == 2)
                     {

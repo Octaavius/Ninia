@@ -69,23 +69,17 @@ public class DragPanel : MonoBehaviour
     {
         float swipeDeltaX = currentTouchPosition.x - initialTouchPosition.x;
 
-        Debug.Log(swipeDeltaX);
-
         if (Mathf.Abs(swipeDeltaX) > swipeThreshold)
         {
             if (swipeDeltaX < 0)
             {
-                // Swipe to the right
                 ChangePanelRight();
             }
             else
             {
-                // Swipe to the left
                 ChangePanelLeft();
             }
         }
-
-        // Snap back to the current panel's position if no panel change occurred
         ResetPanelsPosition();
     }
 
@@ -125,13 +119,11 @@ public class DragPanel : MonoBehaviour
     {
         if (currentPanel == MainPanel)
         {
-            currentPanel = LevelPanel;
-            ResetPanelsPosition();
+            ChangePanelToLevelPanel();
         }
         else if (currentPanel == ShopPanel)
         {
-            currentPanel = MainPanel;
-            ResetPanelsPosition();
+            ChangePanelToMainPanel();
         } else {
             ResetPanelsPosition();
         }
@@ -141,15 +133,28 @@ public class DragPanel : MonoBehaviour
     {
         if (currentPanel == MainPanel)
         {
-            currentPanel = ShopPanel;
-            ResetPanelsPosition();
+            ChangePanelToShopPanel();
         }
         else if (currentPanel == LevelPanel)
         {
-            currentPanel = MainPanel;
-            ResetPanelsPosition();
+            ChangePanelToMainPanel();
         } else {
             ResetPanelsPosition();
         }
     }
+    
+    public void ChangePanelToMainPanel(){
+	currentPanel = MainPanel;
+        ResetPanelsPosition();
+    }
+    public void ChangePanelToShopPanel(){
+	currentPanel = ShopPanel;
+        ResetPanelsPosition();
+    }
+    public void ChangePanelToLevelPanel(){
+	currentPanel = LevelPanel;
+        ResetPanelsPosition();
+    }
+    
+    
 }

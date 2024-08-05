@@ -9,6 +9,8 @@ public class SceneManagerMenu : MonoBehaviour
 
     [HideInInspector] public bool transitionStarted = false;
 
+    [HideInInspector] public string sceneName = "Arcade";
+
     void Awake(){
         if (Instance == null) {
             Instance = this;
@@ -27,6 +29,6 @@ public class SceneManagerMenu : MonoBehaviour
     IEnumerator LoadGame(){
         sliceTransition.PlayAnimation();
         yield return new WaitForSeconds(sliceTransition.getAnimationTime());
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene(sceneName);
     }
 }

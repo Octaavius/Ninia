@@ -15,6 +15,11 @@ public class SliceTransition : MonoBehaviour
     [SerializeField] private float movingTime = 1f;
     [SerializeField] private float slicingTime = 0.5f;
     
+    [Header("Navigation Buttons To Hide")]
+    public RectTransform ShopButton;
+    public RectTransform MainButton;
+    public RectTransform LevelButton;
+    
     void Start() {
         screenHeight = Display.main.systemHeight;
         screenWidth = Display.main.systemWidth;
@@ -23,11 +28,15 @@ public class SliceTransition : MonoBehaviour
         DisableRaycast(uiElementToBottom);
         DisableRaycast(uiElementToUp);
         
+        LeanTween.move(ShopButton, new Vector2(ShopButton.anchoredPosition.x, -180), slicingTime).setEase(LeanTweenType.easeOutQuad);
+        LeanTween.move(MainButton, new Vector2(MainButton.anchoredPosition.x, -180), slicingTime).setEase(LeanTweenType.easeOutQuad);
+        LeanTween.move(LevelButton, new Vector2(LevelButton.anchoredPosition.x, -180), slicingTime).setEase(LeanTweenType.easeOutQuad);
+        
         slice.transform.position = startPosition;
 
         slice.SetActive(true);
 
-        LeanTween.move(slice, endPosition, 0.5f)
+        LeanTween.move(slice, endPosition, slicingTime)
             .setOnComplete(() => {
                 UIMoveToBottom();
                 UIMoveToUp();
