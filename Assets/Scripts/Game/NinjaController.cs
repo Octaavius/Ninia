@@ -22,7 +22,7 @@ public class NinjaController : MonoBehaviour
 
     public void InitializeNinja(){
         ulti.ResetUltimatePower();
-        healthScript.InitializeHearts();
+        healthScript.InitializeHealth();
     }
 
     void FixedUpdate(){

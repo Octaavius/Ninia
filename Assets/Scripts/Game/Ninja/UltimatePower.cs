@@ -20,7 +20,7 @@ public class UltimatePower : MonoBehaviour
     // public Transform cameraTransform;
 
     void Start() {
-	shakeAnimation = GetComponent<ShakeAnimation>();
+	    shakeAnimation = GetComponent<ShakeAnimation>();
     }
 
     void Update(){

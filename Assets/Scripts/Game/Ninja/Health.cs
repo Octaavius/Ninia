@@ -1,72 +1,54 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {    
-    public GameObject HeartPrefab;
-    public RectTransform HeartParent;
-    public List<GameObject> Hearts;
-    [SerializeField] private int startNumberOfHearts = 3;
+    [SerializeField] private Image healthBarImage; 
+    private int maxHealth = 100;
+    private int currentHealth = 0;
     
     [SerializeField] private Shield shield;
-    private float HeartMargin = 125f;
-    private int numberOfHearts = 0;
-    private int maxHearts = 5;
-    private Vector2 initialPosition = Vector2.zero;
 
-    public void InitializeHearts()
+    public void InitializeHealth()
     {
-        for (int i = 0; i < startNumberOfHearts; i++)
-        {
-            AddHeart();
-        }
+        currentHealth = maxHealth;
+        UpdateHealthBar();
     }
 
-    public void AddHeart()
-    {
-        if (numberOfHearts >= maxHearts) return;
-
-        GameObject newHeart = Instantiate(HeartPrefab, HeartParent);
-
-        RectTransform newHeartRect = newHeart.GetComponent<RectTransform>();
-
-        // Set the anchors to the center
-        newHeartRect.anchorMin = new Vector2(0.5f, 0.5f);
-        newHeartRect.anchorMax = new Vector2(0.5f, 0.5f);
-
-        // If this is the first heart, place it at the initial position
-        if (Hearts.Count == 0) {
-            newHeartRect.anchoredPosition = initialPosition;
-        } else {
-            // Otherwise, position it relative to the last heart
-            newHeartRect.anchoredPosition = Hearts[Hearts.Count - 1].GetComponent<RectTransform>().anchoredPosition + new Vector2(HeartMargin, 0);
-        }
-
-        newHeartRect.localScale = Vector3.one;
-
-        Hearts.Add(newHeart);
-
-        numberOfHearts++;
+    private void UpdateHealthBar(){
+        healthBarImage.fillAmount = ((float)currentHealth)/ maxHealth;
+        Debug.Log(((float)currentHealth)/ maxHealth);
     }
 
-    public void RemoveHeart()
+    public void Heal(int healAmount)
+    {
+        currentHealth += healAmount;
+        
+        if(currentHealth >= maxHealth){
+            currentHealth = maxHealth;
+        }
+        UpdateHealthBar();
+    }
+
+    public void RemoveHealth(int removeAmount)
     {
         if(shield.isActive){
             shield.DecreaseShieldHp();
             return;
         }
-        // Destroy the last heart in the list
-        Destroy(Hearts[numberOfHearts - 1]);
-        Hearts.RemoveAt(numberOfHearts - 1);
-        numberOfHearts--;
 
-        if (numberOfHearts <= 0){
+        currentHealth -= removeAmount;        
+
+        if (currentHealth <= 0){
+            currentHealth = 0;
             GameManager.Instance.EndGame();
         } 
+        UpdateHealthBar();
     }
 
-    public int GetNumberOfHearts()
-    {
-        return numberOfHearts;
+    public void setMaxHealth(int newMaxHealth){
+        maxHealth = newMaxHealth;
     }
+
 }

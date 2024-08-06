@@ -13,7 +13,7 @@ public class Medkit : Projectile
 
     public override void ActionOnDestroy()
     {
-        GameManager.Instance.ninjaController.healthScript.AddHeart();
+        GameManager.Instance.ninjaController.healthScript.Heal(10);
         Destroy(gameObject);
     }
 }

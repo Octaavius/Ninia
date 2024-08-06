@@ -9,7 +9,7 @@ public class Pillow : Projectile
     public override float GetSpawnChance() => SpawnChance;
     public override void ActionOnCollision(){
 	    AudioManager.Instance.PlaySFX(AudioManager.Instance.collisionSound);
-        GameManager.Instance.ninjaController.healthScript.RemoveHeart();
+        GameManager.Instance.ninjaController.healthScript.RemoveHealth(30);
         Destroy(gameObject);
     }
 
