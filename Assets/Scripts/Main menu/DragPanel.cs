@@ -26,7 +26,7 @@ public class DragPanel : MonoBehaviour
 
     void Update()
     {
-        if (SceneManagerMenu.Instance.transitionStarted) return;
+        if (SliceTransition.Instance.transitionStarted) return;
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);

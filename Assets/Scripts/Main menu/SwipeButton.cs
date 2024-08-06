@@ -42,7 +42,7 @@ public class SwipeButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     }
 
     public virtual void OnClick(){
-        SceneManagerMenu.Instance.PlayGame();
+        SliceTransition.Instance.PlayAnimation();
     } 
 
     private void CheckForSwipe()

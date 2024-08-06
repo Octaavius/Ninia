@@ -20,11 +20,24 @@ public class SliceTransition : MonoBehaviour
     public RectTransform MainButton;
     public RectTransform LevelButton;
     
+    [HideInInspector] public bool transitionStarted = false;
+
+    public static SliceTransition Instance { get; private set; }
+    
+    void Awake(){
+        if (Instance == null) {
+            Instance = this;
+        } else {
+            Destroy(gameObject);
+        }
+    }
+
     void Start() {
         screenHeight = Display.main.systemHeight;
         screenWidth = Display.main.systemWidth;
     }
     public void PlayAnimation() {
+        transitionStarted = true;
         DisableRaycast(uiElementToBottom);
         DisableRaycast(uiElementToUp);
         
@@ -45,30 +58,27 @@ public class SliceTransition : MonoBehaviour
 
     void UIMoveToBottom()
     {
-        // Move the UI element down by half the screen height and to the left by the screen width using DoTween
         Debug.Log(-screenWidth);
-        LeanTween.move(uiElementToBottom, new Vector2(-screenWidth, -screenHeight * 0.327f), 1f)
-            .setEase(customCurve) // Optional: set the ease type
-            .setOnComplete(() => Debug.Log("UI moved down.")); // Optional: callback when animation completes
+        LeanTween.move(uiElementToBottom, new Vector2(-screenWidth, -screenHeight * 0.327f), movingTime)
+            .setEase(customCurve)
+            .setOnComplete(() => {
+                Debug.Log("animation ended");
+                transitionStarted = false;
+                SceneManagerScript.Instance.PlayGame();
+                });
     }
     void UIMoveToUp()
     {
-        // Move the UI element down by half the screen height and to the left by the screen width using DoTween
         Debug.Log(screenWidth);
-        LeanTween.move(uiElementToUp, new Vector2(screenWidth, screenHeight * 0.327f), 1f)
-            .setEase(customCurve) // Optional: set the ease type
-            .setOnComplete(() => Debug.Log("UI moved up.")); // Optional: callback when animation completes
-    }
-
-    public float getAnimationTime() {
-        return movingTime + slicingTime;
+        LeanTween.move(uiElementToUp, new Vector2(screenWidth, screenHeight * 0.327f), movingTime)
+            .setEase(customCurve)
+            .setOnComplete(() => Debug.Log("UI moved up."));
     }
 
     void DisableRaycast(RectTransform uiElement)
     {
         if (uiElement != null)
         {
-            // Get all Graphic components in the RectTransform
             Graphic[] graphics = uiElement.GetComponentsInChildren<Graphic>();
             foreach (Graphic graphic in graphics)
             {

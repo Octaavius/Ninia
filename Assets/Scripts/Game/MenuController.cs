@@ -146,7 +146,7 @@ public class MenuController : MonoBehaviour
     
     public void OnExitToMenuButtonClicked()
     {
-        SceneManagerGame.Instance.ReturnToMenu();
+        SceneManagerScript.Instance.ReturnToMenu();
     }
 
     public void CloseSettings()

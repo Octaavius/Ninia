@@ -1,22 +1,38 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class SceneManagerGame : MonoBehaviour
+
+[RequireComponent(typeof(FadeIn))]
+[RequireComponent(typeof(FadeOut))]
+
+public class SceneManagerScript : MonoBehaviour
 {
-    public static SceneManagerGame Instance { get; private set; }
+    public static SceneManagerScript Instance { get; private set; }
     
+    FadeIn FadeInScript; 
+    [HideInInspector] public FadeOut FadeOutScript; 
+    
+    [HideInInspector] public string sceneName = "Arcade";
+
     void Awake(){
         if (Instance == null) {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         } else {
             Destroy(gameObject);
         }
+        FadeInScript = GetComponent<FadeIn>();
+        FadeOutScript = GetComponent<FadeOut>();
     }
 
-    public FadeIn FadeInScript;
     public void ReturnToMenu() {
         StartCoroutine(LoadMenu());
     }
+    
+    public void PlayGame() {
+        SceneManager.LoadScene(sceneName);
+    }
+    
     IEnumerator LoadMenu(){
         FadeInScript.PlayFadeIn();
         EffectsManager.Instance.RemoveAllEffects();

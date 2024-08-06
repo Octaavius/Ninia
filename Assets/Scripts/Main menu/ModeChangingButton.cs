@@ -19,7 +19,7 @@ public class ModeChangingButton : MonoBehaviour
     void Start()
     {
         currentMode = PlayerPrefs.GetInt("GameMode", 0);
-        SceneManagerMenu.Instance.sceneName = modesList[currentMode];
+        SceneManagerScript.Instance.sceneName = modesList[currentMode];
         modeText.text = modesList[currentMode];
     }
 
@@ -37,7 +37,7 @@ public class ModeChangingButton : MonoBehaviour
         string nextModeName = modesList[nextMode];
         
         nextModeText.text = nextModeName;
-        SceneManagerMenu.Instance.sceneName = nextModeName;
+        SceneManagerScript.Instance.sceneName = nextModeName;
 
         // Animate the current mode text moving down
         LeanTween.moveY(modeText.rectTransform, -modeText.rectTransform.rect.height, moveDuration).setEase(LeanTweenType.easeOutQuad);

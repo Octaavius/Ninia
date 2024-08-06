@@ -5,11 +5,9 @@ public class FadeOut : MonoBehaviour
 {
     public Image fadeImage;
     public float animationDuration = 1f;
-    void Awake() {
-        PlayFadeOut();
-    }
     public void PlayFadeOut()
     {
+        fadeImage.gameObject.SetActive(true);
         // Ensure the image is fully opaque at the start
         Color color = fadeImage.color;
         color.a = 1f;
