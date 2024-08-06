@@ -18,6 +18,7 @@ public class ModeChangingButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentMode = PlayerPrefs.GetInt("GameMode", 0);
         modeText.text = modesList[currentMode];
     }
 
@@ -56,6 +57,7 @@ public class ModeChangingButton : MonoBehaviour
             {
                 isChangeRequested = false;
                 ChangeMode();
+                PlayerPrefs.SetInt("GameMode", currentMode);
             }
         });
 
