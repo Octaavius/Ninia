@@ -19,6 +19,7 @@ public class ModeChangingButton : MonoBehaviour
     void Start()
     {
         currentMode = PlayerPrefs.GetInt("GameMode", 0);
+        SceneManagerMenu.Instance.sceneName = modesList[currentMode];
         modeText.text = modesList[currentMode];
     }
 
