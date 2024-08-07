@@ -23,7 +23,11 @@ public abstract class Projectile : MonoBehaviour
         Rotate();
     }
 
-    public abstract void ActionOnDestroy(); 
+    public virtual string ActionOnHit(){
+        ActionOnDestroy();
+        return "destroyed";
+    }
+    public abstract void ActionOnDestroy();
     public abstract void ActionOnCollision();
     public virtual float GetSpawnChance() => 0.0f;
 

@@ -18,7 +18,6 @@ public class Health : MonoBehaviour
 
     private void UpdateHealthBar(){
         healthBarImage.fillAmount = ((float)currentHealth)/ maxHealth;
-        Debug.Log(((float)currentHealth)/ maxHealth);
     }
 
     public void Heal(int healAmount)

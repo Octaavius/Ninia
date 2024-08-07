@@ -9,6 +9,8 @@ public class ProjectileManager : MonoBehaviour
     private List<GameObject> spawnedProjectiles = new();
     [SerializeField] private List<GameObject> ProjectilesPrefabs = new();
 
+    [HideInInspector] public bool projectileWasDestroyed = false;
+
     void Awake(){
         if (Instance == null) {
             Instance = this;
@@ -25,6 +27,25 @@ public class ProjectileManager : MonoBehaviour
     {
         return new List<GameObject>(spawnedProjectiles);
     } 
+
+    public void HitProjectile(GameObject projectileObject){
+        if(projectileObject == null) return;
+
+        Projectile projectile = projectileObject.GetComponent<Projectile>();
+        string hitResult = projectile.ActionOnHit();
+        if(hitResult == "destroyed"){
+            projectileWasDestroyed = true;
+        }
+    }
+
+    public bool ProjectileWasDestroyed(){
+        if(projectileWasDestroyed){
+            projectileWasDestroyed = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public void DestroyProjectile(GameObject projectileObject){
         if(projectileObject == null) return;
