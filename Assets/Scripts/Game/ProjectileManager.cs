@@ -10,6 +10,7 @@ public class ProjectileManager : MonoBehaviour
     [SerializeField] private List<GameObject> ProjectilesPrefabs = new();
 
     [HideInInspector] public bool projectileWasDestroyed = false;
+    private bool showNumbers = false;
 
     void Awake(){
         if (Instance == null) {
@@ -74,6 +75,32 @@ public class ProjectileManager : MonoBehaviour
      
     public void AddNewProjectile(GameObject newProjectile){
         spawnedProjectiles.Add(newProjectile);
+        Projectile projectile = newProjectile.GetComponent<Projectile>();
+        if (projectile != null)
+        {
+            projectile.SetShowNumbers(showNumbers);
+        }
     }
+    public void SetShowNumbers(bool show)
+    {
+        showNumbers = show;
+        spawnedProjectiles.RemoveAll(projectile => projectile == null);
+        foreach (var projectile in spawnedProjectiles)
+        {
+            Projectile proj = projectile.GetComponent<Projectile>();
+            if (proj != null)
+            {
+                proj.SetShowNumbers(show);
+            }
+        }
 
+        foreach (var prefab in ProjectilesPrefabs)
+        {
+            Projectile proj = prefab.GetComponent<Projectile>();
+            if (proj != null)
+            {
+                proj.SetShowNumbers(show);
+            }
+        }
+    }
 }

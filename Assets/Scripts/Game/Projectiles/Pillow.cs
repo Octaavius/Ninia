@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Pillow : Projectile
 {
@@ -9,7 +10,8 @@ public class Pillow : Projectile
 
     private float maxHealth = 100f;
     private float currentHealth = 0f;
-    [SerializeField] private GameObject healthBarImage; 
+    [SerializeField] private GameObject healthBarImage;
+    [SerializeField] private TMP_Text healthTextPillow;
 
     void Start(){
         InitializeHealth();
@@ -23,13 +25,17 @@ public class Pillow : Projectile
         UpdateHealthBar();
     }
 
-    private void UpdateHealthBar(){
+    public void UpdateHealthBar(){
         float fillAmount = currentHealth / maxHealth;
         float currentXScale = healthBarImage.transform.localScale.x;
         healthBarImage.transform.localScale = new Vector3(currentXScale * fillAmount, healthBarImage.transform.localScale.y, 1f);
+        healthTextPillow.text = showNumbers ? $"{currentHealth}/{maxHealth}" : "";
     }
 
     public override float GetSpawnChance() => SpawnChance;
+    public override void OnToggleChange() {
+        healthTextPillow.text = showNumbers ? $"{currentHealth}/{maxHealth}" : "";
+    }
     
     public override void ActionOnCollision(){
 	    AudioManager.Instance.PlaySFX(AudioManager.Instance.collisionSound);

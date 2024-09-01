@@ -4,9 +4,13 @@ using System.Collections.Generic;
 
 public class VolumeManager : MonoBehaviour
 {
+    [Header("Sliders")]
     public Slider masterVolumeSlider;
     public Slider musicVolumeSlider;
     public Slider effectsVolumeSlider;
+
+    [Header("Toggles")]
+    public Toggle betterUiToggle;
 
     private AudioSource musicAudioSource;
     private AudioSource effectsAudioSource;
@@ -35,6 +39,10 @@ public class VolumeManager : MonoBehaviour
         masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
         musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
         effectsVolumeSlider.onValueChanged.AddListener(OnEffectsVolumeChanged);
+
+        // Initialize and add listener for better UI toggle
+        betterUiToggle.isOn = PlayerPrefs.GetInt("BetterUI", 1) == 1;
+        betterUiToggle.onValueChanged.AddListener(OnBetterUiToggleChanged);
     }
 
     void OnMasterVolumeChanged(float value)
@@ -63,5 +71,10 @@ public class VolumeManager : MonoBehaviour
         musicAudioSource.volume = musicVolume * masterVolume;
         
         effectsAudioSource.volume = effectsVolume * masterVolume;
+    }
+    private void OnBetterUiToggleChanged(bool isOn)
+    {
+        PlayerPrefs.SetInt("BetterUI", isOn ? 1 : 0);
+        GameManager.Instance.UpdateBetterUiState(isOn);
     }
 }

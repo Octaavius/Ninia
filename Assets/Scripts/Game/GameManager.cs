@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
         SpawnerManager.Instance.StartSpawning(spawners.ToArray());
         if (LevelProgress.Instance != null)
             LevelProgress.Instance.ResetLevelProgress();
+        bool showNumbers = PlayerPrefs.GetInt("BetterUI", 1) == 1;
+        UpdateBetterUiState(showNumbers);
     }
 
     public void EndGame() {
@@ -75,6 +77,8 @@ public class GameManager : MonoBehaviour
         ScoreText.text = Score.ToString();
         CoinsText.text = Coins.ToString();
         GemsText.text = Gems.ToString();
+        //menuController.betterUiToggle.isOn = PlayerPrefs.GetInt("BetterUI", 1) == 1;
+        //UpdateBetterUiState(menuController.betterUiToggle.isOn);
     }
     
     public void UpdateStats(){
@@ -121,5 +125,11 @@ public class GameManager : MonoBehaviour
     }
     public int GetGems() {
         return Gems;
+    }
+    public void UpdateBetterUiState(bool showNumbers)
+    {
+        ninjaController.healthScript.SetShowNumbers(showNumbers);
+        ninjaController.ulti.SetShowNumbers(showNumbers);
+        ProjectileManager.Instance.SetShowNumbers(showNumbers);
     }
 }

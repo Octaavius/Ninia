@@ -8,6 +8,7 @@ public abstract class Projectile : MonoBehaviour
     [SerializeField] public float Speed = 2.0f;
     public float spawnChance;
     public Vector3 rotationSpeed = new Vector3(0, 0, 100);
+    protected bool showNumbers = false;
     void Awake(){
         float zRotation = transform.eulerAngles.z;
         if (zRotation == 90f || zRotation == 270f)
@@ -30,7 +31,7 @@ public abstract class Projectile : MonoBehaviour
     public abstract void ActionOnDestroy();
     public abstract void ActionOnCollision();
     public virtual float GetSpawnChance() => 0.0f;
-
+    public virtual void OnToggleChange() { }    
     private void MoveForward(){
         transform.Translate(Vector3.up * Speed * Time.deltaTime, Space.Self);
     }
@@ -47,6 +48,11 @@ public abstract class Projectile : MonoBehaviour
     }
     public void SetSpawnChance(float newSpawnChance){
         spawnChance = newSpawnChance;
+    }
+    public void SetShowNumbers(bool show)
+    {
+        showNumbers = show;
+        OnToggleChange();
     }
     protected void ActivateEffect<T>() where T : Effect
     {

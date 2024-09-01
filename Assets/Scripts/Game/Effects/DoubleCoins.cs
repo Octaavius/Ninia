@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class DoubleCoins : Effect
 {
-    protected override void ActivateEffect(){
+    public DoubleCoinsAnimation doubleCoinsAnimation;
+
+    protected override void ActivateEffect()
+    {
         GameManager.Instance.SetCoinsMultiplier(2);
+        doubleCoinsAnimation.ActivateCoinsAnimation(); // Start the animation
     }
-    protected override void DisactivateEffect(){
+
+    protected override void DisactivateEffect()
+    {
         GameManager.Instance.SetCoinsMultiplier(1);
+        doubleCoinsAnimation.DeactivateCoinsAnimation(); // Stop the animation
     }
 }
