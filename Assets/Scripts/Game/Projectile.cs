@@ -18,11 +18,14 @@ public abstract class Projectile : MonoBehaviour
 
         spriteToRotate = transform.GetChild(0).gameObject;
     }
-    void Update()
+    protected void Update()
     {
         MoveForward();
         Rotate();
+        UpdateHealthBarPosition();
     }
+
+    public virtual void UpdateHealthBarPosition(){}
 
     public virtual string ActionOnHit(){
         ActionOnDestroy();
