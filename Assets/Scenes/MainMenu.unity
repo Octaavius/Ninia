@@ -17163,6 +17163,7 @@ MonoBehaviour:
   coinSound: {fileID: 8300000, guid: 6b2bee4e127218d4789cbecb5b64389d, type: 3}
   sliceSound: {fileID: 8300000, guid: 8a3f9d4786b9e2045aaf7fb7954868f8, type: 3}
   boomSound: {fileID: 8300000, guid: c27be219125f51870bc4d066a175e0c2, type: 3}
+  punchSound: {fileID: 8300000, guid: 630df04777a129b9aa2a2bc1e0451b2e, type: 3}
 --- !u!4 &1350153734
 Transform:
   m_ObjectHideFlags: 0
@@ -23604,6 +23605,7 @@ GameObject:
   - component: {fileID: 1885520468}
   - component: {fileID: 1885520467}
   - component: {fileID: 1885520466}
+  - component: {fileID: 1885520469}
   m_Layer: 5
   m_Name: Achievments_button
   m_TagString: Untagged
@@ -23712,6 +23714,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1885520464}
   m_CullTransparentMesh: 1
+--- !u!114 &1885520469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885520464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &1888586515
 GameObject:
   m_ObjectHideFlags: 0

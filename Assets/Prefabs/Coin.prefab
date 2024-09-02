@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7451d7c3736879061b3b7ae38ec622e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 0.2
+  BasicSpeed: 2
   spawnChance: 0.2
   rotationSpeed: {x: 0, y: 0, z: 100}
   price: 7

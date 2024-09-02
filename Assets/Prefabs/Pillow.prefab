@@ -126,7 +126,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.25
+  m_fontSize: 1
   m_fontSizeBase: 1.25
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7345adfb614561ec0a57437e5db4445c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 0.2
+  BasicSpeed: 1
   spawnChance: 0.8
   rotationSpeed: {x: 0, y: 0, z: 100}
   scorePrice: 12

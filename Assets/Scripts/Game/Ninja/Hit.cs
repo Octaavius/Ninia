@@ -30,10 +30,14 @@ public class Hit : MonoBehaviour
         gestureDetector.resetSwipe();
         
         ///////////////////////////////////
-        if (comboTimer > 0)
-        {
-            CheckCombo(ref ulti);
-            return;
+        if(SceneManagerScript.Instance.sceneName == "TestScene"){
+            if (comboTimer > 0)
+            {
+                CheckCombo(ref ulti);
+                return;
+            }
+        } else if(SceneManagerScript.Instance.sceneName == "Arcade"){
+            //do nothing, cause for now it is just turning off combo
         }
         ///////////////////////////////////
         firstSwipeDirection = gestureDetector.swipeDirection;
