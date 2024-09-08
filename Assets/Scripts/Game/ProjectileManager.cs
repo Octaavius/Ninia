@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class ProjectileManager : MonoBehaviour
@@ -34,7 +35,8 @@ public class ProjectileManager : MonoBehaviour
 
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         string hitResult = projectile.ActionOnHit();
-        if(hitResult == "destroyed"){
+
+        if (hitResult == "destroyed"){
             projectileWasDestroyed = true;
         }
     }

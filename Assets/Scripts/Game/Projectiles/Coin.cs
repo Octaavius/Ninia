@@ -31,7 +31,6 @@ public class Coin : Projectile
         GameManager.Instance.AddToCoins(price);
         Destroy(gameObject);
     }
-
     private void OnMagnetEffectActivatedChanged()
     {
         StartCoroutine(CollectCoin());

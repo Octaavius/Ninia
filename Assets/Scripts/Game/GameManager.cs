@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Diagnostics.Tracing;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     private int Coins = 0;
     private int Gems = 0;
     private int AddedGems = 0;
+    private int OnlyCoinsScore = 0;
 
     private int ScoreMultiplier = 1;
     private int CoinsMultiplier = 1;
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text ScoreText;
     [SerializeField] private TMP_Text CoinsText;
     [SerializeField] private TMP_Text GemsText;
+    [SerializeField] private TMP_Text OnlyCoinsText;
 
     [Header("Spawners")]
     public List<Spawner> spawners;
@@ -77,6 +80,7 @@ public class GameManager : MonoBehaviour
         ScoreText.text = Score.ToString();
         CoinsText.text = Coins.ToString();
         GemsText.text = Gems.ToString();
+        OnlyCoinsText.text = OnlyCoinsScore.ToString();
         //menuController.betterUiToggle.isOn = PlayerPrefs.GetInt("BetterUI", 1) == 1;
         //UpdateBetterUiState(menuController.betterUiToggle.isOn);
     }
@@ -109,8 +113,14 @@ public class GameManager : MonoBehaviour
         Score += addAmount * ScoreMultiplier;
         UpdateTexts();
     }
-    public void AddToCoins(int addAmount) {
+    public void AddToCoins(int addAmount)
+    {
         Coins += addAmount * CoinsMultiplier;
+        if (spawnOnlyCoins) {
+            OnlyCoinsScore += addAmount * CoinsMultiplier;
+        } else {
+            Invoke("ResetOnlyCoinsScore", 0.7f);
+        }
         UpdateTexts();
     }
     public void AddToGems(int addAmount) {
@@ -131,5 +141,11 @@ public class GameManager : MonoBehaviour
         ninjaController.healthScript.SetShowNumbers(showNumbers);
         ninjaController.ulti.SetShowNumbers(showNumbers);
         ProjectileManager.Instance.SetShowNumbers(showNumbers);
+    }
+
+    private void ResetOnlyCoinsScore()
+    {
+      OnlyCoinsScore = 0;
+        UpdateTexts();
     }
 }

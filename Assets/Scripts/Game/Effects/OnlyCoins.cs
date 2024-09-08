@@ -7,15 +7,18 @@ public class OnlyCoins : Effect
     private Coroutine scoreCoroutine;
 
     public int PassiveScore = 2;
+    public OnlyCoinsAnimation coinsAnimation;
 
     protected override void ActivateEffect(){
         StopPassiveScoreAdding();
+        coinsAnimation.ActivateAnimation();
         GameManager.Instance.spawnOnlyCoins = true;
         StartPassiveScoreAdding();
     }
     protected override void DisactivateEffect(){
         GameManager.Instance.spawnOnlyCoins = false;
         StopPassiveScoreAdding();
+        coinsAnimation.DeactivateAnimation();
     }
 
     private void StartPassiveScoreAdding(){
