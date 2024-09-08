@@ -3216,6 +3216,7 @@ MonoBehaviour:
   coinSound: {fileID: 8300000, guid: 6b2bee4e127218d4789cbecb5b64389d, type: 3}
   sliceSound: {fileID: 8300000, guid: 8a3f9d4786b9e2045aaf7fb7954868f8, type: 3}
   boomSound: {fileID: 8300000, guid: c27be219125f51870bc4d066a175e0c2, type: 3}
+  punchSound: {fileID: 8300000, guid: 630df04777a129b9aa2a2bc1e0451b2e, type: 3}
 --- !u!1 &571393189
 GameObject:
   m_ObjectHideFlags: 0

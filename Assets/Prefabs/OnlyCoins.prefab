@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b3ac0ed9c72dba41a0e46c898b1f91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
+  BasicSpeed: 2
   spawnChance: 0.002
   rotationSpeed: {x: 0, y: 0, z: 100}
 --- !u!1 &8327769526518479619

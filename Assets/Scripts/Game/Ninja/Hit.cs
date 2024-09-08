@@ -23,20 +23,25 @@ public class Hit : MonoBehaviour
     
     public void HitCheck(ref UltimatePower ulti)
     {
-        comboTimer -= Time.deltaTime;
-        if(comboTimer <= 0) comboTimer = 0;
-        
+        UpdateComboTimer();
+
         if(!gestureDetector.swipeDetected) return;
+        
         gestureDetector.resetSwipe();
+        
         ///////////////////////////////////
-        if (comboTimer > 0)
-        {
-            CheckCombo(ref ulti);
-            return;
+        if(SceneManagerScript.Instance.sceneName == "TestScene"){
+            if (comboTimer > 0)
+            {
+                CheckCombo(ref ulti);
+                return;
+            }
+        } else if(SceneManagerScript.Instance.sceneName == "Arcade"){
+            //do nothing, cause for now it is just turning off combo
         }
         ///////////////////////////////////
         firstSwipeDirection = gestureDetector.swipeDirection;
-        StartCoroutine(MultiHit(ulti));
+        StartCoroutine(DefaultHit(ulti));
     }
 
     private void CheckCombo(ref UltimatePower ulti){
@@ -56,17 +61,19 @@ public class Hit : MonoBehaviour
         }
         else if (scalarProduct == -1)
         {
-            StartCoroutine(MultiHit(ulti));
+            StartCoroutine(DefaultHit(ulti));
             firstSwipeDirection = lastDirection;
             comboTimer = comboWindowTime;
         }
         else if (vectorProduct > 0)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.punchSound);
             ClockwisePunch(ulti, true);
             comboTimer = 0;
         }
         else if (vectorProduct < 0)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.punchSound);
             ClockwisePunch(ulti, false);
             comboTimer = 0;
         }
@@ -98,10 +105,12 @@ public class Hit : MonoBehaviour
 
         if (firstSwipeDirection == Direction.Right || firstSwipeDirection == Direction.Left) {
             a = Math.Abs(target.position.x);
-            b = a * screenHeight / screenWidth;
+            // b = a * screenHeight / screenWidth;
+            b = 5;
         } else {
             b = Math.Abs(target.position.y);
-            a = b * screenWidth / screenHeight;
+            //a = b * screenWidth / screenHeight;
+            a = 3;
         }
         
         float duration = 0.5f; // Duration of the movement in seconds
@@ -140,7 +149,7 @@ public class Hit : MonoBehaviour
         }
     }
 
-    private IEnumerator MultiHit(UltimatePower ulti){
+    private IEnumerator DefaultHit(UltimatePower ulti){
         Vector2 origin = transform.position;
         float actualHitDistance = maxHitDistance;
 
@@ -207,5 +216,10 @@ public class Hit : MonoBehaviour
 
     public void setNumberOfHits(int newNumberOfHits){
         numberOfHits = newNumberOfHits;
+    }
+    
+    void UpdateComboTimer() {
+        comboTimer -= Time.deltaTime;
+        if(comboTimer <= 0) comboTimer = 0;
     }
 }

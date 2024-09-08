@@ -144,7 +144,7 @@ public class SpawnerManager : MonoBehaviour
         foreach (GameObject projectile in projectiles)
         {
             Projectile projectileScript = projectile.GetComponent<Projectile>();
-            projectileScript.SetProjectileSpeed(2.0f);
+            projectileScript.ResetSpeed();
         }
     }
 }

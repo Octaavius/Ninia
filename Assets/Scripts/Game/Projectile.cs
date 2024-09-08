@@ -5,11 +5,16 @@ public abstract class Projectile : MonoBehaviour
     //[Header("Sprite To Rotate")]
     private GameObject spriteToRotate;
     [Header("Projectile basic settings")]
-    [SerializeField] public float Speed = 2.0f;
+    
+    [SerializeField] private float BasicSpeed;
+    
+    private float Speed;
+
     public float spawnChance;
     public Vector3 rotationSpeed = new Vector3(0, 0, 100);
     protected bool showNumbers = false;
     void Awake(){
+        Speed = BasicSpeed;
         float zRotation = transform.eulerAngles.z;
         if (zRotation == 90f || zRotation == 270f)
         {
@@ -18,11 +23,14 @@ public abstract class Projectile : MonoBehaviour
 
         spriteToRotate = transform.GetChild(0).gameObject;
     }
-    void Update()
+    protected void Update()
     {
         MoveForward();
         Rotate();
+        UpdateHealthBarPosition();
     }
+
+    public virtual void UpdateHealthBarPosition(){}
 
     public virtual string ActionOnHit(){
         ActionOnDestroy();
@@ -46,6 +54,9 @@ public abstract class Projectile : MonoBehaviour
     public float GetCurrentSpeed(){
         return Speed;
     }
+    public void ResetSpeed(){
+        Speed = BasicSpeed;
+    }
     public void SetSpawnChance(float newSpawnChance){
         spawnChance = newSpawnChance;
     }
@@ -59,4 +70,5 @@ public abstract class Projectile : MonoBehaviour
         T effect = EffectsManager.Instance.GetComponentInChildren<T>();
         effect.StartEffect();
     }
+
 }

@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip coinSound;
     public AudioClip sliceSound;
     public AudioClip boomSound;
+    public AudioClip punchSound;
 
     public static AudioManager Instance { get; private set; }
    
