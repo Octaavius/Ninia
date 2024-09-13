@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class SwipeButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    public float swipeThreshold = 50f; // Threshold in pixels to consider it a swipe
+    private float swipeThreshold = 50f; // Threshold in pixels to consider it a swipe
     private Vector2 pointerDownPosition;
     private Vector2 pointerUpPosition;
     private bool isSwipe;
@@ -33,17 +33,11 @@ public class SwipeButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         
         if (!isSwipe)
         {
-            // If it's not a swipe, we simulate the button click
-            //button.onClick.Invoke();
-            OnClick();
+            button.onClick.Invoke();
         } else {
             Debug.Log("it is a swipe, we ARE NOT SWIPING");
         }
     }
-
-    public virtual void OnClick(){
-        SliceTransition.Instance.PlayAnimation();
-    } 
 
     private void CheckForSwipe()
     {

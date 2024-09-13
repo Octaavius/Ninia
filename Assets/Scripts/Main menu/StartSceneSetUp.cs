@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class StartSceneSetUp : MonoBehaviour
 {
+    [Header("Character")]
+    public GameObject[] NinjaSkinObjects;
     [Header("Panels")]
     public RectTransform ShopPanel;
     public RectTransform LevelPanel;  
@@ -19,11 +21,19 @@ public class StartSceneSetUp : MonoBehaviour
     {
         SceneManagerScript.Instance.FadeOutScript.PlayFadeOut();
         IncreaseFps();
+
         screenWidth = Display.main.systemWidth;
-        SetPanelsPosition();   
+        SetSkin();
+        SetPanelsPosition();
         SetButtonsPosition();
     }
     
+    void SetSkin()
+    {
+        int skinId = PlayerPrefs.GetInt("SkinId", 0);
+        NinjaSkinObjects[skinId].SetActive(true);
+    }
+
     void SetPanelsPosition()
     {
         ShopPanel.offsetMin = new Vector2(-screenWidth, 0);

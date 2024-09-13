@@ -7,7 +7,7 @@ public class Hit : MonoBehaviour
 {
     private GestureDetector gestureDetector;
     public float timeBetweenMultipleHits = 0.05f;
-    [SerializeField] private float maxHitDistance = 500f;
+    [SerializeField] private float maxHitDistance = 5f;
     public LayerMask layersToHit;
     public GameObject afterHitEffect;
     private int numberOfHits = 1;
@@ -19,6 +19,7 @@ public class Hit : MonoBehaviour
 
     void Awake(){
     	gestureDetector = GetComponent<GestureDetector>();
+        
     }
     
     public void HitCheck(ref UltimatePower ulti)
@@ -31,6 +32,7 @@ public class Hit : MonoBehaviour
         
         ///////////////////////////////////
         if(SceneManagerScript.Instance.sceneName == "TestScene"){
+        //if(SceneManagerScript.Instance.sceneName == "Arcade"){
             if (comboTimer > 0)
             {
                 CheckCombo(ref ulti);

@@ -6,12 +6,13 @@ public class ShowPlayerInfo : MonoBehaviour
     public TMP_Text ScoreText;
     public TMP_Text CoinsText;
     public TMP_Text GemsText;
-    void Awake(){
-        PlayerData data = SaveSystem.LoadPlayer();
 
-        ScoreText.text = data.BestScore.ToString();
-        CoinsText.text = data.Coins.ToString();
-        GemsText.text = data.Gems.ToString();
+    [SerializeField] private  PlayerInfo playerInfo;
+    
+    void Awake(){
+        ScoreText.text = playerInfo.BestScore.ToString();
+        CoinsText.text = playerInfo.Coins.ToString();
+        GemsText.text = playerInfo.Gems.ToString();
     }
     //skins and achievments
 }
