@@ -10,6 +10,10 @@ public class ShowPlayerInfo : MonoBehaviour
     [SerializeField] private  PlayerInfo playerInfo;
     
     void Awake(){
+        UpdateTexts();
+    }
+
+    public void UpdateTexts(){
         ScoreText.text = playerInfo.BestScore.ToString();
         CoinsText.text = playerInfo.Coins.ToString();
         GemsText.text = playerInfo.Gems.ToString();

@@ -7,6 +7,7 @@ public class StartSceneSetUp : MonoBehaviour
 {
     [Header("Character")]
     public GameObject[] NinjaSkinObjects;
+    private GameObject currentSkinObject;
     [Header("Panels")]
     public RectTransform ShopPanel;
     public RectTransform LevelPanel;  
@@ -28,10 +29,12 @@ public class StartSceneSetUp : MonoBehaviour
         SetButtonsPosition();
     }
     
-    void SetSkin()
+    public void SetSkin()
     {
-        int skinId = PlayerPrefs.GetInt("SkinId", 0);
+        if(currentSkinObject != null) currentSkinObject.SetActive(false);
+        int skinId = PlayerPrefs.GetInt("CurrentSkin", 0);
         NinjaSkinObjects[skinId].SetActive(true);
+        currentSkinObject = NinjaSkinObjects[skinId];
     }
 
     void SetPanelsPosition()

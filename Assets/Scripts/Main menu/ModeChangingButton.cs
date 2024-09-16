@@ -54,11 +54,12 @@ public class ModeChangingButton : MonoBehaviour
 
             isAnimating = false;
 
+            PlayerPrefs.SetInt("GameMode", nextMode);
+
             if (isChangeRequested)
             {
                 isChangeRequested = false;
                 ChangeMode();
-                PlayerPrefs.SetInt("GameMode", currentMode);
             }
         });
 
