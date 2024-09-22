@@ -26,6 +26,7 @@ public class DragPanel : MonoBehaviour
 
     void Update()
     {
+        if (UIManager.Instance.OtherPanelIsOpened) return;
         if (SliceTransition.Instance.transitionStarted) return;
         if (Input.touchCount > 0)
         {
