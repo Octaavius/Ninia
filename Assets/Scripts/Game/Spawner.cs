@@ -14,6 +14,9 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private Direction spawnDirection = Direction.Down;
     private bool isSpawning = false;
+    private float originalMinSpawnTime;
+    private float originalMaxSpawnTime;
+    private float originalProjectileSpeed;
 
 
     void Start()
@@ -179,7 +182,41 @@ public class Spawner : MonoBehaviour
     {
         if (GameManager.Instance.spawnOnlyCoins)
         {
+            // Store the original values if not already stored
+            if (originalMinSpawnTime == 0 && originalMaxSpawnTime == 0 && originalProjectileSpeed == 0)
+            {
+                originalMinSpawnTime = minSpawnTime;
+                originalMaxSpawnTime = maxSpawnTime;
+                if (projectilesPrefabs.Count > 0)
+                {
+                    Projectile projectileScript = projectilesPrefabs[0].GetComponent<Projectile>();
+                    if (projectileScript != null)
+                    {
+                        originalProjectileSpeed = projectileScript.GetCurrentSpeed();
+                    }
+                }
+            }
+
+            // Change the spawn rate and projectile speed
+            SetSpawnRate(0.1f, 1.0f); // Example values
+            SetProjectileSpeed(3.0f); // Example value
+
             return projectilesPrefabs.Find(p => p.GetComponent<Projectile>() is Coin);
+
+        }
+        else
+        {
+            // Reset the values to their original state
+            if (originalMinSpawnTime != 0 && originalMaxSpawnTime != 0 && originalProjectileSpeed != 0)
+            {
+                SetSpawnRate(originalMinSpawnTime, originalMaxSpawnTime);
+                SetProjectileSpeed(originalProjectileSpeed);
+
+                // Clear the original values
+                originalMinSpawnTime = 0;
+                originalMaxSpawnTime = 0;
+                originalProjectileSpeed = 0;
+            }
         }
 
         float totalChance = 0f;
