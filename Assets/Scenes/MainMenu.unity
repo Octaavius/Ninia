@@ -9348,6 +9348,7 @@ GameObject:
   - component: {fileID: 403850860}
   - component: {fileID: 403850859}
   - component: {fileID: 403850858}
+  - component: {fileID: 403850861}
   m_Layer: 5
   m_Name: Settings_button
   m_TagString: Untagged
@@ -9399,7 +9400,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -9413,7 +9414,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 403850859}
   m_OnClick:
     m_PersistentCalls:
@@ -9468,6 +9469,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 403850856}
   m_CullTransparentMesh: 1
+--- !u!114 &403850861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403850856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf636c0d2ecf96cb9dbb5051cd9adb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &406649509
 GameObject:
   m_ObjectHideFlags: 0
@@ -13626,6 +13639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Settings: {fileID: 1241572039}
   SkinPanel: {fileID: 1797323985}
+  OtherPanelIsOpened: 0
 --- !u!4 &685698988
 Transform:
   m_ObjectHideFlags: 0
@@ -16158,22 +16172,31 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.86873406
-      value: 0.6666179
-      inSlope: 2.1889453
-      outSlope: 2.1889453
+      time: 0.5897122
+      value: 0.10705655
+      inSlope: 0.62330145
+      outSlope: 0.62330145
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.18900976
+      outWeight: 0.39018762
+    - serializedVersion: 3
+      time: 0.80153203
+      value: 0.42662483
+      inSlope: 2.7600508
+      outSlope: 2.7600508
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.20330165
+      outWeight: 0.24226066
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1.7412757
-      outSlope: 1.7412757
+      inSlope: 2.4312894
+      outSlope: 2.4312894
       tangentMode: 0
       weightedMode: 0
-      inWeight: 1
+      inWeight: 0.18894748
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -42246,6 +42269,18 @@ MonoBehaviour:
       - m_Target: {fileID: 685698992}
         m_TargetAssemblyTypeName: DragPanel, Assembly-CSharp
         m_MethodName: ChangePanelToMainPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 778302475}
+        m_TargetAssemblyTypeName: SliceTransition, Assembly-CSharp
+        m_MethodName: TestAnimation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

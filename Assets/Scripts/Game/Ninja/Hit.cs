@@ -127,7 +127,9 @@ public class Hit : MonoBehaviour
             target.position = new Vector2(x, y);
 
             float rotationZ = 0f;
-            if (firstSwipeDirection == Direction.Right || firstSwipeDirection == Direction.Left) {
+            
+            Direction firstSwipeDirectionCopy = firstSwipeDirection;
+            if (firstSwipeDirectionCopy == Direction.Right || firstSwipeDirectionCopy == Direction.Left) {
                 rotationZ = startRotation + (clockwise ? -1 : 1) * (90f * Math.Abs(Mathf.Sin(angle)));
             } else {
                 rotationZ = startRotation + (clockwise ? -1 : 1) * (90f * Math.Abs(Mathf.Cos(angle)));
