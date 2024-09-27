@@ -29,12 +29,12 @@ public class Pillow : Projectile
         float fillAmount = currentHealth / maxHealth;
         float currentXScale = healthBarImage.transform.localScale.x;
         healthBarImage.transform.localScale = new Vector3(currentXScale * fillAmount, healthBarImage.transform.localScale.y, 1f);
-        healthTextPillow.text = showNumbers ? $"{currentHealth}/{maxHealth}" : "";
+        healthTextPillow.text = showNumbers ? $"{currentHealth}" : "";
     }
 
     public override float GetSpawnChance() => SpawnChance;
     public override void OnToggleChange() {
-        healthTextPillow.text = showNumbers ? $"{currentHealth}/{maxHealth}" : "";
+        healthTextPillow.text = showNumbers ? $"{currentHealth}" : "";
     }
     
     public override void ActionOnCollision(){
