@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     public GameObject Settings;
     public GameObject SkinPanel;
 
-    public bool OtherPanelIsOpened = false;
+    [HideInInspector] public bool OtherPanelIsOpened = false;
 
     void Awake(){
         if (Instance == null) {
