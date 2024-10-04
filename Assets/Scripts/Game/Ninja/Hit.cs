@@ -8,6 +8,7 @@ public class Hit : MonoBehaviour
     private GestureDetector gestureDetector;
     public float timeBetweenMultipleHits = 0.05f;
     [SerializeField] private float maxHitDistance = 5f;
+    [SerializeField] private float damage = 100f;
     public LayerMask layersToHit;
     public GameObject afterHitEffect;
     private int numberOfHits = 1;
@@ -153,7 +154,7 @@ public class Hit : MonoBehaviour
         }
     }
 
-    private IEnumerator DefaultHit(UltimatePower ulti){
+    private IEnumerator DefaultHit(UltimatePower ulti){ // hits numberOfHits times
         Vector2 origin = transform.position;
         float actualHitDistance = maxHitDistance;
 
@@ -173,8 +174,8 @@ public class Hit : MonoBehaviour
                 comboTimer = comboWindowTime;
                 ulti.AddCharge();
                 AudioManager.Instance.PlaySFX(AudioManager.Instance.sliceSound);
-                ProjectileManager.Instance.HitProjectile(hit.collider.gameObject);
-                if(ProjectileManager.Instance.ProjectileWasDestroyed()){
+                ProjectileManager.Instance.HitProjectile(hit.collider.gameObject, damage);
+                if(ProjectileManager.Instance.ProjectileWasDestroyed(hit.collider.gameObject)){
                     comboTimer = 0;
                 }
             }     
@@ -184,7 +185,7 @@ public class Hit : MonoBehaviour
 
     }
 
-    private IEnumerator PenetrationHit(UltimatePower ulti){
+    private IEnumerator PenetrationHit(UltimatePower ulti){ // kills every enemy in hit direction
         Vector2 origin = transform.position;
         float actualHitDistance = maxHitDistance;
 

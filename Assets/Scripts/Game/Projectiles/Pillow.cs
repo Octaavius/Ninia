@@ -5,12 +5,15 @@ using TMPro;
 
 public class Pillow : Projectile
 {
+    [Header("Pillow Settings")]
     [SerializeField] private int scorePrice = 12;
     private float SpawnChance;
 
     private float maxHealth = 100f;
     private float currentHealth = 0f;
-    [SerializeField] private GameObject healthBarImage;
+    [SerializeField] private Transform leftHealthBarBorderPosition;
+    [SerializeField] private GameObject healthBar;
+    [SerializeField] private GameObject healthBarFilling;
     [SerializeField] private TMP_Text healthTextPillow;
 
     void Start(){
@@ -19,16 +22,16 @@ public class Pillow : Projectile
 
     void InitializeHealth()
     {
-        healthBarImage.transform.position = transform.position + new Vector3(0f, 1f, 0f);
-        healthBarImage.transform.rotation = Quaternion.Euler(0, 0, 0);
+        healthBar.transform.position = transform.position + new Vector3(0f, .55f, 0f);
+        healthBar.transform.rotation = Quaternion.Euler(0, 0, 0);
         currentHealth = maxHealth;
         UpdateHealthBar();
     }
 
     public void UpdateHealthBar(){
         float fillAmount = currentHealth / maxHealth;
-        float currentXScale = healthBarImage.transform.localScale.x;
-        healthBarImage.transform.localScale = new Vector3(currentXScale * fillAmount, healthBarImage.transform.localScale.y, 1f);
+        healthBarFilling.transform.localScale = new Vector3(fillAmount, healthBarFilling.transform.localScale.y, 1f);
+        healthBarFilling.transform.localPosition = new Vector2(leftHealthBarBorderPosition.localPosition.x * (1f - fillAmount), healthBarFilling.transform.localPosition.y);
         healthTextPillow.text = showNumbers ? $"{currentHealth}" : "";
     }
 
@@ -48,14 +51,13 @@ public class Pillow : Projectile
         Destroy(gameObject);
     }
 
-    public override string ActionOnHit(){
-        currentHealth -= 51f;
+    public override void TakeDamage(float damage){
+        currentHealth -= damage;
         UpdateHealthBar();
         if (currentHealth <= 0){
             ActionOnDestroy();
-            return "destroyed";
+            alive = false;
         }  
-        return "not destroyed";
     }
 }
 

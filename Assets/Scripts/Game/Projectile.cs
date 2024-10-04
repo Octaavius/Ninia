@@ -13,6 +13,8 @@ public abstract class Projectile : MonoBehaviour
     public float spawnChance;
     public Vector3 rotationSpeed = new Vector3(0, 0, 100);
     protected bool showNumbers = false;
+    [HideInInspector] public bool alive = true;
+
     void Awake(){
         Speed = BasicSpeed;
         float zRotation = transform.eulerAngles.z;
@@ -32,10 +34,11 @@ public abstract class Projectile : MonoBehaviour
 
     public virtual void UpdateHealthBarPosition(){}
 
-    public virtual string ActionOnHit(){
+    public virtual void TakeDamage(float damage){ // by default just kill projectile, as it can be without hp
+        alive = false;
         ActionOnDestroy();
-        return "destroyed";
     }
+
     public abstract void ActionOnDestroy();
     public abstract void ActionOnCollision();
     public virtual float GetSpawnChance() => 0.0f;
