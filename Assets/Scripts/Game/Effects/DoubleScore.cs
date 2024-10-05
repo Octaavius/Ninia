@@ -9,7 +9,7 @@ public class DoubleScore : Effect
         GameManager.Instance.SetScoreMultiplier(2);
         doubleScoreAnimation.ActivateScoreAnimation();
     }
-    protected override void DisactivateEffect(){
+    protected override void DeactivateEffect(){
         GameManager.Instance.SetScoreMultiplier(1);
         doubleScoreAnimation.DeactivateScoreAnimation();
     }

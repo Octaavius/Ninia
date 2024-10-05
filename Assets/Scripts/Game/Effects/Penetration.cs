@@ -7,7 +7,7 @@ public class Penetration : Effect
     protected override void ActivateEffect(){
         GameManager.Instance.ninjaController.hitScript.setNumberOfHits(2);
     }
-    protected override void DisactivateEffect(){
+    protected override void DeactivateEffect(){
         GameManager.Instance.ninjaController.hitScript.setNumberOfHits(1);
     }
 }

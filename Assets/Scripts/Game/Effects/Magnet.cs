@@ -13,7 +13,7 @@ public class Magnet : Effect
         OnMagnetEffectActivatedChanged?.Invoke();
     }
 
-    protected override void DisactivateEffect()
+    protected override void DeactivateEffect()
     {
         GameManager.Instance.magnetEffectActivated = false;
     }

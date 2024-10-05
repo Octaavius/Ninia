@@ -12,7 +12,7 @@ public class DoubleCoins : Effect
         doubleCoinsAnimation.ActivateCoinsAnimation(); // Start the animation
     }
 
-    protected override void DisactivateEffect()
+    protected override void DeactivateEffect()
     {
         GameManager.Instance.SetCoinsMultiplier(1);
         doubleCoinsAnimation.DeactivateCoinsAnimation(); // Stop the animation

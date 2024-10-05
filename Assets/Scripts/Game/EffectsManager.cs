@@ -20,6 +20,7 @@ public class EffectsManager : MonoBehaviour
     public void RemoveAllEffects(){
         foreach(Effect effect in effectsList){
             effect.StopEffect();
+            effect.ResetCooldown();
         }
     }
 

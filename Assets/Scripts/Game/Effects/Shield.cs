@@ -24,7 +24,7 @@ public class Shield : Effect
         FadeTo(1f, fadeDuration);
     }
 
-    protected override void DisactivateEffect()
+    protected override void DeactivateEffect()
     {
         FadeTo(0f, fadeDuration, () => ShieldObject.SetActive(false));
     }

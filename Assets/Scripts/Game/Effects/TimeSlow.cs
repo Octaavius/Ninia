@@ -30,10 +30,11 @@ public class TimeSlow : Effect
         
         musicSlowLeanTween = LeanTween.value(gameObject, UpdatePitch, AudioManager.Instance.musicSource.pitch, audioSpeedMultiplier, 1f)
                 .setEase(LeanTweenType.easeInOutQuad)
+                .setIgnoreTimeScale(true)
                 .id;
     }
 
-    protected override void DisactivateEffect()
+    protected override void DeactivateEffect()
     {
         LeanTween.cancel(timeSlowLeanTween);
         LeanTween.cancel(musicSlowLeanTween);
@@ -45,7 +46,8 @@ public class TimeSlow : Effect
         }
 
         LeanTween.value(gameObject, UpdatePitch, AudioManager.Instance.musicSource.pitch, 1f, 1f)
-                .setEase(LeanTweenType.easeInOutQuad);
+                .setEase(LeanTweenType.easeInOutQuad)
+                .setIgnoreTimeScale(true);
         
         if(GameManager.Instance.GameIsOver || GameManager.Instance.GameIsPaused) return;
         
@@ -55,10 +57,6 @@ public class TimeSlow : Effect
 
     private void UpdateTimeScale(float value)
     {
-        if(GameManager.Instance.GameIsOver){
-            LeanTween.cancel(timeSlowLeanTween);
-            return;
-        }
         if(GameManager.Instance.GameIsPaused){
             return;
         }

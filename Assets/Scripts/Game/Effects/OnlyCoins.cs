@@ -15,7 +15,7 @@ public class OnlyCoins : Effect
         GameManager.Instance.spawnOnlyCoins = true;
         StartPassiveScoreAdding();
     }
-    protected override void DisactivateEffect(){
+    protected override void DeactivateEffect(){
         GameManager.Instance.spawnOnlyCoins = false;
         StopPassiveScoreAdding();
         coinsAnimation.DeactivateAnimation();

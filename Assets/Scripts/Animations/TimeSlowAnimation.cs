@@ -84,15 +84,18 @@ public class TimeSlowAnimation : MonoBehaviour
             {
                 currentSpeedMultiplier = t;
             })
+            .setIgnoreTimeScale(true)
             .setOnComplete(() =>
             {
                 // Reverse the purple overlay effect
                 LeanTween.scale(Overlay, Vector3.zero, 0.5f)
-                    .setEase(LeanTweenType.easeInQuad);
+                    .setEase(LeanTweenType.easeInQuad)
+                    .setIgnoreTimeScale(true);
 
                 // Reverse the clock animation and shrink it
                 LeanTween.scale(clock, Vector3.zero, 0.5f)
-                    .setEase(LeanTweenType.easeInQuad);
+                    .setEase(LeanTweenType.easeInQuad)
+                    .setIgnoreTimeScale(true);
             });
     }
 }
