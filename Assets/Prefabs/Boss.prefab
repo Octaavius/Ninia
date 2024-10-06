@@ -280,8 +280,8 @@ Transform:
   m_GameObject: {fileID: 1825174217187514313}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.55385715, z: -1.0050654}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -2.08, z: -1.0050654}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2888715507580654375}
@@ -363,9 +363,9 @@ GameObject:
   m_Component:
   - component: {fileID: 469744613031090986}
   - component: {fileID: 6590099016667756847}
-  - component: {fileID: 2417245187437671915}
+  - component: {fileID: -3744942925818830525}
   m_Layer: 6
-  m_Name: Pillow
+  m_Name: Boss
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,7 +434,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.9863224, y: 1.3268356}
   m_EdgeRadius: 0
---- !u!114 &2417245187437671915
+--- !u!114 &-3744942925818830525
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -443,14 +443,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3791677445985977321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7345adfb614561ec0a57437e5db4445c, type: 3}
+  m_Script: {fileID: 11500000, guid: d20b27366002066c99cb3c9d32fef861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BasicSpeed: 1
-  spawnChance: 0.8
-  rotationSpeed: {x: 0, y: 0, z: 100}
+  BasicSpeed: 0
+  spawnChance: 0
+  rotationSpeed: {x: 0, y: 0, z: 0}
   alive: 1
-  scorePrice: 12
+  scorePrice: 50
+  maxHealth: 500
+  damage: 0
   leftHealthBarBorderPosition: {fileID: 2494069746689532470}
   healthBar: {fileID: 1825174217187514313}
   healthBarFilling: {fileID: 639403199661255441}
@@ -564,7 +566,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 3, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 469744613031090986}
@@ -610,7 +612,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 65f943f9208e5730d934716b670b1a75, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f06f7cebf9ee6c64283d97cd2fbde09f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

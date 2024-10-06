@@ -36,6 +36,13 @@ public class LevelProgress : MonoBehaviour
             OnDifficultyChanged?.Invoke(currentDifficulty);
         }
     }
+
+    public void IncreaseGameLevel(){
+        currentDifficulty++;
+        nextDifficultyScore = nextDifficultyScore + 100 * currentDifficulty;
+        OnDifficultyChanged?.Invoke(currentDifficulty);
+    }
+
     public void ResetLevelProgress()
     {
         currentDifficulty = 0;

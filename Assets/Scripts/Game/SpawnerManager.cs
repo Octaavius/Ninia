@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SpawnerManager : MonoBehaviour
 {
     public static SpawnerManager Instance { get; private set; }
 
     private List<Spawner> spawners = new List<Spawner>();
+    [SerializeField] private TMP_Text waveText; 
+    public List<GameObject> projectilePrefabs; // might be private and set in register spawner to each spawner
+    [SerializeField] private GameObject[] bossPrefabs;
+
     public int currentDifficulty;
 
     void Awake()
@@ -45,6 +50,19 @@ public class SpawnerManager : MonoBehaviour
             spawner.StopSpawning();
         }
     }
+
+    public void SpawnDelay(float durationInSeconds, params Spawner[] selectedSpawners)
+    {
+        StopSpawning(selectedSpawners);
+        StartCoroutine(SpawnWithDelay(durationInSeconds, selectedSpawners));
+    }
+
+    private IEnumerator SpawnWithDelay(float duration, params Spawner[] selectedSpawners)
+    {
+        yield return new WaitForSeconds(duration); // Wait for the specified duration
+        StartSpawning(selectedSpawners); // Start spawning after delay
+    }
+
     /*------------------Spawner managering------------------*/
     public void SetSpawnRate(float minSpawnTime, float maxSpawnTime, params Spawner[] selectedSpawners)
     {
@@ -129,8 +147,17 @@ public class SpawnerManager : MonoBehaviour
         if (newDifficulty != currentDifficulty)
         {
             currentDifficulty = newDifficulty;
-            AdjustSpawnRates(newDifficulty);
-            AdjustProjectileSpeed(newDifficulty);
+            if((newDifficulty + 1) % 4 == 0){
+                BossPreparation();
+
+                AnnounceBoss();
+            } else {
+
+                AdjustSpawnRates(newDifficulty);
+                AdjustProjectileSpeed(newDifficulty);
+
+                AnnounceWave();
+            }
         }
     }
     public void ResetSpawners()
@@ -146,5 +173,85 @@ public class SpawnerManager : MonoBehaviour
             Projectile projectileScript = projectile.GetComponent<Projectile>();
             projectileScript.ResetSpeed();
         }
+
+        AnnounceWave();
+    }
+
+    void AnnounceBoss(){
+        waveText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, -100f);
+        MakeAnnouncement("BOSS"); 
+    }
+
+    void AnnounceWave(){
+        waveText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, 500f);
+        MakeAnnouncement("Wave " + (currentDifficulty + 1));
+    }
+
+    void BossPreparation(){
+        ProjectileManager.Instance.DestroyAllProjectiles();
+        
+        GameObject ninja = GameManager.Instance.ninjaController.gameObject;
+        if (ninja != null)
+        {
+            LeanTween.move(ninja, new Vector3(0, -3, 0), 1.0f).setEase(LeanTweenType.easeInOutQuad);
+        }
+
+        // 2. Instantiate the boss prefab at position (0, 2.02, 0) and fade it in
+        if (bossPrefabs.Length > 0 && bossPrefabs[0] != null)
+        {
+            GameObject bossInstance = Instantiate(bossPrefabs[0], new Vector3(0, 2.02f, 0), Quaternion.identity);
+
+            // Set the initial alpha of the boss to 0
+            SpriteRenderer bossRenderer = bossInstance.GetComponentInChildren<SpriteRenderer>();
+            if (bossRenderer != null)
+            {
+                Color initialColor = bossRenderer.color;
+                initialColor.a = 0f;
+                bossRenderer.color = initialColor;
+
+                // Use LeanTween to smoothly change the alpha to 1
+                LeanTween.value(bossInstance, 0f, 1f, 1.0f)
+                    .setOnUpdate((float val) =>
+                    {
+                        Color c = bossRenderer.color;
+                        c.a = val;
+                        bossRenderer.color = c;
+                    }).setEase(LeanTweenType.easeInOutQuad);
+            }
+        }
+        StopSpawning(spawners.ToArray());
+    }
+
+    public void AfterBossCleanUp(){
+        GameObject ninja = GameManager.Instance.ninjaController.gameObject;
+        if (ninja != null)
+        {
+            LeanTween.move(ninja, new Vector3(0, 0, 0), 1.0f).setEase(LeanTweenType.easeInOutQuad);
+        }
+        LevelProgress.Instance.IncreaseGameLevel();
+        StartSpawning(spawners.ToArray());
+    }
+
+    private void MakeAnnouncement(string text){
+        waveText.gameObject.SetActive(true); // Activate the text object
+        Color initialColor = waveText.color; 
+        waveText.color = new Color(initialColor.r, initialColor.g, initialColor.b, 0); // Set initial transparency to 0
+        waveText.text = text; // Set the text to display the wave number
+
+        // Animate the transparency from 0 to 1 using LeanTween.value
+        LeanTween.value(0f, 1f, 0.5f).setOnUpdate((float alpha) =>
+        {
+            waveText.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+        }).setOnComplete(() =>
+        {
+            // After reaching full transparency, wait for 0.2 seconds and animate back to 0
+            LeanTween.value(1f, 0f, 0.5f).setDelay(1f).setOnUpdate((float alpha) =>
+            {
+                waveText.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+            }).setOnComplete(() =>
+            {
+                waveText.gameObject.SetActive(false); // Deactivate the text object after the animation
+            });
+        });
     }
 }

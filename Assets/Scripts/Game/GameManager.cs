@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text OnlyCoinsText;
 
     [Header("Spawners")]
-    public List<Spawner> spawners;
+    public List<Spawner> spawners; // can we use spawners from SpawnerManager? just duplicating them
 
     public static GameManager Instance { get; private set; }
 
@@ -52,10 +52,10 @@ public class GameManager : MonoBehaviour
         ResetNumbers();
         UpdateTexts();
         ninjaController.InitializeNinja();
-        SpawnerManager.Instance.ResetSpawners();
-        SpawnerManager.Instance.StartSpawning(spawners.ToArray());
         if (LevelProgress.Instance != null)
             LevelProgress.Instance.ResetLevelProgress();
+        SpawnerManager.Instance.ResetSpawners();
+        SpawnerManager.Instance.SpawnDelay(1f, spawners.ToArray());
         bool showNumbers = PlayerPrefs.GetInt("BetterUI", 1) == 1;
         UpdateBetterUiState(showNumbers);
     }
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         ProjectileManager.Instance.RemoveAllProjectiles();
         menuController.ShowEndGameMenu(Score);
-        SpawnerManager.Instance.ResetSpawners();
+        //SpawnerManager.Instance.ResetSpawners();
         UpdateStats();
     }
 

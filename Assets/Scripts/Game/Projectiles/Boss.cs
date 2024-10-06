@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Pillow : Projectile
+public class Boss : Projectile
 {
-    [Header("Pillow Settings")]
+    [Header("Boss Settings")]
     [SerializeField] private int scorePrice = 12;
     private float SpawnChance;
 
     [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private int damage = 30;
+    //[SerializeField] private int damage = 30;
     private float currentHealth = 0f;
     
     [Header("Health Bar Settings")]
@@ -25,8 +25,6 @@ public class Pillow : Projectile
 
     void InitializeHealth()
     {
-        healthBar.transform.position = transform.position + new Vector3(0f, .55f, 0f);
-        healthBar.transform.rotation = Quaternion.Euler(0, 0, 0);
         currentHealth = maxHealth;
         UpdateHealthBar();
     }
@@ -38,20 +36,18 @@ public class Pillow : Projectile
         healthTextPillow.text = showNumbers ? $"{currentHealth}" : "";
     }
 
-    public override float GetSpawnChance() => SpawnChance;
     public override void OnToggleChange() {
         healthTextPillow.text = showNumbers ? $"{currentHealth}" : "";
     }
     
     public override void ActionOnCollision(){
-	AudioManager.Instance.PlaySFX(AudioManager.Instance.collisionSound);
-        GameManager.Instance.ninjaController.healthScript.RemoveHealth(damage);
-        Destroy(gameObject);
+
     }
 
     public override void ActionOnDestroy(){
         GameManager.Instance.AddToScore(scorePrice);
         Destroy(gameObject);
+        SpawnerManager.Instance.AfterBossCleanUp();
     }
 
     public override void TakeDamage(float takenDamage){
@@ -63,4 +59,3 @@ public class Pillow : Projectile
         }  
     }
 }
-

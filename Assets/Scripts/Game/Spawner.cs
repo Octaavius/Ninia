@@ -4,9 +4,9 @@ using System.Collections;
 
 public class Spawner : MonoBehaviour
 {
-    public List<GameObject> projectilesPrefabs;
+    private List<GameObject> projectilePrefabs;
     public Transform spawnPoint;
-    private Coroutine spawnCoroutine;
+    private Coroutine spawnCoroutine = null;
     public float minSpawnTime = 2.0f;
     public float maxSpawnTime = 3.0f;
     [SerializeField]
@@ -22,6 +22,7 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         SpawnerManager.Instance.RegisterSpawner(this);
+        projectilePrefabs = SpawnerManager.Instance.projectilePrefabs; 
     }
 
     public void StartSpawning()
@@ -63,14 +64,14 @@ public class Spawner : MonoBehaviour
         StartCoroutine(SpawnMultipleProjectiles(numberOfProjectiles));
     }
 
-    public void SetSpawnProjectile(GameObject projectilePrefab) //set chosen ONE projectile to spawn
+    public void SetSpawnProjectile(GameObject chosenProjectilePrefab) //set chosen ONE projectile to spawn
     {
-        projectilesPrefabs = new List<GameObject> { projectilePrefab };
+        projectilePrefabs = new List<GameObject> { chosenProjectilePrefab };
     }
 
-    public void SetSpawnProjectiles(List<GameObject> projectilePrefabs) //set chosen MULTIPLE projectiles to spawn
+    public void SetSpawnProjectiles(List<GameObject> chosenProjectilePrefabs) //set chosen MULTIPLE projectiles to spawn
     {
-        projectilesPrefabs = projectilePrefabs;
+        projectilePrefabs = chosenProjectilePrefabs;
     }
 
     public void SetSpawnDirection(Direction newDirection)
@@ -85,7 +86,7 @@ public class Spawner : MonoBehaviour
 
     public void SetProjectileSpeed(float newSpeed)
     {
-        foreach (GameObject prefab in projectilesPrefabs)
+        foreach (GameObject prefab in projectilePrefabs)
         {
             Projectile projectileScript = prefab.GetComponent<Projectile>();
             projectileScript.SetProjectileSpeed(newSpeed);
@@ -146,12 +147,14 @@ public class Spawner : MonoBehaviour
         }
     }
 
+
+
     private IEnumerator SpawnForDuration(float duration)
     {
         float elapsedTime = 0f;
         while (elapsedTime < duration)
         {
-            Instantiate(projectilesPrefabs[Random.Range(0, projectilesPrefabs.Count)], GetSpawnPosition(), GetSpawnDirection());
+            Instantiate(projectilePrefabs[Random.Range(0, projectilePrefabs.Count)], GetSpawnPosition(), GetSpawnDirection());
             elapsedTime += Random.Range(minSpawnTime, maxSpawnTime);
             yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
         }
@@ -162,7 +165,7 @@ public class Spawner : MonoBehaviour
     {
         for (int i = 0; i < numberOfProjectiles; i++)
         {
-            Instantiate(projectilesPrefabs[Random.Range(0, projectilesPrefabs.Count)], GetSpawnPosition(), GetSpawnDirection());
+            Instantiate(projectilePrefabs[Random.Range(0, projectilePrefabs.Count)], GetSpawnPosition(), GetSpawnDirection());
             yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
         }
     }
@@ -171,7 +174,7 @@ public class Spawner : MonoBehaviour
     {
         SpawnerManager.Instance.AdjustDifficulty(newDifficulty);
         if(newDifficulty == 0) return;
-        /*GameObject medkitPrefab = projectilesPrefabs.Find(p => p.GetComponent<Projectile>() is Medkit);
+        /*GameObject medkitPrefab = projectilePrefabs.Find(p => p.GetComponent<Projectile>() is Medkit);
         if (medkitPrefab != null)
         {
             GameObject newMedkit = Instantiate(medkitPrefab, GetSpawnPosition(), GetSpawnDirection());
@@ -187,9 +190,9 @@ public class Spawner : MonoBehaviour
             {
                 originalMinSpawnTime = minSpawnTime;
                 originalMaxSpawnTime = maxSpawnTime;
-                if (projectilesPrefabs.Count > 0)
+                if (projectilePrefabs.Count > 0)
                 {
-                    Projectile projectileScript = projectilesPrefabs[0].GetComponent<Projectile>();
+                    Projectile projectileScript = projectilePrefabs[0].GetComponent<Projectile>();
                     if (projectileScript != null)
                     {
                         originalProjectileSpeed = projectileScript.GetCurrentSpeed();
@@ -201,7 +204,7 @@ public class Spawner : MonoBehaviour
             SetSpawnRate(0.1f, 1.0f); // Example values
             SetProjectileSpeed(3.0f); // Example value
 
-            return projectilesPrefabs.Find(p => p.GetComponent<Projectile>() is Coin);
+            return projectilePrefabs.Find(p => p.GetComponent<Projectile>() is Coin);
 
         }
         else
@@ -220,7 +223,7 @@ public class Spawner : MonoBehaviour
         }
 
         float totalChance = 0f;
-        foreach (var prefab in projectilesPrefabs)
+        foreach (var prefab in projectilePrefabs)
         {
             Projectile projectile = prefab.GetComponent<Projectile>();
             if (projectile != null)
@@ -232,7 +235,7 @@ public class Spawner : MonoBehaviour
         float randomValue = Random.Range(0f, totalChance);
         float cumulativeChance = 0f;
 
-        foreach (var prefab in projectilesPrefabs)
+        foreach (var prefab in projectilePrefabs)
         {
             Projectile projectile = prefab.GetComponent<Projectile>();
             if (projectile != null)
