@@ -2,6 +2,11 @@ using UnityEngine;
 using System.Collections;
 using System;
 
+public enum Mode {
+    BOSS,
+    WAVE
+}
+
 [RequireComponent(typeof(GestureDetector))]
 public class Hit : MonoBehaviour
 {
@@ -11,40 +16,43 @@ public class Hit : MonoBehaviour
     [SerializeField] private float damage = 100f;
     public LayerMask layersToHit;
     public GameObject afterHitEffect;
-    private int numberOfHits = 1;
+    public Mode mode = Mode.WAVE; 
     
+    private int numberOfHits = 1;    
     private float comboWindowTime = 0.7f;
     private float comboTimer; 
     private Direction firstSwipeDirection;
 
-
     void Awake(){
     	gestureDetector = GetComponent<GestureDetector>();
-        
     }
     
     public void HitCheck(ref UltimatePower ulti)
     {
-        UpdateComboTimer();
+        if(mode == Mode.WAVE){
+            UpdateComboTimer();
 
-        if(!gestureDetector.swipeDetected) return;
-        
-        gestureDetector.resetSwipe();
-        
-        ///////////////////////////////////
-        if(SceneManagerScript.Instance.sceneName == "TestScene"){
-        //if(SceneManagerScript.Instance.sceneName == "Arcade"){
-            if (comboTimer > 0)
-            {
-                CheckCombo(ref ulti);
-                return;
+            if(!gestureDetector.swipeDetected) return;
+            
+            gestureDetector.resetSwipe();
+            
+            ///////////////////////////////////
+            if(SceneManagerScript.Instance.sceneName == "TestScene"){
+            //if(SceneManagerScript.Instance.sceneName == "Arcade"){
+                if (comboTimer > 0)
+                {
+                    CheckCombo(ref ulti);
+                    return;
+                }
+            } else if(SceneManagerScript.Instance.sceneName == "Arcade"){
+                //do nothing, cause for now it is just turning off combo
             }
-        } else if(SceneManagerScript.Instance.sceneName == "Arcade"){
-            //do nothing, cause for now it is just turning off combo
+            ///////////////////////////////////
+            firstSwipeDirection = gestureDetector.swipeDirection;
+            StartCoroutine(DefaultHit(ulti));
+        } else if(mode == Mode.BOSS) {
+
         }
-        ///////////////////////////////////
-        firstSwipeDirection = gestureDetector.swipeDirection;
-        StartCoroutine(DefaultHit(ulti));
     }
 
     private void CheckCombo(ref UltimatePower ulti){

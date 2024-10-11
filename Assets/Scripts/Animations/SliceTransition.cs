@@ -79,21 +79,17 @@ public class SliceTransition : MonoBehaviour
 
     void UIMoveToBottom()
     {
-        Debug.Log(-screenWidth);
         LeanTween.move(uiElementToBottom, new Vector2(-screenWidth, -screenHeight * 0.327f), movingTime)
             .setEase(customCurve)
             .setOnComplete(() => {
-                Debug.Log("animation ended");
                 transitionStarted = false;
                 SceneManagerScript.Instance.PlayGame();
                 });
     }
     void UIMoveToUp()
     {
-        Debug.Log(screenWidth);
         LeanTween.move(uiElementToUp, new Vector2(screenWidth, screenHeight * 0.327f), movingTime)
-            .setEase(customCurve)
-            .setOnComplete(() => Debug.Log("UI moved up."));
+            .setEase(customCurve);
     }
 
     void DisableRaycast(RectTransform uiElement)

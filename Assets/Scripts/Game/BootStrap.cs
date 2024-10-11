@@ -18,7 +18,6 @@ public class BootStrap : MonoBehaviour
         RectTransform currentButtonPoint = BuffsStartingPoint;
         for (int i = 0; i < 3; i++) {
             int buffId = PlayerPrefs.GetInt("Buff " + i, 0);
-            Debug.Log(buffId);
             if (buffId != 0) {
                 Buffs[buffId].gameObject.SetActive(true);
                 Buffs[buffId].anchoredPosition = currentButtonPoint.anchoredPosition;

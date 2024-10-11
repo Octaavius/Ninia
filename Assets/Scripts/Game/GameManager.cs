@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         if (LevelProgress.Instance != null)
             LevelProgress.Instance.ResetLevelProgress();
         SpawnerManager.Instance.ResetSpawners();
-        SpawnerManager.Instance.SpawnDelay(1f, spawners.ToArray());
+        SpawnerManager.Instance.SpawnDelay(1.5f, spawners.ToArray());
         bool showNumbers = PlayerPrefs.GetInt("BetterUI", 1) == 1;
         UpdateBetterUiState(showNumbers);
     }

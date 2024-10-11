@@ -95,4 +95,20 @@ public class ProjectileManager : MonoBehaviour
             }
         }
     }
+
+    public bool NoSpawnedProjectiles(){
+        RemoveDeletedProjectiles();
+        return spawnedProjectiles.Count == 0;
+    }
+
+    void RemoveDeletedProjectiles() {
+        List<GameObject> filteredProjectiles = new List<GameObject>();
+
+        foreach (GameObject projectile in spawnedProjectiles){
+            if (projectile != null) {
+                filteredProjectiles.Add(projectile);
+            }
+        }
+        spawnedProjectiles = filteredProjectiles;
+    }
 }

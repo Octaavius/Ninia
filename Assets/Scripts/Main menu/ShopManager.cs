@@ -14,6 +14,8 @@ public class ShopManager : MonoBehaviour
     public int[] SkinPricesInGems;
     public GameObject[] LockedSkinButtons;
     public GameObject[] UnlockedSkinButtons;
+    public Color selectedButtonColor;
+    public Color selectButtonColor;
     
     private int[] UnlockedSkins;
 
@@ -128,21 +130,22 @@ public class ShopManager : MonoBehaviour
             //change color
             GameObject prevButton = UnlockedSkinButtons[prevSkinId];
             Image prevButtonImage = prevButton.GetComponent<Image>();
-            Color32 orangeColor = new Color32(212, 112, 0, 255);
-            prevButtonImage.color = orangeColor;
+            prevButtonImage.color = selectButtonColor;
             //change text
             Transform prevButtonTextObj = prevButton.transform.GetChild(0); 
             TMP_Text prevButtonText = prevButtonTextObj.GetComponent<TMP_Text>();
             prevButtonText.text = "Select";
+            prevButtonText.color = Color.black;
         }
         
         Image newSkinButtonImage = newSkinButton.GetComponent<Image>();
-        Color32 blueColor = new Color32(0, 165, 176, 255);
-        newSkinButtonImage.color = blueColor;
+        newSkinButtonImage.color = selectedButtonColor;
         //change text
         Transform newSkinButtonObj = newSkinButton.transform.GetChild(0); 
         TMP_Text newSkinButtonText = newSkinButtonObj.GetComponent<TMP_Text>();
         newSkinButtonText.text = "Selected";
+        newSkinButtonText.color = Color.white;
+
 
         PlayerPrefs.SetInt("CurrentSkin", skinId);
     }

@@ -149,17 +149,26 @@ public class SpawnerManager : MonoBehaviour
             currentDifficulty = newDifficulty;
             if((newDifficulty + 1) % 4 == 0){
                 BossPreparation();
-
                 AnnounceBoss();
             } else {
-
                 AdjustSpawnRates(newDifficulty);
                 AdjustProjectileSpeed(newDifficulty);
-
-                AnnounceWave();
+                StartCoroutine(WaitEndOfTheWave());
             }
         }
     }
+
+    IEnumerator WaitEndOfTheWave(){
+        StopSpawning(spawners.ToArray());
+        while(!ProjectileManager.Instance.NoSpawnedProjectiles()) 
+        {
+            Debug.Log("waiting");
+            yield return null;
+        }
+        AnnounceWave();
+        SpawnDelay(1.5f, spawners.ToArray());
+    } 
+
     public void ResetSpawners()
     {
         foreach (var spawner in spawners)
@@ -229,7 +238,7 @@ public class SpawnerManager : MonoBehaviour
             LeanTween.move(ninja, new Vector3(0, 0, 0), 1.0f).setEase(LeanTweenType.easeInOutQuad);
         }
         LevelProgress.Instance.IncreaseGameLevel();
-        StartSpawning(spawners.ToArray());
+        SpawnDelay(1f, spawners.ToArray());
     }
 
     private void MakeAnnouncement(string text){
