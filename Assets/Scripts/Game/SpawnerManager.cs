@@ -199,11 +199,13 @@ public class SpawnerManager : MonoBehaviour
     void BossPreparation(){
         ProjectileManager.Instance.DestroyAllProjectiles();
         
-        GameObject ninja = GameManager.Instance.ninjaController.gameObject;
+        NinjaController ninjaController = GameManager.Instance.ninjaController;
+        GameObject ninja = ninjaController.gameObject;
         if (ninja != null)
         {
             LeanTween.move(ninja, new Vector3(0, -3, 0), 1.0f).setEase(LeanTweenType.easeInOutQuad);
         }
+        ninjaController.hitScript.changeModeToBossMode();
 
         // 2. Instantiate the boss prefab at position (0, 2.02, 0) and fade it in
         if (bossPrefabs.Length > 0 && bossPrefabs[0] != null)
@@ -232,11 +234,13 @@ public class SpawnerManager : MonoBehaviour
     }
 
     public void AfterBossCleanUp(){
-        GameObject ninja = GameManager.Instance.ninjaController.gameObject;
+        NinjaController ninjaController = GameManager.Instance.ninjaController;
+        GameObject ninja = ninjaController.gameObject;
         if (ninja != null)
         {
             LeanTween.move(ninja, new Vector3(0, 0, 0), 1.0f).setEase(LeanTweenType.easeInOutQuad);
         }
+        ninjaController.hitScript.changeModeToWaveMode();
         LevelProgress.Instance.IncreaseGameLevel();
         SpawnDelay(1f, spawners.ToArray());
     }

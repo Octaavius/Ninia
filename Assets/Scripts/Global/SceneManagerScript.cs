@@ -35,7 +35,7 @@ public class SceneManagerScript : MonoBehaviour
     
     IEnumerator LoadMenu(){
         FadeInScript.PlayFadeIn();
-        EffectsManager.Instance.RemoveAllEffects();
+        BuffsManager.Instance.RemoveAllBuffs();
         yield return new WaitForSecondsRealtime(FadeInScript.animationDuration);
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");

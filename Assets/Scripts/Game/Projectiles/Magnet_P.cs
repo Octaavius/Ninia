@@ -13,7 +13,7 @@ public class Magnet_P : Projectile
 
     public override void ActionOnDestroy()
     {
-        ActivateEffect<Magnet>();
+        ActivateBuff<Magnet>();
         Destroy(gameObject);
     }
 }

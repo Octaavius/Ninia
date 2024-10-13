@@ -922,7 +922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 1761497521}
   cooldownOverlay: {fileID: 1094897381}
-  effect: {fileID: 295855426}
+  Buff: {fileID: 295855426}
 --- !u!1 &108778013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1407,7 +1407,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: -339013203
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &202613362
 RectTransform:
@@ -1930,7 +1930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f0eca3e01ef26e7d902b4f8ebeb1df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 15
+  BuffDuration: 5
   cooldownDuration: 5
   isActive: 0
   isCooldown: 0
@@ -2213,7 +2213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d05d347cd1c34ddcb6e79549a51fbbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 15
+  BuffDuration: 5
   cooldownDuration: 5
   isActive: 0
   isCooldown: 0
@@ -2368,7 +2368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 2012187653}
   cooldownOverlay: {fileID: 490724777}
-  effect: {fileID: 1144274270}
+  Buff: {fileID: 1144274270}
 --- !u!1 &352276157
 GameObject:
   m_ObjectHideFlags: 0
@@ -2977,7 +2977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b9b4e65d8cffadbaa6f104b43a935b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 15
+  BuffDuration: 5
   cooldownDuration: 5
   isActive: 0
   isCooldown: 0
@@ -3410,7 +3410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 1578428723}
   cooldownOverlay: {fileID: 256078241}
-  effect: {fileID: 2092813110}
+  Buff: {fileID: 2092813110}
 --- !u!1 &483738558
 GameObject:
   m_ObjectHideFlags: 0
@@ -4632,6 +4632,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   afterHitEffect: {fileID: 699703058052827229, guid: 8598b9cde20cfb09dad32b6909510068, type: 3}
+  MoveDistance: 1.3
+  PositiveEffects: []
+  NegativeEffects: []
+  mode: 1
 --- !u!114 &677443137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7991,7 +7995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 1738029079}
   cooldownOverlay: {fileID: 1893495131}
-  effect: {fileID: 1491983996}
+  Buff: {fileID: 1491983996}
 --- !u!1 &1094897379
 GameObject:
   m_ObjectHideFlags: 0
@@ -8320,7 +8324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd5048a05c6d5038f87c59f01d9d2fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 15
+  BuffDuration: 5
   cooldownDuration: 5
   isActive: 0
   isCooldown: 0
@@ -8865,7 +8869,7 @@ GameObject:
   - component: {fileID: 1244748768}
   - component: {fileID: 1244748769}
   m_Layer: 0
-  m_Name: Effects
+  m_Name: Buffs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10193,7 +10197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3e0ac26f1b4b96480a586e8ce8d814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 7
+  BuffDuration: 5
   cooldownDuration: 5
   isActive: 0
   isCooldown: 0
@@ -11556,7 +11560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4571df42f0010c431b91c5a49a001217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 15
+  BuffDuration: 5
   cooldownDuration: 5
   isActive: 0
   isCooldown: 0
@@ -11710,7 +11714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 701592501}
   cooldownOverlay: {fileID: 636311710}
-  effect: {fileID: 1652486727}
+  Buff: {fileID: 1652486727}
 --- !u!1 &1673017768
 GameObject:
   m_ObjectHideFlags: 0
@@ -12118,7 +12122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 967607237}
   cooldownOverlay: {fileID: 908637123}
-  effect: {fileID: 393212540}
+  Buff: {fileID: 393212540}
 --- !u!1 &1703597407
 GameObject:
   m_ObjectHideFlags: 0
@@ -12838,7 +12842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa78e36b6092eda708eb21afe6d396ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magnetEffectActivated: 0
+  magnetBuffActivated: 0
   spawnOnlyCoins: 0
   GameIsPaused: 0
   GameIsOver: 0
@@ -13737,7 +13741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 1142765424}
   cooldownOverlay: {fileID: 1436127816}
-  effect: {fileID: 340046829}
+  Buff: {fileID: 340046829}
 --- !u!1 &2019824842
 GameObject:
   m_ObjectHideFlags: 0
@@ -14313,7 +14317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54e73ab2c5f630f49d2fe0b345c96ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 15
+  BuffDuration: 5
   cooldownDuration: 5
   isActive: 0
   isCooldown: 0
@@ -14488,7 +14492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2134728357}
   m_Layer: 5
-  m_Name: Effects
+  m_Name: Buffs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -12,7 +12,7 @@ public class TimeSlow_P : Projectile
     }
     public override void ActionOnDestroy()
     {
-        ActivateEffect<TimeSlow>();
+        ActivateBuff<TimeSlow>();
         Destroy(gameObject);
     }
 }

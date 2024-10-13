@@ -12,7 +12,7 @@ public class Shield_P : Projectile
     }
     public override void ActionOnDestroy()
     {
-        ActivateEffect<Shield>();
+        ActivateBuff<Shield>();
         Destroy(gameObject);
     }
 }

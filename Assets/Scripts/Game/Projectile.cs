@@ -68,10 +68,10 @@ public abstract class Projectile : MonoBehaviour
         showNumbers = show;
         OnToggleChange();
     }
-    protected void ActivateEffect<T>() where T : Effect
+    protected void ActivateBuff<T>() where T : Buff
     {
-        T effect = EffectsManager.Instance.GetComponentInChildren<T>();
-        effect.StartEffect();
+        T Buff = BuffsManager.Instance.GetComponentInChildren<T>();
+        Buff.StartBuff();
     }
 
 }

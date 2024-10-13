@@ -12,7 +12,7 @@ public class OnlyCoins_P : Projectile
     }
     public override void ActionOnDestroy()
     {
-        ActivateEffect<OnlyCoins>();
+        ActivateBuff<OnlyCoins>();
         Destroy(gameObject);
     }
 }

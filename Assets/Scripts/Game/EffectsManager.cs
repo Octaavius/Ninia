@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EffectsManager : MonoBehaviour
+public class BuffsManager : MonoBehaviour
 {
-    public static EffectsManager Instance { get; private set; }
+    public static BuffsManager Instance { get; private set; }
 
-    private List<Effect> effectsList;
+    private List<Buff> BuffsList;
 
     void Awake(){
         if (Instance == null) {
@@ -14,25 +14,25 @@ public class EffectsManager : MonoBehaviour
         } else {
             Destroy(gameObject);
         }
-        FillEffectsList();
+        FillBuffsList();
     }
 
-    public void RemoveAllEffects(){
-        foreach(Effect effect in effectsList){
-            effect.StopEffect();
-            effect.ResetCooldown();
+    public void RemoveAllBuffs(){
+        foreach(Buff buff in BuffsList){
+            buff.StopBuff();
+            buff.ResetCooldown();
         }
     }
 
-    void FillEffectsList()
+    void FillBuffsList()
     {
-        effectsList = new();
+        BuffsList = new();
         foreach (Transform child in gameObject.transform)
         {
-            Effect effect = child.GetComponent<Effect>();
-            if (effect != null)
+            Buff buff = child.GetComponent<Buff>();
+            if (buff != null)
             {
-                effectsList.Add(effect);
+                BuffsList.Add(buff);
             }
         }
     }

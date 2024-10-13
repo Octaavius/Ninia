@@ -10,16 +10,16 @@ public class Coin : Projectile
 
     void Start()
     {
-        if(GameManager.Instance.magnetEffectActivated){
+        if(GameManager.Instance.magnetBuffActivated){
             StartCoroutine(CollectCoin());
         } else {
-            Magnet.OnMagnetEffectActivatedChanged += OnMagnetEffectActivatedChanged;
+            Magnet.OnMagnetBuffActivatedChanged += OnMagnetBuffActivatedChanged;
         }
     }
 
     void OnDestroy()
     {
-        Magnet.OnMagnetEffectActivatedChanged -= OnMagnetEffectActivatedChanged;
+        Magnet.OnMagnetBuffActivatedChanged -= OnMagnetBuffActivatedChanged;
     }
 
     public override void ActionOnCollision(){
@@ -31,7 +31,7 @@ public class Coin : Projectile
         GameManager.Instance.AddToCoins(price);
         Destroy(gameObject);
     }
-    private void OnMagnetEffectActivatedChanged()
+    private void OnMagnetBuffActivatedChanged()
     {
         StartCoroutine(CollectCoin());
     }
