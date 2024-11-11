@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
 {    
     [SerializeField] private Image healthBarImage;
     [SerializeField] private TMP_Text healthText;
-    private int maxHealth = 100;
+    [SerializeField] private int maxHealth = 100;
     private int currentHealth = 0;
     
     [SerializeField] private Shield shield;

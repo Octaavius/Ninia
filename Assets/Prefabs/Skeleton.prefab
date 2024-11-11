@@ -118,7 +118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.123}
+  m_AnchoredPosition: {x: 0, y: 0.125}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4424802217958321086
@@ -280,7 +280,7 @@ Transform:
   m_GameObject: {fileID: 1825174217187514313}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.55385715, z: -1.0050654}
+  m_LocalPosition: {x: 0, y: 0.73, z: -1.0050654}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -363,9 +363,9 @@ GameObject:
   m_Component:
   - component: {fileID: 469744613031090986}
   - component: {fileID: 6590099016667756847}
-  - component: {fileID: 2417245187437671915}
+  - component: {fileID: 9177278295374477745}
   m_Layer: 6
-  m_Name: Pillow_1
+  m_Name: Skeleton
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,7 +434,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.9863224, y: 1.3268356}
   m_EdgeRadius: 0
---- !u!114 &2417245187437671915
+--- !u!114 &9177278295374477745
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -443,20 +443,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 3791677445985977321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7345adfb614561ec0a57437e5db4445c, type: 3}
+  m_Script: {fileID: 11500000, guid: aa787b23a46fba23cb6224f655cf5357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   BasicSpeed: 1
   spawnChance: 0.8
-  rotationSpeed: {x: 0, y: 0, z: 100}
+  rotationSpeed: {x: 0, y: 0, z: 0}
   alive: 1
-  scorePrice: 18
-  maxHealth: 150
-  damage: 50
+  scorePrice: 12
+  maxHealth: 100
+  damage: 30
+  mobSprite: {fileID: 7779030786557143894}
   leftHealthBarBorderPosition: {fileID: 2494069746689532470}
   healthBar: {fileID: 1825174217187514313}
   healthBarFilling: {fileID: 639403199661255441}
   healthTextPillow: {fileID: 1202069362962308075}
+  healthBarYPosition: 0.73
 --- !u!1 &5267329142903244177
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +552,7 @@ GameObject:
   - component: {fileID: 8645745678541630642}
   - component: {fileID: 9058963585517185497}
   m_Layer: 0
-  m_Name: pillowSprite
+  m_Name: skeletonSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -612,8 +614,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 65f943f9208e5730d934716b670b1a75, type: 3}
-  m_Color: {r: 1, g: 0.94259137, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 4753571ec1623b8cda26a1844639b883, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

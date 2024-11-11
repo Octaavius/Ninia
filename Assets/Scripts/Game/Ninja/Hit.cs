@@ -12,11 +12,15 @@ public enum Mode {
 public class Hit : MonoBehaviour
 {
     [Header("Hit Settings")]
-    public float timeBetweenMultipleHits = 0.05f;
+    public float timeBtwMultHits = 0.05f;
     [SerializeField] private float maxHitDistance = 5f;
     [SerializeField] private float damage = 100f;
-    public LayerMask layersToHit;
+    public LayerMask mobsLayer;
+    public LayerMask bossLayer;
+    private LayerMask currentLayer;
+
     public GameObject afterHitEffect;
+    public GameObject afterPunchEffect;
     
     [Header("Boss Fight Settings")]
     [SerializeField] private float MoveDistance = 1.3f;
@@ -50,7 +54,7 @@ public class Hit : MonoBehaviour
         gestureDetector.resetSwipe();
         switch(gestureDetector.swipeDirection){
             case Direction.Up:
-                StartCoroutine(DefaultHit(ulti));
+                PerformHit(ulti);
                 break;
             case Direction.Right:
                 MoveToTheRight();
@@ -88,34 +92,33 @@ public class Hit : MonoBehaviour
         if(!gestureDetector.swipeDetected) return;
         gestureDetector.resetSwipe();
         ///////////////////////////////////
-        if(SceneManagerScript.Instance.sceneName == "TestScene"){
-        //if(SceneManagerScript.Instance.sceneName == "Arcade"){
+        if(SceneManagerScript.Instance.sceneName == "Arcade"){ // can be replaced by some skill which is turning on combos or something else
             if (comboTimer > 0)
             {
                 CheckCombo(ref ulti);
                 return;
             }
-        } else if(SceneManagerScript.Instance.sceneName == "Arcade"){
-            //do nothing, cause for now it is just turning off combo
         }
         ///////////////////////////////////
         firstSwipeDirection = gestureDetector.swipeDirection;
+        PerformHit(ref ulti);
+    }
+
+    void PerformHit(ref UltimatePower ulti){
         StartCoroutine(DefaultHit(ulti));
     }
 
     private void CheckCombo(ref UltimatePower ulti){
         Direction lastDirection = gestureDetector.swipeDirection;
-        Direction previousDirection = firstSwipeDirection;
-
         Vector2 lastVector = gestureDetector.DirectionToVector2(lastDirection);
-        Vector2 previousVector = gestureDetector.DirectionToVector2(previousDirection);
+        Vector2 prevSwipeVector = gestureDetector.DirectionToVector2(firstSwipeDirection);
 
-        float scalarProduct = Vector2.Dot(lastVector, previousVector);
-        float vectorProduct = lastVector.x * previousVector.y - lastVector.y * previousVector.x;
+        float scalarProduct = Vector2.Dot(lastVector, prevSwipeVector);
+        float vectorProduct = lastVector.x * prevSwipeVector.y - lastVector.y * prevSwipeVector.x;
 
         if (scalarProduct == 1)
         {
-            StartCoroutine(PenetrationHit(ulti));
+            StartCoroutine(DefaultHit(ulti, true));
             comboTimer = 0;
         }
         else if (scalarProduct == -1)
@@ -140,15 +143,16 @@ public class Hit : MonoBehaviour
 
     private void ClockwisePunch(ref UltimatePower ulti, bool clockwise){
         Vector2 origin = transform.position;
-        float actualHitDistance = maxHitDistance;
-
         Vector2 swipeVector = gestureDetector.DirectionToVector2(firstSwipeDirection);
- 
-        if(swipeVector == Vector2.right || swipeVector == Vector2.left) {
-            actualHitDistance /= 2;
-        }
+        float actualHitDistance = (swipeVector == Vector2.right || swipeVector == Vector2.left) ? maxHitDistance : maxHitDistance / 2;
 
-        RaycastHit2D hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, layersToHit);
+        Direction lastDirection = gestureDetector.swipeDirection;
+        Vector2 lastVector = gestureDetector.DirectionToVector2(lastDirection);
+        
+        float afterPunchEffectZRotation = Mathf.Atan2(lastVector.y, lastVector.x) * Mathf.Rad2Deg - 90f;
+        Instantiate(afterPunchEffect, transform.position, Quaternion.Euler(0, 0, afterPunchEffectZRotation));
+
+        RaycastHit2D hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, currentLayer);
      
         if (hit.collider != null) { // player hits something
             MoveInEllipseWithLeanTween(hit.collider.transform, clockwise);
@@ -172,12 +176,13 @@ public class Hit : MonoBehaviour
             a = 3;
         }
         
-        float duration = 0.5f; // Duration of the movement in seconds
+        float duration = 0.3f; // Duration of the movement in seconds
         float startAngle = getStartAngle();
         float endAngle = startAngle + (clockwise ? -Mathf.PI / 2 : Mathf.PI / 2);
 
         float startRotation = target.rotation.eulerAngles.z;
 
+        Direction firstSwipeDirectionCopy = firstSwipeDirection;
         LeanTween.value(target.gameObject, startAngle, endAngle, duration).setOnUpdate((float angle) => {
             float x = a * Mathf.Cos(angle);
             float y = b * Mathf.Sin(angle);
@@ -185,7 +190,6 @@ public class Hit : MonoBehaviour
 
             float rotationZ = 0f;
             
-            Direction firstSwipeDirectionCopy = firstSwipeDirection;
             if (firstSwipeDirectionCopy == Direction.Right || firstSwipeDirectionCopy == Direction.Left) {
                 rotationZ = startRotation + (clockwise ? -1 : 1) * (90f * Math.Abs(Mathf.Sin(angle)));
             } else {
@@ -210,69 +214,46 @@ public class Hit : MonoBehaviour
         }
     }
 
-    private IEnumerator DefaultHit(UltimatePower ulti){ // hits numberOfHits times
+    private IEnumerator DefaultHit(UltimatePower ulti, bool penetrateToTheEnd = false){
         Vector2 origin = transform.position;
-        float actualHitDistance = maxHitDistance;
-
         Vector2 swipeVector = gestureDetector.DirectionToVector2(gestureDetector.swipeDirection);
-  
-        if(swipeVector == Vector2.right || swipeVector == Vector2.left) {
-            actualHitDistance /= 2;
-        }
+        float actualHitDistance = (swipeVector == Vector2.right || swipeVector == Vector2.left) ? maxHitDistance : maxHitDistance / 2;
 
         float AfterHitEffectZRotation = Mathf.Atan2(swipeVector.y, swipeVector.x) * Mathf.Rad2Deg - 90f;
-        Instantiate(afterHitEffect, transform.position, Quaternion.Euler(0, 0, AfterHitEffectZRotation));
+        Instantiate(afterHitEffect, origin, Quaternion.Euler(0, 0, AfterHitEffectZRotation));
 
-        for(int i = 0; i < numberOfHits; i++){
-            RaycastHit2D hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, layersToHit);
-            
-            if (hit.collider != null) { //player hits something
-                comboTimer = comboWindowTime;
-                ulti.AddCharge();
-                AudioManager.Instance.PlaySFX(AudioManager.Instance.sliceSound);
-                ProjectileManager.Instance.HitProjectile(hit.collider.gameObject, damage);
-                if(ProjectileManager.Instance.ProjectileWasDestroyed(hit.collider.gameObject)){
+        RaycastHit2D hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, currentLayer);
+        if(hit.collider != null) comboTimer = comboWindowTime;
+
+        LayerMask initialLayerToHit = currentLayer; //if during coroutine current layer is changed to another, initial layer will not be changed
+        
+        int hitCounter = 0;
+        while(true) {
+            hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, initialLayerToHit);
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.sliceSound);
+            if(hit.collider == null) {
+                break;
+            }
+            bool kill = ProjectileManager.Instance.HitProjectile(hit.collider.gameObject, damage);
+            if(penetrateToTheEnd){
+                continue;
+            }
+            hitCounter++;
+            if(hitCounter == numberOfHits){    
+                if(kill){
                     comboTimer = 0;
                 }
-            }     
-
-            yield return new WaitForSeconds(timeBetweenMultipleHits);   
-        }
-
-    }
-
-    private IEnumerator PenetrationHit(UltimatePower ulti){ // kills every enemy in hit direction
-        Vector2 origin = transform.position;
-        float actualHitDistance = maxHitDistance;
-
-        Vector2 swipeVector = gestureDetector.DirectionToVector2(gestureDetector.swipeDirection);
- 
-
-        if(swipeVector == Vector2.right || swipeVector == Vector2.left) {
-            actualHitDistance /= 2;
-        }
-
-        float AfterHitEffectZRotation = Mathf.Atan2(swipeVector.y, swipeVector.x) * Mathf.Rad2Deg - 90f;
-        Instantiate(afterHitEffect, transform.position, Quaternion.Euler(0, 0, AfterHitEffectZRotation));
-
-        bool nextTargetExist = true;
-        do {
-            RaycastHit2D hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, layersToHit);
+                break;
+            }
             
-            if (hit.collider != null) { //player hits something
-                ulti.AddCharge();
-                AudioManager.Instance.PlaySFX(AudioManager.Instance.sliceSound);
-                ProjectileManager.Instance.DestroyProjectile(hit.collider.gameObject);
-            } else break;
-
-            yield return new WaitForSeconds(timeBetweenMultipleHits);   
-        } while (nextTargetExist);
+            yield return new WaitForSeconds(timeBtwMultHits);   
+        }
     }
 
     public bool UltimateActivationTry(){ 
-        bool valueToReturn = gestureDetector.doubleTapDetected;
+        bool doubleTapDetected = gestureDetector.doubleTapDetected;
         gestureDetector.doubleTapDetected = false;
-        return valueToReturn;
+        return doubleTapDetected;
     }
 
     public void setNumberOfHits(int newNumberOfHits){
@@ -285,10 +266,13 @@ public class Hit : MonoBehaviour
     }
 
     public void changeModeToBossMode(){
+        comboTimer = 0;
         mode = Mode.BOSS;
+        currentLayer = bossLayer;
     }
 
     public void changeModeToWaveMode(){
         mode = Mode.WAVE;
+        currentLayer = mobsLayer;
     }
 }

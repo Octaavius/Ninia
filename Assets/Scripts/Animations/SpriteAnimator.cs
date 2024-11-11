@@ -5,6 +5,7 @@ public class SpriteAnimator : MonoBehaviour
 {
     public Sprite[] animationFrames; // Array of sprites for the animation
     public float framesPerSecond = 10f; // Animation speed
+    public bool loop = false;
 
     private SpriteRenderer spriteRenderer;
     private int currentFrame;
@@ -25,6 +26,9 @@ public class SpriteAnimator : MonoBehaviour
         {
             spriteRenderer.sprite = animationFrames[currentFrame];
             currentFrame = currentFrame + 1;
+            if(loop && currentFrame != animationFrames.Length){
+                currentFrame = 0;
+            }
             yield return new WaitForSecondsRealtime(frameTime);
         }
         Destroy(transform.parent.gameObject);

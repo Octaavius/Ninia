@@ -45,7 +45,7 @@ public class ShakeAnimation : MonoBehaviour
             // Apply shake effect to the background
             background.transform.position = new Vector3(originalBgPos.x + xOffset, originalBgPos.y + yOffset, originalBgPos.z);
 
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime;
 
             yield return null;
         }

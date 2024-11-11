@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Buff : MonoBehaviour
 {
-    public float BuffDuration = 5f;
+    public float buffDuration = 5f;
     public float cooldownDuration = 3f;
     private Coroutine buffCoroutine;
     private Coroutine cooldownCoroutine;
@@ -19,9 +19,9 @@ public abstract class Buff : MonoBehaviour
     public void StartBuff()
     {
         if (isCooldown || buffCoroutine != null) return;
-        // if (BuffCoroutine != null){
-        //     StopCoroutine(BuffCoroutine);
-        // }
+        if (buffCoroutine != null){
+            StopCoroutine(BuffCoroutine());
+        }
         isActive = true;
         buffCoroutine = StartCoroutine(BuffCoroutine());
     }
@@ -40,7 +40,7 @@ public abstract class Buff : MonoBehaviour
     {
         ActivateBuff();
         OnBuffActivated?.Invoke();
-        yield return new WaitForSeconds(BuffDuration);
+        yield return new WaitForSeconds(buffDuration);
         DeactivateBuff();
         isActive = false;
         buffCoroutine = null;

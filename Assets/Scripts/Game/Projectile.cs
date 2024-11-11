@@ -13,7 +13,6 @@ public abstract class Projectile : MonoBehaviour
     public float spawnChance;
     public Vector3 rotationSpeed = new Vector3(0, 0, 100);
     protected bool showNumbers = false;
-    [HideInInspector] public bool alive = true;
 
     void Awake(){
         Speed = BasicSpeed;
@@ -29,14 +28,14 @@ public abstract class Projectile : MonoBehaviour
     {
         MoveForward();
         Rotate();
-        UpdateHealthBarPosition();
+        UpdateHealthBar();
     }
 
-    public virtual void UpdateHealthBarPosition(){}
+    public virtual void UpdateHealthBar(){}
 
-    public virtual void TakeDamage(float damage){ // by default just kill projectile, as it can be without hp
-        alive = false;
+    public virtual bool TakeDamage(float damage){ // by default just kill projectile, as it can be without hp
         ActionOnDestroy();
+        return true;
     }
 
     public abstract void ActionOnDestroy();
@@ -45,6 +44,7 @@ public abstract class Projectile : MonoBehaviour
     public virtual void OnToggleChange() { }    
     private void MoveForward(){
         transform.Translate(Vector3.up * Speed * Time.deltaTime, Space.Self);
+        if(transform.position.x > 20 || transform.position.y > 20 || transform.position.x < -20 || transform.position.y < -20) Destroy(gameObject);
     }
     
     public void Rotate(){

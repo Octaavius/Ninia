@@ -7,12 +7,12 @@ public class SpawnerManager : MonoBehaviour
 {
     public static SpawnerManager Instance { get; private set; }
 
-    private List<Spawner> spawners = new List<Spawner>();
+    protected List<Spawner> spawners = new List<Spawner>();
     [SerializeField] private TMP_Text waveText; 
     public List<GameObject> projectilePrefabs; // might be private and set in register spawner to each spawner
     [SerializeField] private GameObject[] bossPrefabs;
-
-    public int currentDifficulty;
+    private GameObject bossInstance;
+    [HideInInspector] public int currentDifficulty;
 
     void Awake()
     {
@@ -51,15 +51,15 @@ public class SpawnerManager : MonoBehaviour
         }
     }
 
-    public void SpawnDelay(float durationInSeconds, params Spawner[] selectedSpawners)
+    public void SpawnWithDelay(float delayInSeconds, params Spawner[] selectedSpawners)
     {
         StopSpawning(selectedSpawners);
-        StartCoroutine(SpawnWithDelay(durationInSeconds, selectedSpawners));
+        StartCoroutine(SpawnWithDelayCoroutine(delayInSeconds, selectedSpawners));
     }
 
-    private IEnumerator SpawnWithDelay(float duration, params Spawner[] selectedSpawners)
+    private IEnumerator SpawnWithDelayCoroutine(float delayInSeconds, params Spawner[] selectedSpawners)
     {
-        yield return new WaitForSeconds(duration); // Wait for the specified duration
+        yield return new WaitForSeconds(delayInSeconds); // Wait for the specified duration
         StartSpawning(selectedSpawners); // Start spawning after delay
     }
 
@@ -147,7 +147,7 @@ public class SpawnerManager : MonoBehaviour
         if (newDifficulty != currentDifficulty)
         {
             currentDifficulty = newDifficulty;
-            if((newDifficulty + 1) % 4 == 0){
+            if((newDifficulty + 1) % 2 == 0){
                 BossPreparation();
                 AnnounceBoss();
             } else {
@@ -166,7 +166,7 @@ public class SpawnerManager : MonoBehaviour
             yield return null;
         }
         AnnounceWave();
-        SpawnDelay(1.5f, spawners.ToArray());
+        SpawnWithDelay(1.5f, spawners.ToArray());
     } 
 
     public void ResetSpawners()
@@ -201,39 +201,40 @@ public class SpawnerManager : MonoBehaviour
         
         NinjaController ninjaController = GameManager.Instance.ninjaController;
         GameObject ninja = ninjaController.gameObject;
-        if (ninja != null)
-        {
-            LeanTween.move(ninja, new Vector3(0, -3, 0), 1.0f).setEase(LeanTweenType.easeInOutQuad);
-        }
+        LeanTween.move(ninja, new Vector3(0, -3, 0), 1.0f).setEase(LeanTweenType.easeInOutQuad);
         ninjaController.hitScript.changeModeToBossMode();
 
-        // 2. Instantiate the boss prefab at position (0, 2.02, 0) and fade it in
-        if (bossPrefabs.Length > 0 && bossPrefabs[0] != null)
+        
+        bossInstance = Instantiate(bossPrefabs[0], new Vector3(0, 2.02f, 0), Quaternion.identity);
+
+        // Set the initial alpha of the boss to 0
+        SpriteRenderer bossRenderer = bossInstance.GetComponentInChildren<SpriteRenderer>();
+        if (bossRenderer != null)
         {
-            GameObject bossInstance = Instantiate(bossPrefabs[0], new Vector3(0, 2.02f, 0), Quaternion.identity);
+            Color initialColor = bossRenderer.color;
+            initialColor.a = 0f;
+            bossRenderer.color = initialColor;
 
-            // Set the initial alpha of the boss to 0
-            SpriteRenderer bossRenderer = bossInstance.GetComponentInChildren<SpriteRenderer>();
-            if (bossRenderer != null)
-            {
-                Color initialColor = bossRenderer.color;
-                initialColor.a = 0f;
-                bossRenderer.color = initialColor;
-
-                // Use LeanTween to smoothly change the alpha to 1
-                LeanTween.value(bossInstance, 0f, 1f, 1.0f)
-                    .setOnUpdate((float val) =>
-                    {
-                        Color c = bossRenderer.color;
-                        c.a = val;
-                        bossRenderer.color = c;
-                    }).setEase(LeanTweenType.easeInOutQuad);
-            }
+            // Use LeanTween to smoothly change the alpha to 1
+            LeanTween.value(bossInstance, 0f, 1f, 1.0f)
+                .setOnUpdate((float val) =>
+                {
+                    Color c = bossRenderer.color;
+                    c.a = val;
+                    bossRenderer.color = c;
+                }).setEase(LeanTweenType.easeInOutQuad);
         }
         StopSpawning(spawners.ToArray());
     }
 
+    public void ContinueGameAfterBoss(){
+        AfterBossCleanUp();
+        SpawnWithDelay(1f, spawners.ToArray());
+    }
+
     public void AfterBossCleanUp(){
+        ProjectileManager.Instance.DestroyAllProjectiles();
+        if(bossInstance != null) Destroy(bossInstance);
         NinjaController ninjaController = GameManager.Instance.ninjaController;
         GameObject ninja = ninjaController.gameObject;
         if (ninja != null)
@@ -241,8 +242,7 @@ public class SpawnerManager : MonoBehaviour
             LeanTween.move(ninja, new Vector3(0, 0, 0), 1.0f).setEase(LeanTweenType.easeInOutQuad);
         }
         ninjaController.hitScript.changeModeToWaveMode();
-        LevelProgress.Instance.IncreaseGameLevel();
-        SpawnDelay(1f, spawners.ToArray());
+        
     }
 
     private void MakeAnnouncement(string text){

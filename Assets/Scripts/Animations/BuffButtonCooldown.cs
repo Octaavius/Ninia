@@ -6,7 +6,7 @@ public class BuffButtonDuration : MonoBehaviour
     public Image durationOverlay;
     public Image cooldownOverlay;
     private float BuffDuration;
-    private float cooldownDuration;
+    private float CooldownDuration;
 
     private float timer;
 
@@ -16,8 +16,8 @@ public class BuffButtonDuration : MonoBehaviour
 
     void Start()
     {
-        BuffDuration = Buff.BuffDuration;
-        cooldownDuration = Buff.cooldownDuration;
+        BuffDuration = Buff.buffDuration;
+        CooldownDuration = Buff.cooldownDuration;
 
         Buff.OnBuffActivated += UseButton;
     }
@@ -32,7 +32,7 @@ public class BuffButtonDuration : MonoBehaviour
 
     void UpdateDurationOverlay(){
         if (!Buff.isActive) {
-            timer = (wasActive) ? cooldownDuration : 0;
+            timer = (wasActive) ? CooldownDuration : 0;
             wasActive = false;
             durationOverlay.fillAmount = 0;
             return;
@@ -50,7 +50,7 @@ public class BuffButtonDuration : MonoBehaviour
         }
         timer -= Time.deltaTime;
         if (timer <= 0) timer = 0;
-        cooldownOverlay.fillAmount = timer / cooldownDuration;
+        cooldownOverlay.fillAmount = timer / CooldownDuration;
     }
 
     public void UseButton()

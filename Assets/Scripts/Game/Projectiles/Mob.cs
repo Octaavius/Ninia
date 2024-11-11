@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Boss : Projectile
+public class Mob : Projectile
 {
-    [Header("Boss Settings")]
+    [Header("Mob Settings")]
     [SerializeField] private int scorePrice = 12;
-    private float SpawnChance;
-
     [SerializeField] private float maxHealth = 100f;
-    //[SerializeField] private int damage = 30;
+    [SerializeField] private int damage = 30;
+    [SerializeField] private GameObject mobSprite;
+    private float SpawnChance;
     private float currentHealth = 0f;
     
     [Header("Health Bar Settings")]
@@ -18,10 +18,29 @@ public class Boss : Projectile
     [SerializeField] private GameObject healthBar;
     [SerializeField] private GameObject healthBarFilling;
     [SerializeField] private TMP_Text healthTextPillow;
+    [SerializeField] private float healthBarYPosition = .55f;
 
     void Start(){
         InitializeHealth();
+        SetSpriteScale();
     }
+
+    void SetSpriteScale() {
+        if (transform) {
+            // Set the global rotation of the sprite to 0 (no rotation in world space)
+            mobSprite.transform.rotation = Quaternion.identity;
+
+            // Get the global rotation angle of the main object
+            float rotationAngle = transform.eulerAngles.z;
+
+            // Flip the scale based on specific angles in the global rotation
+            Debug.Log(rotationAngle);
+            if (rotationAngle == 0 || rotationAngle == 90) {
+                mobSprite.transform.localScale = new Vector3(-mobSprite.transform.localScale.x, mobSprite.transform.localScale.y, 1); 
+            }
+        }
+    }
+
 
     void InitializeHealth()
     {
@@ -31,26 +50,32 @@ public class Boss : Projectile
 
     public override void UpdateHealthBar(){
         float fillAmount = currentHealth / maxHealth;
+        
+        healthBar.transform.SetPositionAndRotation(
+            new Vector3(transform.position.x, transform.position.y + healthBarYPosition, transform.position.z),
+            Quaternion.identity
+        );
+
         healthBarFilling.transform.localScale = new Vector3(fillAmount, healthBarFilling.transform.localScale.y, 1f);
         healthBarFilling.transform.localPosition = new Vector2(leftHealthBarBorderPosition.localPosition.x * (1f - fillAmount), healthBarFilling.transform.localPosition.y);
+        
         healthTextPillow.text = showNumbers ? $"{currentHealth}" : "";
-        // does not work, as boss is not a projectile so it not seen in spawners.
     }
 
+    public override float GetSpawnChance() => SpawnChance;
     public override void OnToggleChange() {
         healthTextPillow.text = showNumbers ? $"{currentHealth}" : "";
     }
     
     public override void ActionOnCollision(){
-
+	AudioManager.Instance.PlaySFX(AudioManager.Instance.collisionSound);
+        GameManager.Instance.ninjaController.healthScript.RemoveHealth(damage);
+        Destroy(gameObject);
     }
 
     public override void ActionOnDestroy(){
-        GetComponent<BossAttacks>().RemoveWarnings();
-        Destroy(gameObject);
         GameManager.Instance.AddToScore(scorePrice);
-        LevelProgress.Instance.IncreaseGameLevel();
-        SpawnerManager.Instance.ContinueGameAfterBoss();
+        Destroy(gameObject);
     }
 
     public override bool TakeDamage(float takenDamage){
@@ -63,3 +88,4 @@ public class Boss : Projectile
         return false;
     }
 }
+

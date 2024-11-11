@@ -883,8 +883,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54e73ab2c5f630f49d2fe0b345c96ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 15
+  BuffDuration: 5
+  cooldownDuration: 3
   isActive: 0
+  isCooldown: 0
   ShieldObject: {fileID: 4838276}
   fadeDuration: 0.2
 --- !u!1 &102595606
@@ -1550,10 +1552,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenMultipleHits: 0.05
   maxHitDistance: 5
+  damage: 100
   layersToHit:
     serializedVersion: 2
     m_Bits: 64
   afterHitEffect: {fileID: 699703058052827229, guid: 8598b9cde20cfb09dad32b6909510068, type: 3}
+  MoveDistance: 1.3
+  PositiveEffects: []
+  NegativeEffects: []
+  mode: 1
 --- !u!114 &233081146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2127,7 +2134,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 974389991}
-  effect: {fileID: 86634146}
+  cooldownOverlay: {fileID: 974389991}
+  Buff: {fileID: 86634146}
 --- !u!114 &296626184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2173,8 +2181,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 86634146}
-        m_TargetAssemblyTypeName: Effect, Assembly-CSharp
-        m_MethodName: StartEffect
+        m_TargetAssemblyTypeName: Buff, Assembly-CSharp
+        m_MethodName: StartBuff
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2667,8 +2675,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Gems
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3323,14 +3331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilesPrefabs:
-  - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
-  - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
-  - {fileID: 7208632165741971746, guid: 07703eae5d0c3464ca46a8bdd8ab8e02, type: 3}
-  - {fileID: 8585960199572660824, guid: 51e8561f7a039534fa881975f12a3692, type: 3}
-  - {fileID: 2473892036989924854, guid: e4565500e0f246448bc9ff3107c97d1c, type: 3}
-  - {fileID: 2473892036989924854, guid: fdcd782201b0394438f93ffffee6dd13, type: 3}
-  - {fileID: 2473892036989924854, guid: 2744d5d11f6d9524fa2fa352cee1a5d1, type: 3}
   spawnPoint: {fileID: 0}
   minSpawnTime: 2
   maxSpawnTime: 3
@@ -3811,8 +3811,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d05d347cd1c34ddcb6e79549a51fbbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 15
+  BuffDuration: 5
+  cooldownDuration: 3
   isActive: 0
+  isCooldown: 0
   doubleScoreAnimation: {fileID: 1186155402}
 --- !u!1 &611985292
 GameObject:
@@ -4346,7 +4348,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 2042026772}
-  effect: {fileID: 2062177918}
+  cooldownOverlay: {fileID: 2042026772}
+  Buff: {fileID: 2062177918}
 --- !u!114 &651503214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4392,8 +4395,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2062177918}
-        m_TargetAssemblyTypeName: Effect, Assembly-CSharp
-        m_MethodName: StartEffect
+        m_TargetAssemblyTypeName: Buff, Assembly-CSharp
+        m_MethodName: StartBuff
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4613,8 +4616,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4571df42f0010c431b91c5a49a001217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 15
+  BuffDuration: 5
+  cooldownDuration: 3
   isActive: 0
+  isCooldown: 0
 --- !u!1 &664028531
 GameObject:
   m_ObjectHideFlags: 0
@@ -5136,14 +5141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilesPrefabs:
-  - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
-  - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
-  - {fileID: 7208632165741971746, guid: 07703eae5d0c3464ca46a8bdd8ab8e02, type: 3}
-  - {fileID: 8585960199572660824, guid: 51e8561f7a039534fa881975f12a3692, type: 3}
-  - {fileID: 2473892036989924854, guid: e4565500e0f246448bc9ff3107c97d1c, type: 3}
-  - {fileID: 2473892036989924854, guid: fdcd782201b0394438f93ffffee6dd13, type: 3}
-  - {fileID: 2473892036989924854, guid: 2744d5d11f6d9524fa2fa352cee1a5d1, type: 3}
   spawnPoint: {fileID: 0}
   minSpawnTime: 2
   maxSpawnTime: 3
@@ -6117,14 +6114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilesPrefabs:
-  - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
-  - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
-  - {fileID: 7208632165741971746, guid: 07703eae5d0c3464ca46a8bdd8ab8e02, type: 3}
-  - {fileID: 8585960199572660824, guid: 51e8561f7a039534fa881975f12a3692, type: 3}
-  - {fileID: 2473892036989924854, guid: e4565500e0f246448bc9ff3107c97d1c, type: 3}
-  - {fileID: 2473892036989924854, guid: fdcd782201b0394438f93ffffee6dd13, type: 3}
-  - {fileID: 2473892036989924854, guid: 2744d5d11f6d9524fa2fa352cee1a5d1, type: 3}
   spawnPoint: {fileID: 0}
   minSpawnTime: 2
   maxSpawnTime: 3
@@ -6990,7 +6979,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 807107408}
-  effect: {fileID: 595719213}
+  cooldownOverlay: {fileID: 807107408}
+  Buff: {fileID: 595719213}
 --- !u!114 &1035878895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7036,8 +7026,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 595719213}
-        m_TargetAssemblyTypeName: Effect, Assembly-CSharp
-        m_MethodName: StartEffect
+        m_TargetAssemblyTypeName: Buff, Assembly-CSharp
+        m_MethodName: StartBuff
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7141,8 +7131,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Coins
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7700,8 +7690,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3e0ac26f1b4b96480a586e8ce8d814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 7
+  BuffDuration: 5
+  cooldownDuration: 3
   isActive: 0
+  isCooldown: 0
   timeMultiplier: 0.5
   audioSpeedMultiplier: 0.8
 --- !u!4 &1150458194
@@ -7829,8 +7821,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Score
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7954,6 +7946,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a7ed37a1829874d98eea9a3a53af6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveText: {fileID: 0}
+  projectilePrefabs: []
+  bossPrefabs: []
   currentDifficulty: 0
 --- !u!4 &1206795766
 Transform:
@@ -8094,14 +8089,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilesPrefabs:
-  - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
-  - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
-  - {fileID: 7208632165741971746, guid: 07703eae5d0c3464ca46a8bdd8ab8e02, type: 3}
-  - {fileID: 8585960199572660824, guid: 51e8561f7a039534fa881975f12a3692, type: 3}
-  - {fileID: 2473892036989924854, guid: e4565500e0f246448bc9ff3107c97d1c, type: 3}
-  - {fileID: 2473892036989924854, guid: fdcd782201b0394438f93ffffee6dd13, type: 3}
-  - {fileID: 2473892036989924854, guid: 2744d5d11f6d9524fa2fa352cee1a5d1, type: 3}
   spawnPoint: {fileID: 0}
   minSpawnTime: 2
   maxSpawnTime: 3
@@ -8213,7 +8200,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 1628174785}
-  effect: {fileID: 1150458193}
+  cooldownOverlay: {fileID: 1628174785}
+  Buff: {fileID: 1150458193}
 --- !u!114 &1227508065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8259,8 +8247,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1150458193}
-        m_TargetAssemblyTypeName: Effect, Assembly-CSharp
-        m_MethodName: StartEffect
+        m_TargetAssemblyTypeName: Buff, Assembly-CSharp
+        m_MethodName: StartBuff
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8438,7 +8426,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 1884571918}
-  effect: {fileID: 1609438261}
+  cooldownOverlay: {fileID: 1884571918}
+  Buff: {fileID: 1609438261}
 --- !u!114 &1270623485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8484,8 +8473,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1609438261}
-        m_TargetAssemblyTypeName: Effect, Assembly-CSharp
-        m_MethodName: StartEffect
+        m_TargetAssemblyTypeName: Buff, Assembly-CSharp
+        m_MethodName: StartBuff
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8826,8 +8815,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
-  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9331,6 +9320,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35b6d5f29cebb46c9759fc8937e8577, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NinjaSkins: []
+  Buffs: []
+  BuffsStartingPoint: {fileID: 0}
 --- !u!114 &1438942760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9396,7 +9388,6 @@ MonoBehaviour:
   ProjectilesPrefabs:
   - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
   - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
-  projectileWasDestroyed: 0
 --- !u!114 &1438942764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9409,7 +9400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa78e36b6092eda708eb21afe6d396ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magnetEffectActivated: 0
+  magnetBuffActivated: 0
   spawnOnlyCoins: 0
   GameIsPaused: 0
   GameIsOver: 0
@@ -10010,7 +10001,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 516403751}
-  effect: {fileID: 663513426}
+  cooldownOverlay: {fileID: 516403751}
+  Buff: {fileID: 663513426}
 --- !u!114 &1479568026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10056,8 +10048,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 663513426}
-        m_TargetAssemblyTypeName: Effect, Assembly-CSharp
-        m_MethodName: StartEffect
+        m_TargetAssemblyTypeName: Buff, Assembly-CSharp
+        m_MethodName: StartBuff
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10620,8 +10612,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f0eca3e01ef26e7d902b4f8ebeb1df4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 15
+  BuffDuration: 5
+  cooldownDuration: 3
   isActive: 0
+  isCooldown: 0
   doubleCoinsAnimation: {fileID: 1039414570}
 --- !u!1 &1626301824
 GameObject:
@@ -11549,7 +11543,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   durationOverlay: {fileID: 952012694}
-  effect: {fileID: 1838862321}
+  cooldownOverlay: {fileID: 952012694}
+  Buff: {fileID: 1838862321}
 --- !u!114 &1805963394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11595,8 +11590,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1838862321}
-        m_TargetAssemblyTypeName: Effect, Assembly-CSharp
-        m_MethodName: StartEffect
+        m_TargetAssemblyTypeName: Buff, Assembly-CSharp
+        m_MethodName: StartBuff
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11688,8 +11683,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43b9b4e65d8cffadbaa6f104b43a935b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 15
+  BuffDuration: 5
+  cooldownDuration: 3
   isActive: 0
+  isCooldown: 0
 --- !u!1 &1844397756
 GameObject:
   m_ObjectHideFlags: 0
@@ -12794,8 +12791,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd5048a05c6d5038f87c59f01d9d2fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectDuration: 15
+  BuffDuration: 5
+  cooldownDuration: 3
   isActive: 0
+  isCooldown: 0
   PassiveScore: 2
   coinsAnimation: {fileID: 1159636172}
 --- !u!1 &2081788150

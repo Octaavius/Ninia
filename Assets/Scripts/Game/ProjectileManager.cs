@@ -29,15 +29,11 @@ public class ProjectileManager : MonoBehaviour
         return new List<GameObject>(spawnedProjectiles);
     } 
 
-    public void HitProjectile(GameObject projectileObject, float damage){
-        if(projectileObject == null) return;
+    public bool HitProjectile(GameObject projectileObject, float damage){
+        if(projectileObject == null) return false;
 
         Projectile projectile = projectileObject.GetComponent<Projectile>();
-        projectile.TakeDamage(damage);
-    }
-
-    public bool ProjectileWasDestroyed(GameObject projectileObject){
-        return !projectileObject.GetComponent<Projectile>().alive;
+        return projectile.TakeDamage(damage);
     }
 
     public void DestroyProjectile(GameObject projectileObject){

@@ -18,6 +18,7 @@ public class Pillow : Projectile
     [SerializeField] private GameObject healthBar;
     [SerializeField] private GameObject healthBarFilling;
     [SerializeField] private TMP_Text healthTextPillow;
+    [SerializeField] private float healthBarYPosition = .55f;
 
     void Start(){
         InitializeHealth();
@@ -25,16 +26,21 @@ public class Pillow : Projectile
 
     void InitializeHealth()
     {
-        healthBar.transform.position = transform.position + new Vector3(0f, .55f, 0f);
-        healthBar.transform.rotation = Quaternion.Euler(0, 0, 0);
         currentHealth = maxHealth;
         UpdateHealthBar();
     }
 
-    public void UpdateHealthBar(){
+    public override void UpdateHealthBar(){
         float fillAmount = currentHealth / maxHealth;
+        
+        healthBar.transform.SetPositionAndRotation(
+            new Vector3(transform.position.x, transform.position.y + healthBarYPosition, transform.position.z),
+            Quaternion.identity
+        );
+
         healthBarFilling.transform.localScale = new Vector3(fillAmount, healthBarFilling.transform.localScale.y, 1f);
         healthBarFilling.transform.localPosition = new Vector2(leftHealthBarBorderPosition.localPosition.x * (1f - fillAmount), healthBarFilling.transform.localPosition.y);
+        
         healthTextPillow.text = showNumbers ? $"{currentHealth}" : "";
     }
 
@@ -54,13 +60,14 @@ public class Pillow : Projectile
         Destroy(gameObject);
     }
 
-    public override void TakeDamage(float takenDamage){
+    public override bool TakeDamage(float takenDamage){
         currentHealth -= takenDamage;
         UpdateHealthBar();
         if (currentHealth <= 0){
             ActionOnDestroy();
-            alive = false;
+            return true;
         }  
+        return false;
     }
 }
 
