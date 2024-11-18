@@ -14,20 +14,15 @@ public class Hit : MonoBehaviour
     [Header("Hit Settings")]
     public float timeBtwMultHits = 0.05f;
     [SerializeField] private float maxHitDistance = 5f;
-    [SerializeField] private float damage = 100f;
     public LayerMask mobsLayer;
     public LayerMask bossLayer;
     private LayerMask currentLayer;
 
     public GameObject afterHitEffect;
     public GameObject afterPunchEffect;
-    
+
     [Header("Boss Fight Settings")]
     [SerializeField] private float MoveDistance = 1.3f;
-
-    [Header("Passive Effects")]
-    [SerializeField] private List<GameObject> PositiveEffects; 
-    [SerializeField] private List<GameObject> NegativeEffects;
 
     [HideInInspector] public Mode mode = Mode.WAVE; 
     private GestureDetector gestureDetector;
@@ -54,7 +49,7 @@ public class Hit : MonoBehaviour
         gestureDetector.resetSwipe();
         switch(gestureDetector.swipeDirection){
             case Direction.Up:
-                PerformHit(ulti);
+                PerformHit(ref ulti);
                 break;
             case Direction.Right:
                 MoveToTheRight();
@@ -104,8 +99,8 @@ public class Hit : MonoBehaviour
         PerformHit(ref ulti);
     }
 
-    void PerformHit(ref UltimatePower ulti){
-        StartCoroutine(DefaultHit(ulti));
+    void PerformHit(ref UltimatePower ulti, bool penetrateToTheEnd = false){
+        StartCoroutine(DefaultHit(ulti, penetrateToTheEnd));
     }
 
     private void CheckCombo(ref UltimatePower ulti){
@@ -118,12 +113,12 @@ public class Hit : MonoBehaviour
 
         if (scalarProduct == 1)
         {
-            StartCoroutine(DefaultHit(ulti, true));
+            PerformHit(ref ulti, true);
             comboTimer = 0;
         }
         else if (scalarProduct == -1)
         {
-            StartCoroutine(DefaultHit(ulti));
+            PerformHit(ref ulti);
             firstSwipeDirection = lastDirection;
             comboTimer = comboWindowTime;
         }
@@ -222,19 +217,25 @@ public class Hit : MonoBehaviour
         float AfterHitEffectZRotation = Mathf.Atan2(swipeVector.y, swipeVector.x) * Mathf.Rad2Deg - 90f;
         Instantiate(afterHitEffect, origin, Quaternion.Euler(0, 0, AfterHitEffectZRotation));
 
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.sliceSound);
+
         RaycastHit2D hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, currentLayer);
-        if(hit.collider != null) comboTimer = comboWindowTime;
+        if(hit.collider == null) yield break;
+        comboTimer = comboWindowTime;
 
         LayerMask initialLayerToHit = currentLayer; //if during coroutine current layer is changed to another, initial layer will not be changed
         
         int hitCounter = 0;
         while(true) {
             hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, initialLayerToHit);
-            AudioManager.Instance.PlaySFX(AudioManager.Instance.sliceSound);
+            Creature creatureToHit = hit.collider.gameObject.GetComponent<Creature>();
+            
             if(hit.collider == null) {
                 break;
             }
-            bool kill = ProjectileManager.Instance.HitProjectile(hit.collider.gameObject, damage);
+            float damage = NinjaController.Instance.AtckScr.CountTotalDamage();
+            bool kill = creatureToHit.TakeDamage(damage, AttackType.None);
+            NinjaController.Instance.AtckScr.ApplyAttackEffects(creatureToHit);
             if(penetrateToTheEnd){
                 continue;
             }
@@ -256,7 +257,7 @@ public class Hit : MonoBehaviour
         return doubleTapDetected;
     }
 
-    public void setNumberOfHits(int newNumberOfHits){
+    public void SetNumberOfHits(int newNumberOfHits){
         numberOfHits = newNumberOfHits;
     }
     
@@ -265,13 +266,13 @@ public class Hit : MonoBehaviour
         if(comboTimer <= 0) comboTimer = 0;
     }
 
-    public void changeModeToBossMode(){
+    public void ChangeModeToBossMode(){
         comboTimer = 0;
         mode = Mode.BOSS;
         currentLayer = bossLayer;
     }
 
-    public void changeModeToWaveMode(){
+    public void ChangeModeToWaveMode(){
         mode = Mode.WAVE;
         currentLayer = mobsLayer;
     }

@@ -63,8 +63,7 @@ public abstract class Projectile : MonoBehaviour
     public void SetSpawnChance(float newSpawnChance){
         spawnChance = newSpawnChance;
     }
-    public void SetShowNumbers(bool show)
-    {
+    public void SetShowNumbers(bool show){
         showNumbers = show;
         OnToggleChange();
     }

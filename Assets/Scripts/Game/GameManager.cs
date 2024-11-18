@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     
     private MenuController menuController;
     public PlayerInfo playerInfo;
-    public NinjaController ninjaController; 
 
     [Header("Texts to update")]
     [SerializeField] private TMP_Text ScoreText;
@@ -44,6 +43,10 @@ public class GameManager : MonoBehaviour
         }
         menuController = GetComponent<MenuController>();
         GameIsPaused = false;
+    }
+
+    void Start()
+    { 
         InitializeGame();
     }
 
@@ -51,7 +54,7 @@ public class GameManager : MonoBehaviour
         GameIsOver = false;
         ResetNumbers();
         UpdateTexts();
-        ninjaController.InitializeNinja();
+        NinjaController.Instance.Initialize();
         if (LevelProgress.Instance != null)
             LevelProgress.Instance.ResetLevelProgress();
         SpawnerManager.Instance.ResetSpawners();
@@ -67,6 +70,7 @@ public class GameManager : MonoBehaviour
         BuffsManager.Instance.RemoveAllBuffs();
         Time.timeScale = 0f;
         ProjectileManager.Instance.RemoveAllProjectiles();
+        MobManager.Instance.RemoveAllMobs();
         menuController.ShowEndGameMenu(Score);
         //SpawnerManager.Instance.ResetSpawners();
         UpdateStats();
@@ -139,8 +143,8 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateBetterUiState(bool showNumbers)
     {
-        ninjaController.healthScript.SetShowNumbers(showNumbers);
-        ninjaController.ulti.SetShowNumbers(showNumbers);
+        NinjaController.Instance.HpScr.SetShowNumbers(showNumbers);
+        NinjaController.Instance.Ulti.SetShowNumbers(showNumbers);
         ProjectileManager.Instance.SetShowNumbers(showNumbers);
     }
 

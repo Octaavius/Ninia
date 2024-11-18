@@ -1,28 +1,29 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 public class Spawner : MonoBehaviour
 {
-    private List<GameObject> projectilePrefabs;
-    public Transform spawnPoint;
+    //[HideInInspector] public List<GameObject> BuffProjectilePrefabs;
+    [HideInInspector] public List<GameObject> MobPrefabs;
+    //[HideInInspector] public GameObject CoinPrefab;
+    
+    //public Transform spawnPoint;
     private Coroutine spawnCoroutine = null;
     public float minSpawnTime = 2.0f;
     public float maxSpawnTime = 3.0f;
-    [SerializeField]
-    private float maxDelta = 1f;
-    [SerializeField]
-    private Direction spawnDirection = Direction.Down;
+    [SerializeField] private float maxDelta = 1f;
+    [SerializeField] private Direction spawnDirection = Direction.Down;
     private bool isSpawning = false;
-    private float originalMinSpawnTime;
-    private float originalMaxSpawnTime;
-    private float originalProjectileSpeed;
-
+    //private float originalMinSpawnTime;
+    //private float originalMaxSpawnTime;
+    //private float originalProjectileSpeed;
+    //private float BuffChance;
 
     void Start()
     {
         SpawnerManager.Instance.RegisterSpawner(this);
-        projectilePrefabs = SpawnerManager.Instance.projectilePrefabs; 
     }
 
     public void StartSpawning()
@@ -30,7 +31,8 @@ public class Spawner : MonoBehaviour
         isSpawning = true;
         if (spawnCoroutine == null)
         {
-            spawnCoroutine = StartCoroutine(SpawnProjectiles());
+            //spawnCoroutine = StartCoroutine(SpawnProjectiles());
+            spawnCoroutine = StartCoroutine(SpawnMobs());
         }
     }
 
@@ -50,46 +52,54 @@ public class Spawner : MonoBehaviour
         maxSpawnTime = newMaxSpawnTime;
     }
 
-    public void SetSpawnDuration(float duration)
+    // public void SetSpawnDuration(float duration)
+    // {
+    //     if (spawnCoroutine != null)
+    //     {
+    //         StopCoroutine(spawnCoroutine);
+    //     }
+    //     spawnCoroutine = StartCoroutine(SpawnForDuration(duration));
+    // }
+
+    // public void SetSpawnNumber(int numberOfProjectiles)
+    // {
+    //     StartCoroutine(SpawnMultipleProjectiles(numberOfProjectiles));
+    // }
+
+    // public void SetSpawnProjectile(GameObject chosenProjectilePrefab) //set chosen ONE projectile to spawn
+    // {
+    //     BuffProjectilePrefabs = new List<GameObject> { chosenProjectilePrefab };
+    // }
+
+    // public void SetSpawnProjectiles(List<GameObject> chosenProjectilePrefabs) //set chosen MULTIPLE projectiles to spawn
+    // {
+    //     BuffProjectilePrefabs = chosenProjectilePrefabs;
+    // }
+
+    // public void SetSpawnDirection(Direction newDirection)
+    // {
+    //     spawnDirection = newDirection;
+    // }
+
+    // public void SetSpawnLocation(Vector3 newLocation)
+    // {
+    //     spawnPoint.position = newLocation;
+    // }
+
+    // public void SetProjectileSpeed(float newSpeed)
+    // {
+    //     foreach (GameObject prefab in BuffProjectilePrefabs)
+    //     {
+    //         Projectile projectileScript = prefab.GetComponent<Projectile>();
+    //         projectileScript.SetProjectileSpeed(newSpeed);
+    //     }
+    // }
+
+    public void SetMobSpeed(float newSpeed)
     {
-        if (spawnCoroutine != null)
+        foreach (GameObject prefab in MobPrefabs)
         {
-            StopCoroutine(spawnCoroutine);
-        }
-        spawnCoroutine = StartCoroutine(SpawnForDuration(duration));
-    }
-
-    public void SetSpawnNumber(int numberOfProjectiles)
-    {
-        StartCoroutine(SpawnMultipleProjectiles(numberOfProjectiles));
-    }
-
-    public void SetSpawnProjectile(GameObject chosenProjectilePrefab) //set chosen ONE projectile to spawn
-    {
-        projectilePrefabs = new List<GameObject> { chosenProjectilePrefab };
-    }
-
-    public void SetSpawnProjectiles(List<GameObject> chosenProjectilePrefabs) //set chosen MULTIPLE projectiles to spawn
-    {
-        projectilePrefabs = chosenProjectilePrefabs;
-    }
-
-    public void SetSpawnDirection(Direction newDirection)
-    {
-        spawnDirection = newDirection;
-    }
-
-    public void SetSpawnLocation(Vector3 newLocation)
-    {
-        spawnPoint.position = newLocation;
-    }
-
-    public void SetProjectileSpeed(float newSpeed)
-    {
-        foreach (GameObject prefab in projectilePrefabs)
-        {
-            Projectile projectileScript = prefab.GetComponent<Projectile>();
-            projectileScript.SetProjectileSpeed(newSpeed);
+            prefab.GetComponent<Mob>().CurrentSpeed = newSpeed;
         }
     }
 
@@ -133,120 +143,172 @@ public class Spawner : MonoBehaviour
         return new Vector3(newPosition.x, newPosition.y, transform.position.z);
     }
 
-    private IEnumerator SpawnProjectiles()
+    // private IEnumerator SpawnProjectiles()
+    // {
+    //     while (isSpawning)
+    //     {
+    //         GameObject projectileToSpawn = GetRandomProjectileBasedOnChance();
+    //         if (projectileToSpawn != null)
+    //         {
+    //             GameObject newProjectile = Instantiate(projectileToSpawn, GetSpawnPosition(), GetSpawnDirection());
+    //             ProjectileManager.Instance.AddNewProjectile(newProjectile);
+    //         }
+    //         yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
+    //     }
+    // }
+
+    private IEnumerator SpawnMobs()
     {
         while (isSpawning)
         {
-            GameObject projectileToSpawn = GetRandomProjectileBasedOnChance();
-            if (projectileToSpawn != null)
+            GameObject mobToSpawn = GetRandomMobBasedOnChance();
+            if (mobToSpawn != null)
             {
-                GameObject newProjectile = Instantiate(projectileToSpawn, GetSpawnPosition(), GetSpawnDirection());
-                ProjectileManager.Instance.AddNewProjectile(newProjectile);
-            }
+                GameObject newMob = Instantiate(mobToSpawn, GetSpawnPosition(), GetSpawnDirection());
+                MobManager.Instance.AddNewMob(newMob);
+            } 
             yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
         }
     }
 
+    // private IEnumerator SpawnForDuration(float duration)
+    // {
+    //     float elapsedTime = 0f;
+    //     while (elapsedTime < duration)
+    //     {
+    //         Instantiate(BuffProjectilePrefabs[Random.Range(0, BuffProjectilePrefabs.Count)], GetSpawnPosition(), GetSpawnDirection());
+    //         elapsedTime += Random.Range(minSpawnTime, maxSpawnTime);
+    //         yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
+    //     }
+    //     StopSpawning();
+    // }
 
-
-    private IEnumerator SpawnForDuration(float duration)
-    {
-        float elapsedTime = 0f;
-        while (elapsedTime < duration)
-        {
-            Instantiate(projectilePrefabs[Random.Range(0, projectilePrefabs.Count)], GetSpawnPosition(), GetSpawnDirection());
-            elapsedTime += Random.Range(minSpawnTime, maxSpawnTime);
-            yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
-        }
-        StopSpawning();
-    }
-
-    private IEnumerator SpawnMultipleProjectiles(int numberOfProjectiles)
-    {
-        for (int i = 0; i < numberOfProjectiles; i++)
-        {
-            Instantiate(projectilePrefabs[Random.Range(0, projectilePrefabs.Count)], GetSpawnPosition(), GetSpawnDirection());
-            yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
-        }
-    }
+    // private IEnumerator SpawnMultipleProjectiles(int numberOfProjectiles)
+    // {
+    //     for (int i = 0; i < numberOfProjectiles; i++)
+    //     {
+    //         Instantiate(BuffProjectilePrefabs[Random.Range(0, BuffProjectilePrefabs.Count)], GetSpawnPosition(), GetSpawnDirection());
+    //         yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
+    //     }
+    // }
 
     public void OnDifficultyChanged(int newDifficulty)
     {
         SpawnerManager.Instance.AdjustDifficulty(newDifficulty);
         if(newDifficulty == 0) return;
-        /*GameObject medkitPrefab = projectilePrefabs.Find(p => p.GetComponent<Projectile>() is Medkit);
-        if (medkitPrefab != null)
-        {
-            GameObject newMedkit = Instantiate(medkitPrefab, GetSpawnPosition(), GetSpawnDirection());
-            ProjectileManager.Instance.AddNewProjectile(newMedkit);
-        }*/
+        // GameObject medkitPrefab = ProjectilePrefabs.Find(p => p.GetComponent<Projectile>() is Medkit);
+        // if (medkitPrefab != null)
+        // {
+        //     GameObject newMedkit = Instantiate(medkitPrefab, GetSpawnPosition(), GetSpawnDirection());
+        //     ProjectileManager.Instance.AddNewProjectile(newMedkit);
+        // }
     }
-    private GameObject GetRandomProjectileBasedOnChance()
+
+    // private GameObject GetRandomBuffProjectileBasedOnChance(){
+    //     float randValue = Random.Range(0f, 1f);
+    //     if(randValue < BuffChance)
+    //     {
+    //         Random randId = new Random();
+    //         buffIdToSpawn = rand.Next(1, BuffProjectilePrefabs.Count);
+    //         return BuffProjectilePrefabs[buffIdToSpawn];
+    //     }
+    //     else
+    //     {
+    //         return null;
+    //     }
+    // }
+
+    // private GameObject GetRandomProjectileBasedOnChance()
+    // {
+    //     if (GameManager.Instance.spawnOnlyCoins)
+    //     {
+    //         OnlyCoinsSetUp();
+    //         return CoinPrefab;
+    //     }
+    //     OnlyCoinsReset();
+
+    //     float totalChance = 0f;
+    //     foreach (var prefab in ProjectilePrefabs)
+    //     {
+    //         Projectile projectile = prefab.GetComponent<Projectile>();
+    //         if (projectile != null)
+    //         {
+    //             totalChance += projectile.spawnChance;
+    //         }
+    //     }
+
+    //     float randomValue = Random.Range(0f, totalChance);
+    //     float cumulativeChance = 0f;
+
+    //     foreach (var prefab in ProjectilePrefabs)
+    //     {
+    //         Projectile projectile = prefab.GetComponent<Projectile>();
+    //         if (projectile != null)
+    //         {
+    //             cumulativeChance += projectile.spawnChance;
+    //             if (randomValue <= cumulativeChance)
+    //             {
+    //                 return prefab;
+    //             }
+    //         }
+    //     }
+    //     return null; // Should never happen if totalChance is correctly calculated
+    // }
+
+    private GameObject GetRandomMobBasedOnChance()
     {
-        if (GameManager.Instance.spawnOnlyCoins)
+        float randValue = Random.Range(0f, 1);
+
+        List<GameObject> sortedMobPrefabs = MobPrefabs.OrderBy(prefab => prefab.GetComponent<Mob>().SpawnChance).ToList();
+        foreach (var prefab in sortedMobPrefabs) 
         {
-            // Store the original values if not already stored
-            if (originalMinSpawnTime == 0 && originalMaxSpawnTime == 0 && originalProjectileSpeed == 0)
+            float spawnChance = prefab.GetComponent<Mob>().SpawnChance;
+            if (randValue <= spawnChance) 
             {
-                originalMinSpawnTime = minSpawnTime;
-                originalMaxSpawnTime = maxSpawnTime;
-                if (projectilePrefabs.Count > 0)
-                {
-                    Projectile projectileScript = projectilePrefabs[0].GetComponent<Projectile>();
-                    if (projectileScript != null)
-                    {
-                        originalProjectileSpeed = projectileScript.GetCurrentSpeed();
-                    }
-                }
-            }
-
-            // Change the spawn rate and projectile speed
-            SetSpawnRate(0.1f, 1.0f); // Example values
-            SetProjectileSpeed(3.0f); // Example value
-
-            return projectilePrefabs.Find(p => p.GetComponent<Projectile>() is Coin);
-
-        }
-        else
-        {
-            // Reset the values to their original state
-            if (originalMinSpawnTime != 0 && originalMaxSpawnTime != 0 && originalProjectileSpeed != 0)
-            {
-                SetSpawnRate(originalMinSpawnTime, originalMaxSpawnTime);
-                SetProjectileSpeed(originalProjectileSpeed);
-
-                // Clear the original values
-                originalMinSpawnTime = 0;
-                originalMaxSpawnTime = 0;
-                originalProjectileSpeed = 0;
-            }
+                return prefab;
+            } 
+            // else 
+            // {
+            //     prefab.GetComponent<Mob>().SpawnChance *= 2;
+            //     increase chance of spawning this mob 
+            // }
         }
 
-        float totalChance = 0f;
-        foreach (var prefab in projectilePrefabs)
-        {
-            Projectile projectile = prefab.GetComponent<Projectile>();
-            if (projectile != null)
-            {
-                totalChance += projectile.spawnChance;
-            }
-        }
-
-        float randomValue = Random.Range(0f, totalChance);
-        float cumulativeChance = 0f;
-
-        foreach (var prefab in projectilePrefabs)
-        {
-            Projectile projectile = prefab.GetComponent<Projectile>();
-            if (projectile != null)
-            {
-                cumulativeChance += projectile.spawnChance;
-                if (randomValue <= cumulativeChance)
-                {
-                    return prefab;
-                }
-            }
-        }
-        return null; // Should never happen if totalChance is correctly calculated
+        return sortedMobPrefabs.Last();
     }
+
+    // void OnlyCoinsSetUp(){
+    //     // Store the original values if not already stored
+    //     if (originalMinSpawnTime == 0 && originalMaxSpawnTime == 0 && originalProjectileSpeed == 0)
+    //     {
+    //         originalMinSpawnTime = minSpawnTime;
+    //         originalMaxSpawnTime = maxSpawnTime;
+    //         if (ProjectilePrefabs.Count > 0)
+    //         {
+    //             Projectile projectileScript = ProjectilePrefabs[0].GetComponent<Projectile>();
+    //             if (projectileScript != null)
+    //             {
+    //                 originalProjectileSpeed = projectileScript.GetCurrentSpeed();
+    //             }
+    //         }
+    //     }
+
+    //     // Change the spawn rate and projectile speed
+    //     SetSpawnRate(0.1f, 1.0f); // Example values
+    //     SetProjectileSpeed(3.0f); // Example value
+    // }
+
+    // void OnlyCoinsReset(){
+    //     // Reset the values to their original state
+    //     if (originalMinSpawnTime != 0 && originalMaxSpawnTime != 0 && originalProjectileSpeed != 0)
+    //     {
+    //         SetSpawnRate(originalMinSpawnTime, originalMaxSpawnTime);
+    //         SetProjectileSpeed(originalProjectileSpeed);
+
+    //         // Clear the original values
+    //         originalMinSpawnTime = 0;
+    //         originalMaxSpawnTime = 0;
+    //         originalProjectileSpeed = 0;
+    //     }
+    // }
 }

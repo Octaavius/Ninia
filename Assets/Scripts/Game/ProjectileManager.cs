@@ -12,7 +12,8 @@ public class ProjectileManager : MonoBehaviour
 
     private bool showNumbers = false;
 
-    void Awake(){
+    void Awake()
+    {
         if (Instance == null) {
             Instance = this;
         } else {
@@ -24,19 +25,22 @@ public class ProjectileManager : MonoBehaviour
     {
         return ProjectilesPrefabs;
     }
+
     public List<GameObject> GetAllProjectiles()
     {
         return new List<GameObject>(spawnedProjectiles);
     } 
 
-    public bool HitProjectile(GameObject projectileObject, float damage){
+    public bool HitProjectile(GameObject projectileObject, float damage)
+    {
         if(projectileObject == null) return false;
 
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         return projectile.TakeDamage(damage);
     }
 
-    public void DestroyProjectile(GameObject projectileObject){
+    public void DestroyProjectile(GameObject projectileObject)
+    {
         if(projectileObject == null) return;
         
         Projectile projectile = projectileObject.GetComponent<Projectile>();
@@ -61,7 +65,8 @@ public class ProjectileManager : MonoBehaviour
         spawnedProjectiles = new();
     }
      
-    public void AddNewProjectile(GameObject newProjectile){
+    public void AddNewProjectile(GameObject newProjectile)
+    {
         spawnedProjectiles.Add(newProjectile);
         Projectile projectile = newProjectile.GetComponent<Projectile>();
         if (projectile != null)
@@ -69,6 +74,7 @@ public class ProjectileManager : MonoBehaviour
             projectile.SetShowNumbers(showNumbers);
         }
     }
+
     public void SetShowNumbers(bool show)
     {
         showNumbers = show;
@@ -92,16 +98,20 @@ public class ProjectileManager : MonoBehaviour
         }
     }
 
-    public bool NoSpawnedProjectiles(){
+    public bool NoSpawnedProjectiles()
+    {
         RemoveDeletedProjectiles();
         return spawnedProjectiles.Count == 0;
     }
 
-    void RemoveDeletedProjectiles() {
+    void RemoveDeletedProjectiles()
+    {
         List<GameObject> filteredProjectiles = new List<GameObject>();
 
-        foreach (GameObject projectile in spawnedProjectiles){
-            if (projectile != null) {
+        foreach (GameObject projectile in spawnedProjectiles)
+        {
+            if (projectile != null) 
+            {
                 filteredProjectiles.Add(projectile);
             }
         }

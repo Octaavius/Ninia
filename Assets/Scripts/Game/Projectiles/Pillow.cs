@@ -50,8 +50,8 @@ public class Pillow : Projectile
     }
     
     public override void ActionOnCollision(){
-	AudioManager.Instance.PlaySFX(AudioManager.Instance.collisionSound);
-        GameManager.Instance.ninjaController.healthScript.RemoveHealth(damage);
+	    AudioManager.Instance.PlaySFX(AudioManager.Instance.collisionSound);
+        NinjaController.Instance.HpScr.RemoveHealth(damage);
         Destroy(gameObject);
     }
 

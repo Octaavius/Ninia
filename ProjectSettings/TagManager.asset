@@ -46,11 +46,11 @@ TagManager:
   - name: Player
     uniqueID: 3543292753
     locked: 0
-  - name: Menu
-    uniqueID: 3955954093
-    locked: 0
   - name: UI
     uniqueID: 95864647
+    locked: 0
+  - name: Menu
+    uniqueID: 3955954093
     locked: 0
   - name: Settings
     uniqueID: 554611231

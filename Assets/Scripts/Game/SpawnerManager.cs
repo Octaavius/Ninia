@@ -5,12 +5,16 @@ using TMPro;
 
 public class SpawnerManager : MonoBehaviour
 {
+    [SerializeField] private TMP_Text waveText; 
+    //SerializeField] private List<GameObject> BuffProjectilePrefabs;
+    [SerializeField] private List<GameObject> MobPrefabs;
+    [SerializeField] private List<GameObject> BossPrefabs;
+    //[SerializeField] private GameObject CoinPrefab;
+    //[SerializeField] private float BuffChance;
+
     public static SpawnerManager Instance { get; private set; }
 
     protected List<Spawner> spawners = new List<Spawner>();
-    [SerializeField] private TMP_Text waveText; 
-    public List<GameObject> projectilePrefabs; // might be private and set in register spawner to each spawner
-    [SerializeField] private GameObject[] bossPrefabs;
     private GameObject bossInstance;
     [HideInInspector] public int currentDifficulty;
 
@@ -29,6 +33,10 @@ public class SpawnerManager : MonoBehaviour
     public void RegisterSpawner(Spawner spawner)
     {
         spawners.Add(spawner);
+        //spawner.BuffProjectilePrefabs = BuffProjectilePrefabs;
+        spawner.MobPrefabs = MobPrefabs;
+        //spawner.CoinPrefab = CoinPrefab;
+        //spawner.BuffChance = BuffChance;
         // Subscribe to the OnDifficultyChanged event
         if (LevelProgress.Instance != null)
         {
@@ -64,62 +72,62 @@ public class SpawnerManager : MonoBehaviour
     }
 
     /*------------------Spawner managering------------------*/
-    public void SetSpawnRate(float minSpawnTime, float maxSpawnTime, params Spawner[] selectedSpawners)
-    {
-        foreach (var spawner in selectedSpawners)
-        {
-            spawner.SetSpawnRate(minSpawnTime, maxSpawnTime);
-        }
-    }
-    public void SetSpawnDuration(float duration, params Spawner[] selectedSpawners)
-    {
-        foreach (var spawner in selectedSpawners)
-        {
-            spawner.SetSpawnDuration(duration);
-        }
-    }
-    public void SetSpawnNumber(int numberOfProjectiles, params Spawner[] selectedSpawners)
-    {
-        foreach (var spawner in selectedSpawners)
-        {
-            spawner.SetSpawnNumber(numberOfProjectiles);
-        }
-    }
-    public void SetSpawnProjectile(GameObject projectilePrefab, params Spawner[] selectedSpawners) //set chosen ONE projectile to spawn
-    {
-        foreach (var spawner in selectedSpawners)
-        {
-            spawner.SetSpawnProjectile(projectilePrefab);
-        }
-    }
-    public void SetSpawnProjectiles(List<GameObject> projectilePrefabs, params Spawner[] selectedSpawners) //set chosen MULTIPLE projectiles to spawn
-    {
-        foreach (var spawner in selectedSpawners)
-        {
-            spawner.SetSpawnProjectiles(projectilePrefabs);
-        }
-    }
-    public void SetSpawnDirection(Direction newDirection, params Spawner[] selectedSpawners)
-    {
-        foreach (var spawner in selectedSpawners)
-        {
-            spawner.SetSpawnDirection(newDirection);
-        }
-    }
-    public void SetSpawnLocation(Vector3 newLocation, params Spawner[] selectedSpawners)
-    {
-        foreach (var spawner in selectedSpawners)
-        {
-            spawner.SetSpawnLocation(newLocation);
-        }
-    }
-    public void SetProjectileSpeed(float newSpeed, params Spawner[] selectedSpawners)
-    {
-        foreach (var spawner in selectedSpawners)
-        {
-            spawner.SetProjectileSpeed(newSpeed);
-        }
-    }
+    // public void SetSpawnRate(float minSpawnTime, float maxSpawnTime, params Spawner[] selectedSpawners)
+    // {
+    //     foreach (var spawner in selectedSpawners)
+    //     {
+    //         spawner.SetSpawnRate(minSpawnTime, maxSpawnTime);
+    //     }
+    // }
+    // public void SetSpawnDuration(float duration, params Spawner[] selectedSpawners)
+    // {
+    //     foreach (var spawner in selectedSpawners)
+    //     {
+    //         spawner.SetSpawnDuration(duration);
+    //     }
+    // }
+    // public void SetSpawnNumber(int numberOfProjectiles, params Spawner[] selectedSpawners)
+    // {
+    //     foreach (var spawner in selectedSpawners)
+    //     {
+    //         spawner.SetSpawnNumber(numberOfProjectiles);
+    //     }
+    // }
+    // public void SetSpawnProjectile(GameObject projectilePrefab, params Spawner[] selectedSpawners) //set chosen ONE projectile to spawn
+    // {
+    //     foreach (var spawner in selectedSpawners)
+    //     {
+    //         spawner.SetSpawnProjectile(projectilePrefab);
+    //     }
+    // }
+    // public void SetSpawnProjectiles(List<GameObject> P, params Spawner[] selectedSpawners) //set chosen MULTIPLE projectiles to spawn
+    // {
+    //     foreach (var spawner in selectedSpawners)
+    //     {
+    //         spawner.SetSpawnProjectiles(P);
+    //     }
+    // }
+    // public void SetSpawnDirection(Direction newDirection, params Spawner[] selectedSpawners)
+    // {
+    //     foreach (var spawner in selectedSpawners)
+    //     {
+    //         spawner.SetSpawnDirection(newDirection);
+    //     }
+    // }
+    // public void SetSpawnLocation(Vector3 newLocation, params Spawner[] selectedSpawners)
+    // {
+    //     foreach (var spawner in selectedSpawners)
+    //     {
+    //         spawner.SetSpawnLocation(newLocation);
+    //     }
+    // }
+    // public void SetProjectileSpeed(float newSpeed, params Spawner[] selectedSpawners)
+    // {
+    //     foreach (var spawner in selectedSpawners)
+    //     {
+    //         spawner.SetProjectileSpeed(newSpeed);
+    //     }
+    // }
     /*------------------Difficulty Settings------------------*/
     public void AdjustSpawnRates(int newDifficulty)
     {
@@ -131,28 +139,40 @@ public class SpawnerManager : MonoBehaviour
             spawner.SetSpawnRate(newMinSpawnTime, newMaxSpawnTime);
         }
     }
-    public void AdjustProjectileSpeed(int newDifficulty)
+    // public void AdjustProjectileSpeed(int newDifficulty)
+    // {
+    //     List<GameObject> projectiles = ProjectileManager.Instance.getProjectilesPrefabs();
+    //     foreach (GameObject projectile in projectiles)
+    //     {
+    //         Projectile projectileScript = projectile.GetComponent<Projectile>();
+    //         float currentSpeed = projectileScript.GetCurrentSpeed();
+    //         currentSpeed = Mathf.Min(5.0f, currentSpeed + 0.01f * newDifficulty);
+    //         projectileScript.SetProjectileSpeed(currentSpeed + 0.01f * newDifficulty);
+    //     }
+    // }
+
+    public void AdjustMobsSpeed(int newDifficulty)
     {
-        List<GameObject> projectiles = ProjectileManager.Instance.getProjectilesPrefabs();
-        foreach (GameObject projectile in projectiles)
+        foreach (GameObject prefab in MobPrefabs)
         {
-            Projectile projectileScript = projectile.GetComponent<Projectile>();
-            float currentSpeed = projectileScript.GetCurrentSpeed();
-            currentSpeed = Mathf.Min(5.0f, currentSpeed + 0.01f * newDifficulty);
-            projectileScript.SetProjectileSpeed(currentSpeed + 0.01f * newDifficulty);
+            prefab.GetComponent<Mob>().CurrentSpeed += 0.01f * newDifficulty;
         }
     }
+
     public void AdjustDifficulty(int newDifficulty)
     {
         if (newDifficulty != currentDifficulty)
         {
             currentDifficulty = newDifficulty;
-            if((newDifficulty + 1) % 2 == 0){
+            if((newDifficulty + 1) % 2 == 0)
+            {
                 BossPreparation();
                 AnnounceBoss();
-            } else {
+            }
+            else
+            {
                 AdjustSpawnRates(newDifficulty);
-                AdjustProjectileSpeed(newDifficulty);
+                AdjustMobsSpeed(newDifficulty);
                 StartCoroutine(WaitEndOfTheWave());
             }
         }
@@ -160,9 +180,8 @@ public class SpawnerManager : MonoBehaviour
 
     IEnumerator WaitEndOfTheWave(){
         StopSpawning(spawners.ToArray());
-        while(!ProjectileManager.Instance.NoSpawnedProjectiles()) 
+        while(!MobManager.Instance.NoSpawnedMobs()) 
         {
-            Debug.Log("waiting");
             yield return null;
         }
         AnnounceWave();
@@ -176,11 +195,9 @@ public class SpawnerManager : MonoBehaviour
             spawner.SetSpawnRate(2.0f, 3.0f);
         }
 
-        List<GameObject> projectiles = ProjectileManager.Instance.getProjectilesPrefabs();
-        foreach (GameObject projectile in projectiles)
+        foreach (GameObject prefab in MobPrefabs)
         {
-            Projectile projectileScript = projectile.GetComponent<Projectile>();
-            projectileScript.ResetSpeed();
+            prefab.GetComponent<Mob>().ResetSpeed();
         }
 
         AnnounceWave();
@@ -197,15 +214,14 @@ public class SpawnerManager : MonoBehaviour
     }
 
     void BossPreparation(){
-        ProjectileManager.Instance.DestroyAllProjectiles();
+        ProjectileManager.Instance.RemoveAllProjectiles();
+        MobManager.Instance.RemoveAllMobs();
         
-        NinjaController ninjaController = GameManager.Instance.ninjaController;
-        GameObject ninja = ninjaController.gameObject;
+        GameObject ninja = NinjaController.Instance.gameObject;
         LeanTween.move(ninja, new Vector3(0, -3, 0), 1.0f).setEase(LeanTweenType.easeInOutQuad);
-        ninjaController.hitScript.changeModeToBossMode();
+        NinjaController.Instance.HitScr.ChangeModeToBossMode();
 
-        
-        bossInstance = Instantiate(bossPrefabs[0], new Vector3(0, 2.02f, 0), Quaternion.identity);
+        bossInstance = Instantiate(BossPrefabs[0], new Vector3(0, 2.02f, 0), Quaternion.identity);
 
         // Set the initial alpha of the boss to 0
         SpriteRenderer bossRenderer = bossInstance.GetComponentInChildren<SpriteRenderer>();
@@ -234,14 +250,15 @@ public class SpawnerManager : MonoBehaviour
 
     public void AfterBossCleanUp(){
         ProjectileManager.Instance.DestroyAllProjectiles();
-        if(bossInstance != null) Destroy(bossInstance);
-        NinjaController ninjaController = GameManager.Instance.ninjaController;
-        GameObject ninja = ninjaController.gameObject;
+        Debug.Log(MobManager.Instance == null);
+        MobManager.Instance.DestroyAllMobs();
+        if (bossInstance != null) Destroy(bossInstance);
+        GameObject ninja = NinjaController.Instance.gameObject;
         if (ninja != null)
         {
             LeanTween.move(ninja, new Vector3(0, 0, 0), 1.0f).setEase(LeanTweenType.easeInOutQuad);
         }
-        ninjaController.hitScript.changeModeToWaveMode();
+        NinjaController.Instance.HitScr.ChangeModeToWaveMode();
         
     }
 

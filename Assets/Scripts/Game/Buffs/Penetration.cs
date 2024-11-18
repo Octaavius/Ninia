@@ -5,9 +5,9 @@ using UnityEngine;
 public class Penetration : Buff
 {
     protected override void ActivateBuff(){
-        GameManager.Instance.ninjaController.hitScript.setNumberOfHits(2);
+        NinjaController.Instance.HitScr.SetNumberOfHits(2);
     }
     protected override void DeactivateBuff(){
-        GameManager.Instance.ninjaController.hitScript.setNumberOfHits(1);
+        NinjaController.Instance.HitScr.SetNumberOfHits(1);
     }
 }

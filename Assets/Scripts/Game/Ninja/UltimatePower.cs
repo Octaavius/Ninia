@@ -40,6 +40,7 @@ public class UltimatePower : MonoBehaviour
         AudioManager.Instance.PlaySFX(AudioManager.Instance.boomSound);
 
         ProjectileManager.Instance.DestroyAllProjectiles();
+        MobManager.Instance.DestroyAllMobs();
         
         ResetUltimatePower();
     } 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5473877379052372317}
   - component: {fileID: 3327900892369133794}
   m_Layer: 0
-  m_Name: Filling
+  m_Name: HpBarFilling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4424802217958321086}
   - component: {fileID: 1202069362962308075}
   m_Layer: 5
-  m_Name: PillowHealth
+  m_Name: HpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -280,7 +280,7 @@ Transform:
   m_GameObject: {fileID: 1825174217187514313}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.73, z: -1.0050654}
+  m_LocalPosition: {x: 0, y: 1.13, z: -1.0050654}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -364,8 +364,11 @@ GameObject:
   - component: {fileID: 469744613031090986}
   - component: {fileID: 6590099016667756847}
   - component: {fileID: 9177278295374477745}
+  - component: {fileID: 3509161086915255671}
+  - component: {fileID: 8108719568596568657}
+  - component: {fileID: 2744739981588091423}
   m_Layer: 6
-  m_Name: Skeleton
+  m_Name: Shark
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -446,19 +449,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa787b23a46fba23cb6224f655cf5357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BasicSpeed: 1
-  spawnChance: 0.8
-  rotationSpeed: {x: 0, y: 0, z: 0}
-  alive: 1
-  scorePrice: 12
-  maxHealth: 100
-  damage: 30
-  mobSprite: {fileID: 7779030786557143894}
-  leftHealthBarBorderPosition: {fileID: 2494069746689532470}
-  healthBar: {fileID: 1825174217187514313}
-  healthBarFilling: {fileID: 639403199661255441}
-  healthTextPillow: {fileID: 1202069362962308075}
-  healthBarYPosition: 0.73
+  HpScr: {fileID: 0}
+  AtckScr: {fileID: 0}
+  DefScr: {fileID: 0}
+  FreezeDegree: 0
+  ScorePrice: 12
+  MobSprite: {fileID: 7779030786557143894}
+  SpawnChance: 0.1
+  Speed: 1
+  CurrentSpeed: 0
+  HpBar: {fileID: 1825174217187514313}
+  HpBarYPos: 1.13
+--- !u!114 &3509161086915255671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791677445985977321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ccdb81240603244698753f507640903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftHpBarBdPos: {fileID: 2494069746689532470}
+  HpBarFilling: {fileID: 639403199661255441}
+  HpText: {fileID: 1202069362962308075}
+  Shield: {fileID: 0}
+  MaxHp: 100
+  HpRegenPerSec: 0
+  HealMult: 1
+  CurrHp: 0
+--- !u!114 &8108719568596568657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791677445985977321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3361454b6845ecdea9569e68b3e43eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 10
+  LifeStealPerHit: 0
+  CritChance: 0
+  CritValue: 0
+  AttackModifiers: 
+--- !u!114 &2744739981588091423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3791677445985977321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32fc6e652d77e03798aa2f557c42398f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Armor: 0
+  EvasionChance: 0
+  DamageReflected: 0
+  Resistances: 
 --- !u!1 &5267329142903244177
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,7 +606,7 @@ GameObject:
   - component: {fileID: 8645745678541630642}
   - component: {fileID: 9058963585517185497}
   m_Layer: 0
-  m_Name: skeletonSprite
+  m_Name: SharkSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -567,7 +621,7 @@ Transform:
   m_GameObject: {fileID: 7779030786557143894}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.06, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -614,7 +668,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 4753571ec1623b8cda26a1844639b883, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 26a4275d250bb2dd28cfe7250305a0ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

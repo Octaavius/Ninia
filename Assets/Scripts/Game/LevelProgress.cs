@@ -9,7 +9,7 @@ public class LevelProgress : MonoBehaviour
     public event DifficultyChanged OnDifficultyChanged;
 
     private int currentDifficulty = 0;
-    private int nextDifficultyScore = 100;
+    private int nextDifficultyScore = 200;
 
     void Awake()
     {
@@ -39,7 +39,8 @@ public class LevelProgress : MonoBehaviour
 
     public void IncreaseGameLevel(){
         currentDifficulty++;
-        nextDifficultyScore = nextDifficultyScore + 100 * currentDifficulty;
+        //nextDifficultyScore = nextDifficultyScore + 100 * currentDifficulty;
+        nextDifficultyScore = nextDifficultyScore + 200;
         OnDifficultyChanged?.Invoke(currentDifficulty);
     }
 
