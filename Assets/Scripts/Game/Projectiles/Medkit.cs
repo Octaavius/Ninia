@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class Medkit : Projectile
 {
-    private float SpawnChance;
-    public override float GetSpawnChance() => SpawnChance;
     public override void ActionOnCollision()
     {
         Destroy(gameObject);

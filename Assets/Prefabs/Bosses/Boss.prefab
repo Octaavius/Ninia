@@ -487,7 +487,7 @@ MonoBehaviour:
   HpText: {fileID: 1202069362962308075}
   Shield: {fileID: 0}
   MaxHp: 2000
-  HpRegenPerSec: 50
+  HpRegenPerSec: 10
   HealMult: 1
   CurrHp: 0
 --- !u!114 &8108719568596568657

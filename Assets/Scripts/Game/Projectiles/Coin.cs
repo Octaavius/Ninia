@@ -5,8 +5,6 @@ public class Coin : Projectile
 {
     [SerializeField] private int price = 7;
     public MagnetAnimation magnetAnimation;
-    private float SpawnChance;
-    public override float GetSpawnChance() => SpawnChance;
 
     void Start()
     {

@@ -70,7 +70,6 @@ public class Mob : Creature
         );
     }
 
-    // public override float GetSpawnChance() => SpawnChance;
     // public override void OnToggleChange() {
     //     healthText.text = showNumbers ? $"{currentHealth}" : "";
     // }

@@ -222,26 +222,31 @@ public class Hit : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, currentLayer);
         if(hit.collider == null) yield break;
         comboTimer = comboWindowTime;
+        ulti.AddCharge();
 
         LayerMask initialLayerToHit = currentLayer; //if during coroutine current layer is changed to another, initial layer will not be changed
         
         int hitCounter = 0;
         while(true) {
             hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, initialLayerToHit);
-            Creature creatureToHit = hit.collider.gameObject.GetComponent<Creature>();
-            
             if(hit.collider == null) {
                 break;
             }
+            
+            IHitable objectToHit = hit.collider.gameObject.GetComponent<IHitable>();
+
             float damage = NinjaController.Instance.AtckScr.CountTotalDamage();
-            bool kill = creatureToHit.TakeDamage(damage, AttackType.None);
-            NinjaController.Instance.AtckScr.ApplyAttackEffects(creatureToHit);
+            bool objectIsDead = objectToHit.TakeDamage(damage, AttackType.None);
+            
+            if(objectToHit is Creature creature)
+                NinjaController.Instance.AtckScr.ApplyAttackEffects(creature);
+            
             if(penetrateToTheEnd){
                 continue;
             }
             hitCounter++;
             if(hitCounter == numberOfHits){    
-                if(kill){
+                if(objectIsDead){
                     comboTimer = 0;
                 }
                 break;

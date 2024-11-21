@@ -6,6 +6,8 @@ public class BuffsManager : MonoBehaviour
 {
     public static BuffsManager Instance { get; private set; }
 
+    public List<RectTransform> BuffsTransform;
+
     private List<Buff> BuffsList;
 
     void Awake(){

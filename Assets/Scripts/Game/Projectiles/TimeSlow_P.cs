@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class TimeSlow_P : Projectile
 {
-    private float SpawnChance;
-    public override float GetSpawnChance() => SpawnChance;
     public override void ActionOnCollision()
     {
         Destroy(gameObject);

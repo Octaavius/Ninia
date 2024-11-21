@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Magnet_P : Projectile
 {
-    private float SpawnChance;
-    public override float GetSpawnChance() => SpawnChance;
     public override void ActionOnCollision()
     {
         Destroy(gameObject);

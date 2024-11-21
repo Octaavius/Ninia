@@ -10,8 +10,6 @@ public class ProjectileManager : MonoBehaviour
     private List<GameObject> spawnedProjectiles = new();
     [SerializeField] private List<GameObject> ProjectilesPrefabs = new();
 
-    private bool showNumbers = false;
-
     void Awake()
     {
         if (Instance == null) {
@@ -36,7 +34,7 @@ public class ProjectileManager : MonoBehaviour
         if(projectileObject == null) return false;
 
         Projectile projectile = projectileObject.GetComponent<Projectile>();
-        return projectile.TakeDamage(damage);
+        return projectile.TakeDamage(damage, AttackType.None);
     }
 
     public void DestroyProjectile(GameObject projectileObject)
@@ -69,33 +67,6 @@ public class ProjectileManager : MonoBehaviour
     {
         spawnedProjectiles.Add(newProjectile);
         Projectile projectile = newProjectile.GetComponent<Projectile>();
-        if (projectile != null)
-        {
-            projectile.SetShowNumbers(showNumbers);
-        }
-    }
-
-    public void SetShowNumbers(bool show)
-    {
-        showNumbers = show;
-        spawnedProjectiles.RemoveAll(projectile => projectile == null);
-        foreach (var projectile in spawnedProjectiles)
-        {
-            Projectile proj = projectile.GetComponent<Projectile>();
-            if (proj != null)
-            {
-                proj.SetShowNumbers(show);
-            }
-        }
-
-        foreach (var prefab in ProjectilesPrefabs)
-        {
-            Projectile proj = prefab.GetComponent<Projectile>();
-            if (proj != null)
-            {
-                proj.SetShowNumbers(show);
-            }
-        }
     }
 
     public bool NoSpawnedProjectiles()

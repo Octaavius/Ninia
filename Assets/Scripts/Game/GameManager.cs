@@ -145,7 +145,6 @@ public class GameManager : MonoBehaviour
     {
         NinjaController.Instance.HpScr.SetShowNumbers(showNumbers);
         NinjaController.Instance.Ulti.SetShowNumbers(showNumbers);
-        ProjectileManager.Instance.SetShowNumbers(showNumbers);
     }
 
     private void ResetOnlyCoinsScore()

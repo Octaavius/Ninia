@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Projectile : MonoBehaviour
+public abstract class Projectile : MonoBehaviour, IHitable
 {
     //[Header("Sprite To Rotate")]
     private GameObject spriteToRotate;
@@ -10,9 +10,8 @@ public abstract class Projectile : MonoBehaviour
     
     private float Speed;
 
-    public float spawnChance;
+    public float SpawnChance;
     public Vector3 rotationSpeed = new Vector3(0, 0, 100);
-    protected bool showNumbers = false;
 
     void Awake(){
         Speed = BasicSpeed;
@@ -28,12 +27,9 @@ public abstract class Projectile : MonoBehaviour
     {
         MoveForward();
         Rotate();
-        UpdateHealthBar();
     }
 
-    public virtual void UpdateHealthBar(){}
-
-    public virtual bool TakeDamage(float damage){ // by default just kill projectile, as it can be without hp
+    public bool TakeDamage(float damage, AttackType attackType){ // by default just kill projectile, as it can be without hp
         ActionOnDestroy();
         return true;
     }
@@ -41,7 +37,6 @@ public abstract class Projectile : MonoBehaviour
     public abstract void ActionOnDestroy();
     public abstract void ActionOnCollision();
     public virtual float GetSpawnChance() => 0.0f;
-    public virtual void OnToggleChange() { }    
     private void MoveForward(){
         transform.Translate(Vector3.up * Speed * Time.deltaTime, Space.Self);
         if(transform.position.x > 20 || transform.position.y > 20 || transform.position.x < -20 || transform.position.y < -20) Destroy(gameObject);
@@ -61,11 +56,7 @@ public abstract class Projectile : MonoBehaviour
         Speed = BasicSpeed;
     }
     public void SetSpawnChance(float newSpawnChance){
-        spawnChance = newSpawnChance;
-    }
-    public void SetShowNumbers(bool show){
-        showNumbers = show;
-        OnToggleChange();
+        SpawnChance = newSpawnChance;
     }
     protected void ActivateBuff<T>() where T : Buff
     {

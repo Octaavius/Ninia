@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Button))]
 public class SwipeButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private float swipeThreshold = 50f; // Threshold in pixels to consider it a swipe
@@ -14,10 +15,6 @@ public class SwipeButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     void Start()
     {
         button = GetComponent<Button>();
-        if (button == null)
-        {
-            Debug.LogError("SwipeButton must be attached to a GameObject with a Button component.");
-        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -34,8 +31,6 @@ public class SwipeButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (!isSwipe)
         {
             button.onClick.Invoke();
-        } else {
-            Debug.Log("it is a swipe, we ARE NOT SWIPING");
         }
     }
 

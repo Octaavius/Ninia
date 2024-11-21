@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(Attack))]
 [RequireComponent(typeof(Defence))]
-public class Creature : MonoBehaviour
+public class Creature : MonoBehaviour, IHitable
 {
     [HideInInspector] public Health HpScr;
     [HideInInspector] public Attack AtckScr;
@@ -23,9 +23,9 @@ public class Creature : MonoBehaviour
     }
 
     public bool TakeDamage(float damage, AttackType attackType){
-        bool dead = HpScr.RemoveHealth(DefScr.ProcessRecievedDamage(damage, attackType));
-        if(dead) ActionOnDestroy();
-        return dead;
+        bool isDead = HpScr.RemoveHealth(DefScr.ProcessRecievedDamage(damage, attackType));
+        if(isDead) ActionOnDestroy();
+        return isDead;
     }
 
     public virtual void ActionOnDestroy() => Destroy(gameObject);
