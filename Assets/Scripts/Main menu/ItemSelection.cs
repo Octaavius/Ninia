@@ -3,30 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ItemZone{
-    Head,
-    Face,
-    Hand1,
-    Hand2,
-    Waist1,
-    Waist2,
-    Leg1,
-    Leg2,
-    None
-}
-
 public class ItemSelection : MonoBehaviour
 {
-    [SerializeField] private GameObject[] items;
-    [SerializeField] private GameObject[] equippedItems;
+    [SerializeField] private List<GameObject> _items;
+    [SerializeField] private List<GameObject> _equippedItems;
+    [SerializeField] private List<RectTransform> _itemsPreviewImages;
 
-    [SerializeField] private Color activeColor;
-    [SerializeField] private Color inactiveColor;
+    [SerializeField] private Color _activeColor;
+    [SerializeField] private Color _inactiveColor;
     
-    private int[] currentItems = {0, 0, 0, 0, 0, 0, 0, 0};
+    private int[] _currentItems = {-1, -1, -1, -1, -1, -1, -1, -1};
     private int selectedItem = -1;
-    private ItemZone selectedItemZone = ItemZone.None;
-    private bool activeItemIsSelected = false;
+    private ItemType selectedItemType = ItemType.None;
 
     void Start()
     {
@@ -38,59 +26,49 @@ public class ItemSelection : MonoBehaviour
         if(itemId == selectedItem)
         { 
             ResetSelection();
-            items[itemId].transform.localScale = new Vector2(1f, 1f);
-            activeItemIsSelected = false;
         } 
-        else if(itemId == currentItems[0] || 
-                itemId == currentItems[1] || 
-                itemId == currentItems[2] ||
-                itemId == currentItems[3] ||
-                itemId == currentItems[4] ||
-                itemId == currentItems[5] ||
-                itemId == currentItems[6] ||
-                itemId == currentItems[7])
+        else if(itemId == _currentItems[0] || 
+                itemId == _currentItems[1] || 
+                itemId == _currentItems[2] ||
+                itemId == _currentItems[3] ||
+                itemId == _currentItems[4] ||
+                itemId == _currentItems[5] ||
+                itemId == _currentItems[6] ||
+                itemId == _currentItems[7])
         {
             if(selectedItem == -1){
                 int itemZoneId = 0;
-                for(int i = 0; i < currentItems.Length; i++)
+                for(int i = 0; i < _currentItems.Length; i++)
                 {
-                    if(currentItems[i] == itemId)
+                    if(_currentItems[i] == itemId)
                     {
                         itemZoneId = i;
                         break;
                     }
                 }
-                InactivateItem((ItemZone)itemZoneId);
+                ResetItemZone((ItemZone)itemZoneId);
                 //ShowItemInfo();
             } 
-            activeItemIsSelected = true;
             return;
         } 
         else 
         {
-            if(selectedItem != -1) 
-            {
-                items[selectedItem].transform.localScale = new Vector2(1f, 1f);
-            }
+            ResetSelection();
             selectedItem = itemId;
-            items[itemId].transform.localScale = new Vector2(1.2f, 1.2f);
-            activeItemIsSelected = false;
+            selectedItemType = ItemsManager.Instance.Items[itemId].Type;
+            _items[itemId].transform.localScale = new Vector2(1.2f, 1.2f);
         }
-    }
-
-    public void SetSelectedItemZone(int itemZoneId)
-    {
-        Debug.Log(activeItemIsSelected);
-        if(!activeItemIsSelected)
-            selectedItemZone = (ItemZone)itemZoneId;
     }
 
     public void OnClickEquippedItem(int itemZoneId)
     {
         if(selectedItem == -1)
         {
-            InactivateItem((ItemZone)itemZoneId);
-            //ShowItemInfo();
+            if(_currentItems[itemZoneId] != -1)
+            {
+                ResetItemZone((ItemZone)itemZoneId);
+                //ShowItemInfo();
+            }
         } 
         else 
         {
@@ -104,23 +82,23 @@ public class ItemSelection : MonoBehaviour
 
     bool CheckZone(ItemZone itemZone)
     {
-        if(itemZone == ItemZone.Face && selectedItemZone == ItemZone.Face)
+        if(itemZone == ItemZone.Face && selectedItemType == ItemType.Face)
         {
             return true;
         } 
-        else if(itemZone == ItemZone.Head && selectedItemZone == ItemZone.Head)
+        else if(itemZone == ItemZone.Head && selectedItemType == ItemType.Head)
         {
             return true;
         }
-        else if((itemZone == ItemZone.Hand1 || itemZone == ItemZone.Hand2) && (selectedItemZone == ItemZone.Hand1 || selectedItemZone == ItemZone.Hand2))
+        else if((itemZone == ItemZone.RightHand || itemZone == ItemZone.LeftHand) && selectedItemType == ItemType.Hand)
         {
             return true;
         }
-        else if((itemZone == ItemZone.Waist1 || itemZone == ItemZone.Waist2) && (selectedItemZone == ItemZone.Waist1 || selectedItemZone == ItemZone.Waist2))
+        else if((itemZone == ItemZone.RightWaist || itemZone == ItemZone.LeftWaist) && selectedItemType == ItemType.Waist)
         {
             return true;
         }
-        else if((itemZone == ItemZone.Leg1 || itemZone == ItemZone.Leg2) && (selectedItemZone == ItemZone.Leg1 || selectedItemZone == ItemZone.Leg2))
+        else if((itemZone == ItemZone.RightLeg || itemZone == ItemZone.LeftLeg) && selectedItemType == ItemType.Leg)
         {
             return true;
         }
@@ -132,70 +110,88 @@ public class ItemSelection : MonoBehaviour
 
     void LoadCurrentItems()
     {
-        currentItems[0] = PlayerPrefs.GetInt("Head", 0);
-        currentItems[1] = PlayerPrefs.GetInt("Face", 0);
-        currentItems[2] = PlayerPrefs.GetInt("Hand1", 0);
-        currentItems[3] = PlayerPrefs.GetInt("Hand2", 0);
-        currentItems[4] = PlayerPrefs.GetInt("Waist1", 0);
-        currentItems[5] = PlayerPrefs.GetInt("Waist2", 0);
-        currentItems[6] = PlayerPrefs.GetInt("Leg1", 0);
-        currentItems[7] = PlayerPrefs.GetInt("Leg2", 0);
+        _currentItems[0] = PlayerPrefs.GetInt("Head", -1);
+        _currentItems[1] = PlayerPrefs.GetInt("Face", -1);
+        _currentItems[2] = PlayerPrefs.GetInt("LeftHand", -1);
+        _currentItems[3] = PlayerPrefs.GetInt("RightHand", -1);
+        _currentItems[4] = PlayerPrefs.GetInt("LeftWaist", -1);
+        _currentItems[5] = PlayerPrefs.GetInt("RightWaist", -1);
+        _currentItems[6] = PlayerPrefs.GetInt("LeftLeg", -1);
+        _currentItems[7] = PlayerPrefs.GetInt("RightLeg", -1);
         
         for (int i = 0; i < 8; i++) 
         {
-            SetNewItem((ItemZone) i, currentItems[i]);
+            SetNewItem((ItemZone) i, _currentItems[i]);
         }
     }
 
     void SetNewItem(ItemZone itemZone, int itemId)
     {
-        if(itemId == 0) 
+        if(itemId == -1) 
         {
             return;
         }
-        InactivateItem(itemZone);
+        if(_currentItems[(int)itemZone] != -1)
+            ResetItemZone(itemZone); // inactivate old item, which is gonna be replaced
 
         PlayerPrefs.SetInt($"{itemZone}", itemId);
-        currentItems[(int) itemZone] = itemId;
+        _currentItems[(int) itemZone] = itemId;
         ChangeEquippedItemIcon(itemZone, itemId);
-        items[itemId].transform.localScale = new Vector2(1f, 1f);
-        items[itemId].GetComponent<Image>().color = activeColor;
+        _itemsPreviewImages[itemId].gameObject.SetActive(true);
+        if(itemZone == ItemZone.LeftHand || itemZone == ItemZone.LeftLeg || itemZone == ItemZone.LeftLeg)
+        {
+            Vector2 position = _itemsPreviewImages[itemId].anchoredPosition;
+            position.x = -position.x;
+            _itemsPreviewImages[itemId].anchoredPosition = position;
+            _itemsPreviewImages[itemId].localScale = new Vector2(-1, 1);
+        }
+        _items[itemId].GetComponent<Image>().color = _activeColor;
         ResetSelection();
     }
 
     void ResetSelection()
     {
+        if(selectedItem != -1) 
+        {
+            _items[selectedItem].transform.localScale = new Vector2(1f, 1f);
+        }
         selectedItem = -1;
-        selectedItemZone = ItemZone.None;
+        selectedItemType = ItemType.None;
     }
 
-    void InactivateItem(ItemZone itemZone)
+    void ResetItemZone(ItemZone itemZone)
     {
-        if(currentItems[(int)itemZone] != 0)
+        int itemId = _currentItems[(int)itemZone]; 
+        _items[itemId].GetComponent<Image>().color = _inactiveColor;
+        _itemsPreviewImages[itemId].gameObject.SetActive(false);
+        Vector2 position = _itemsPreviewImages[itemId].anchoredPosition;
+        if(itemZone == ItemZone.LeftHand || itemZone == ItemZone.LeftLeg || itemZone == ItemZone.LeftLeg)
         {
-            items[currentItems[(int)itemZone]].GetComponent<Image>().color = inactiveColor;
-            currentItems[(int)itemZone] = 0;
-            PlayerPrefs.SetInt($"{itemZone}", 0);
-            ChangeEquippedItemIcon(itemZone, 0);
-        }
+            position.x = Mathf.Abs(position.x);
+            _itemsPreviewImages[itemId].anchoredPosition = position;
+        }    
+        _itemsPreviewImages[itemId].localScale = new Vector2(1, 1);
+        _currentItems[(int)itemZone] = -1;
+        PlayerPrefs.SetInt($"{itemZone}", -1);
+        ChangeEquippedItemIcon(itemZone, -1);
     }
 
     void ChangeEquippedItemIcon(ItemZone itemZone, int itemId)
     {
-        if(itemId == 0)
+        if(itemId == -1)
         {
 			SetDefaultIcon(itemZone);
         }
         else 
         {
-        	Sprite newSprite = items[itemId].transform.GetChild(0).gameObject.GetComponent<Image>().sprite;
-        	equippedItems[(int)itemZone].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = newSprite; 
+        	Sprite newSprite = _items[itemId].transform.GetChild(0).gameObject.GetComponent<Image>().sprite;
+        	_equippedItems[(int)itemZone].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = newSprite; 
         }
     }
 
     void SetDefaultIcon(ItemZone itemZone)
     {
-		equippedItems[(int)itemZone].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = null;
+		_equippedItems[(int)itemZone].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = null;
     }
 
     void ShowItemInfo()
