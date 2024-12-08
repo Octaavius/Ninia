@@ -2,7 +2,7 @@
 
 ## Description
 
-Ninia is an arcade game about a stickman ninja who defends himself against pillows and modes. Available 2 game mode called *"Monsters"* and *"Pillows"*. Mode can be changed by tapping on mode label in main menu. Main game mechanic is swipes, using them you can hit ninja's oponents in four directions (right, left, up and down). Volume level can be changed in settings.
+Ninia is an arcade game about a stickman ninja who defends himself against pillows and modes. Available 2 game mode called *"Monsters"* and *"Pillows"*. Mode can be changed by tapping on mode label in main menu. Main game mechanic is swipes, using them you can hit ninja's oponents in four directions (right, left, up and down). Above health bar is located ultimate's bar, when it is full, ultimate power can be activated using double tap. Volume level can be changed in settings.
 
 ### Monsters mode description
 Here ninja is defending himself against Mobs and Bosses. If you hit an opponent, it survived and then swiped to the left or to the right from it, it will be punched in that direction. With increase of score next waves start. Each 3 waves spawns boss. During boss fight you can dodge boss's attacks using horizontal swipes. 
