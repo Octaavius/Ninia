@@ -453,13 +453,13 @@ MonoBehaviour:
   AtckScr: {fileID: 0}
   DefScr: {fileID: 0}
   FreezeDegree: 0
-  ScorePrice: 12
-  MobSprite: {fileID: 7779030786557143894}
+  _scorePrice: 12
+  _mobSprite: {fileID: 7779030786557143894}
   SpawnChance: 1
-  Speed: 1
-  CurrentSpeed: 0
-  HpBar: {fileID: 1825174217187514313}
-  HpBarYPos: 0.73
+  _initialSpeed: 1
+  CurrentSpeed: 1
+  _hpBar: {fileID: 1825174217187514313}
+  _hpBarYPos: 0.55
 --- !u!114 &3509161086915255671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,11 +472,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ccdb81240603244698753f507640903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LeftHpBarBdPos: {fileID: 2494069746689532470}
-  HpBarFilling: {fileID: 639403199661255441}
-  HpText: {fileID: 1202069362962308075}
-  Shield: {fileID: 0}
-  MaxHp: 100
+  _leftHpBarBdPos: {fileID: 2494069746689532470}
+  _hpBarFilling: {fileID: 639403199661255441}
+  _hpText: {fileID: 1202069362962308075}
+  _shield: {fileID: 0}
+  MaxHp: 200
   HpRegenPerSec: 0
   HealMult: 1
   CurrHp: 0

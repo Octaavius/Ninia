@@ -37,7 +37,8 @@ public class ItemsManager : MonoBehaviour
 	public void ActivateItems(int[] itemsToActivate){
 		foreach(int itemId in itemsToActivate)
 		{
+            if (itemId == -1) continue;
 			Items[itemId].ApplyEffect(NinjaController.Instance.gameObject.GetComponent<Creature>());
-		}
+        }
 	}
 }

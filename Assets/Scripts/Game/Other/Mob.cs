@@ -6,23 +6,22 @@ using TMPro;
 public class Mob : Creature
 {
     [Header("Mob Settings")]
-    [SerializeField] private int ScorePrice = 12;
-    [SerializeField] private GameObject MobSprite;
-    [Range(0f, 1f)]
-    public float SpawnChance = 1f;
-    [Min(0f)]
-    public float Speed = 1f;
+    [SerializeField] private int _scorePrice = 12;
+    [SerializeField] private GameObject _mobSprite;
+    [Range(0f, 1f)] public float SpawnChance = 1f;
+    [Min(0f)][SerializeField] private float _initialSpeed = 1f;
     [HideInInspector] public float CurrentSpeed = 0f;
+    private bool _isAttackingMelee = false;
+    private Coroutine _meleeAttackCoroutine = null;
 
     [Header("Health Bar Settings")]
-    [SerializeField] private GameObject HpBar;
-    [SerializeField] private float HpBarYPos = .55f;
+    [SerializeField] private GameObject _hpBar;
+    [SerializeField] private float _hpBarYPos = .55f;
 
-    private float IntervBetwMelee = 1f;
+    private float _intervBetwMelee = 1f;
 
     void Start()
     {
-        SetSpriteScale();
         UpdHpBarPosAndRot();
         SetUpSpeed();
     }
@@ -30,18 +29,19 @@ public class Mob : Creature
     void Update()
     {
         MoveForward();
+        UpdateSpriteLookDirection();
         UpdHpBarPosAndRot();
     }
 
     void MoveForward()
     {
-        transform.Translate(Vector3.up * Speed * Time.deltaTime, Space.Self);
+        if(!_isAttackingMelee) transform.Translate(Vector3.up * CurrentSpeed * Time.deltaTime, Space.Self);
         if(transform.position.x > 20 || transform.position.y > 20 || transform.position.x < -20 || transform.position.y < -20) Destroy(gameObject);
     }
 
     void SetUpSpeed()
     {
-        if (CurrentSpeed == 0f) CurrentSpeed = Speed;
+        if (CurrentSpeed == 0f) CurrentSpeed = _initialSpeed;
         float zRotation = transform.eulerAngles.z;
         if (zRotation == 90f || zRotation == 270f)
         {
@@ -49,23 +49,22 @@ public class Mob : Creature
         }
     }
 
-    void SetSpriteScale() 
+    void UpdateSpriteLookDirection() 
     {
         if (transform) 
         {
-            MobSprite.transform.rotation = Quaternion.identity;
-            float rotationAngle = transform.eulerAngles.z;
-            if (rotationAngle == 0 || rotationAngle == 90) 
-            {
-                MobSprite.transform.localScale = new Vector3(-MobSprite.transform.localScale.x, MobSprite.transform.localScale.y, 1); 
-            }
+            _mobSprite.transform.rotation = Quaternion.identity;
+            float xPosition = transform.position.x;
+            float xScaleMultiplier = (xPosition < 0) ? 1 : -1;
+            float updatedXScale = xScaleMultiplier * Mathf.Abs(_mobSprite.transform.localScale.x);
+            _mobSprite.transform.localScale = new Vector3(updatedXScale, _mobSprite.transform.localScale.y, 1); 
         }
     }
 
     public void UpdHpBarPosAndRot()
     {
-        HpBar.transform.SetPositionAndRotation(
-            new Vector3(transform.position.x, transform.position.y + HpBarYPos, transform.position.z),
+        _hpBar.transform.SetPositionAndRotation(
+            new Vector3(transform.position.x, transform.position.y + _hpBarYPos, transform.position.z),
             Quaternion.identity
         );
     }
@@ -76,20 +75,26 @@ public class Mob : Creature
     
     public void ActionOnCollisionWithNinja()
     {
-        Speed = 0;
+        _isAttackingMelee = true;
         MeleeAttack(NinjaController.Instance.gameObject.GetComponent<Creature>());
+    }
+
+    public void ResetActionOnCollisionWithNinja()
+    {
+        _isAttackingMelee = false;
+        if(_meleeAttackCoroutine != null) StopCoroutine(_meleeAttackCoroutine);
     }
 
     public override void ActionOnDestroy()
     {
         // add death animation
-        GameManager.Instance.AddToScore(ScorePrice);
+        GameManager.Instance.AddToScore(_scorePrice);
         Destroy(gameObject);
     }
 
     void MeleeAttack(Creature creature)
     {
-        StartCoroutine(MeleeAttackCoroutine(creature));
+        _meleeAttackCoroutine = StartCoroutine(MeleeAttackCoroutine(creature));
     }
 
     IEnumerator MeleeAttackCoroutine(Creature creature)
@@ -101,13 +106,13 @@ public class Mob : Creature
             creature.TakeDamage(damage, AttackType.None);
             AtckScr.ApplyAttackEffects(creature);
             HpScr.Heal(AtckScr.LifeStealPerHit);
-            yield return new WaitForSeconds(IntervBetwMelee);
+            yield return new WaitForSeconds(_intervBetwMelee);
         }
     }
 
     public void ResetSpeed()
     {
-        CurrentSpeed = Speed;
+        CurrentSpeed = _initialSpeed;
     }
 }
 

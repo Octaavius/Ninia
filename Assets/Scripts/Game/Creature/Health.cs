@@ -6,12 +6,12 @@ using TMPro;
 public class Health : MonoBehaviour
 {    
     [Header("Health Bar Settings")]
-    [SerializeField] private Transform LeftHpBarBdPos;
-    [SerializeField] private GameObject HpBarFilling;
-    [SerializeField] private TMP_Text HpText;
+    [SerializeField] private Transform _leftHpBarBdPos;
+    [SerializeField] private GameObject _hpBarFilling;
+    [SerializeField] private TMP_Text _hpText;
     
     [Header("Shield")]
-    [SerializeField] private Shield Shield;
+    [SerializeField] private Shield _shield;
     
     [Header("Health Settings")]
     [Min(0f)]
@@ -22,15 +22,15 @@ public class Health : MonoBehaviour
     [HideInInspector] public float CurrHp = 0;
     private bool ShowNumbers = false;
 
-    private float Timer;
-    private float IntervBetwPasHeal = 0.5f;
+    private float _timer;
+    private float _intervBetwPasHeal = 0.5f;
 
     void Update() {
-        Timer += Time.deltaTime;
+        _timer += Time.deltaTime;
 
-        if (Timer >= IntervBetwPasHeal) {
-            Heal(HpRegenPerSec * IntervBetwPasHeal);  
-            Timer -= IntervBetwPasHeal;   
+        if (_timer >= _intervBetwPasHeal) {
+            Heal(HpRegenPerSec * _intervBetwPasHeal);  
+            _timer -= _intervBetwPasHeal;   
         }
     }
 
@@ -43,17 +43,17 @@ public class Health : MonoBehaviour
     private void UpdateHealthBar(){
         float fillAmount = CurrHp / MaxHp;
 
-        if (HpBarFilling.GetComponent<SpriteRenderer>() != null) 
+        if (_hpBarFilling.GetComponent<SpriteRenderer>() != null) 
         {
-            HpBarFilling.transform.localScale = new Vector3(fillAmount, HpBarFilling.transform.localScale.y, 1f);
-            HpBarFilling.transform.localPosition = new Vector2(LeftHpBarBdPos.localPosition.x * (1f - fillAmount), HpBarFilling.transform.localPosition.y);
+            _hpBarFilling.transform.localScale = new Vector3(fillAmount, _hpBarFilling.transform.localScale.y, 1f);
+            _hpBarFilling.transform.localPosition = new Vector2(_leftHpBarBdPos.localPosition.x * (1f - fillAmount), _hpBarFilling.transform.localPosition.y);
         } 
-        else if (HpBarFilling.GetComponent<Image>() != null) 
+        else if (_hpBarFilling.GetComponent<Image>() != null) 
         {
-            HpBarFilling.GetComponent<Image>().fillAmount = fillAmount;
+            _hpBarFilling.GetComponent<Image>().fillAmount = fillAmount;
         } 
 
-        HpText.text = ShowNumbers ? $"{CurrHp}" : "";
+        _hpText.text = ShowNumbers ? $"{CurrHp}" : "";
     }
 
     public void Heal(float healAmount)
@@ -68,8 +68,8 @@ public class Health : MonoBehaviour
 
     public bool RemoveHealth(float removeAmount)
     {
-        if(Shield != null && Shield.isActive){
-            Shield.DecreaseShieldHp();
+        if(_shield != null && _shield.isActive){
+            _shield.DecreaseShieldHp();
             return false;
         }
 

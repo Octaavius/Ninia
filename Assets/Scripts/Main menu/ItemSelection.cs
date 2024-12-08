@@ -6,8 +6,12 @@ using UnityEngine.UI;
 public class ItemSelection : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _items;
-    [SerializeField] private List<GameObject> _equippedItems;
-    [SerializeField] private List<RectTransform> _itemsPreviewImages;
+    [SerializeField] private List<GameObject> _itemSlots;
+    [SerializeField] private GameObject _previewImagesParentInEquipmentMenu;
+    [SerializeField] private GameObject _previewImagesParentInMainMenu;
+    private List<RectTransform> _previewImagesInEquipmentMenu;
+    private List<RectTransform> _previewImagesInMainMenu;
+
 
     [SerializeField] private Color _activeColor;
     [SerializeField] private Color _inactiveColor;
@@ -15,6 +19,28 @@ public class ItemSelection : MonoBehaviour
     private int[] _currentItems = {-1, -1, -1, -1, -1, -1, -1, -1};
     private int selectedItem = -1;
     private ItemType selectedItemType = ItemType.None;
+
+    void Awake()
+    {
+        _previewImagesInEquipmentMenu = new();
+        foreach (Transform child in _previewImagesParentInEquipmentMenu.transform)
+        {
+            RectTransform imageRectTransform = child.GetComponent<RectTransform>();
+            if (imageRectTransform != null)
+            {
+                _previewImagesInEquipmentMenu.Add(imageRectTransform);
+            }
+        }
+        _previewImagesInMainMenu = new();
+        foreach (Transform child in _previewImagesParentInMainMenu.transform)
+        {
+            RectTransform imageRectTransform = child.GetComponent<RectTransform>();
+            if (imageRectTransform != null)
+            {
+                _previewImagesInMainMenu.Add(imageRectTransform);
+            }
+        }
+    }
 
     void Start()
     {
@@ -137,16 +163,51 @@ public class ItemSelection : MonoBehaviour
         PlayerPrefs.SetInt($"{itemZone}", itemId);
         _currentItems[(int) itemZone] = itemId;
         ChangeEquippedItemIcon(itemZone, itemId);
-        _itemsPreviewImages[itemId].gameObject.SetActive(true);
-        if(itemZone == ItemZone.LeftHand || itemZone == ItemZone.LeftLeg || itemZone == ItemZone.LeftLeg)
-        {
-            Vector2 position = _itemsPreviewImages[itemId].anchoredPosition;
-            position.x = -position.x;
-            _itemsPreviewImages[itemId].anchoredPosition = position;
-            _itemsPreviewImages[itemId].localScale = new Vector2(-1, 1);
-        }
+        ShowPreviewImage(itemZone, itemId);
+        
         _items[itemId].GetComponent<Image>().color = _activeColor;
         ResetSelection();
+    }
+
+    void ShowPreviewImage(ItemZone itemZone, int itemId)
+    {
+        _previewImagesInEquipmentMenu[itemId].gameObject.SetActive(true);
+        _previewImagesInMainMenu[itemId].gameObject.SetActive(true);
+        if(itemZone == ItemZone.LeftHand || itemZone == ItemZone.LeftLeg || itemZone == ItemZone.LeftLeg)
+        {
+            Vector2 position = _previewImagesInEquipmentMenu[itemId].anchoredPosition;
+            position.x = -position.x;
+            _previewImagesInEquipmentMenu[itemId].anchoredPosition = position;
+            _previewImagesInEquipmentMenu[itemId].localScale = new Vector2(-1, 1);
+
+            position = _previewImagesInMainMenu[itemId].anchoredPosition;
+            position.x = -position.x;
+            _previewImagesInMainMenu[itemId].anchoredPosition = position;
+            _previewImagesInMainMenu[itemId].localScale = new Vector2(-1, 1);
+        }
+    }
+
+    void HidePreviewImage(ItemZone itemZone)
+    {
+        int itemId = _currentItems[(int)itemZone]; 
+        _previewImagesInEquipmentMenu[itemId].gameObject.SetActive(false);
+        _previewImagesInMainMenu[itemId].gameObject.SetActive(false);
+        
+        Vector2 position = _previewImagesInEquipmentMenu[itemId].anchoredPosition;
+        if(itemZone == ItemZone.LeftHand || itemZone == ItemZone.LeftLeg || itemZone == ItemZone.LeftLeg)
+        {
+            position.x = Mathf.Abs(position.x);
+            _previewImagesInEquipmentMenu[itemId].anchoredPosition = position;
+        }    
+        _previewImagesInEquipmentMenu[itemId].localScale = new Vector2(1, 1);
+
+        position = _previewImagesInMainMenu[itemId].anchoredPosition;
+        if(itemZone == ItemZone.LeftHand || itemZone == ItemZone.LeftLeg || itemZone == ItemZone.LeftLeg)
+        {
+            position.x = Mathf.Abs(position.x);
+            _previewImagesInMainMenu[itemId].anchoredPosition = position;
+        }    
+        _previewImagesInMainMenu[itemId].localScale = new Vector2(1, 1);
     }
 
     void ResetSelection()
@@ -163,14 +224,7 @@ public class ItemSelection : MonoBehaviour
     {
         int itemId = _currentItems[(int)itemZone]; 
         _items[itemId].GetComponent<Image>().color = _inactiveColor;
-        _itemsPreviewImages[itemId].gameObject.SetActive(false);
-        Vector2 position = _itemsPreviewImages[itemId].anchoredPosition;
-        if(itemZone == ItemZone.LeftHand || itemZone == ItemZone.LeftLeg || itemZone == ItemZone.LeftLeg)
-        {
-            position.x = Mathf.Abs(position.x);
-            _itemsPreviewImages[itemId].anchoredPosition = position;
-        }    
-        _itemsPreviewImages[itemId].localScale = new Vector2(1, 1);
+        HidePreviewImage(itemZone);
         _currentItems[(int)itemZone] = -1;
         PlayerPrefs.SetInt($"{itemZone}", -1);
         ChangeEquippedItemIcon(itemZone, -1);
@@ -185,13 +239,13 @@ public class ItemSelection : MonoBehaviour
         else 
         {
         	Sprite newSprite = _items[itemId].transform.GetChild(0).gameObject.GetComponent<Image>().sprite;
-        	_equippedItems[(int)itemZone].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = newSprite; 
+        	_itemSlots[(int)itemZone].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = newSprite; 
         }
     }
 
     void SetDefaultIcon(ItemZone itemZone)
     {
-		_equippedItems[(int)itemZone].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = null;
+		_itemSlots[(int)itemZone].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = null;
     }
 
     void ShowItemInfo()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -11,11 +12,17 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Clips")]
     public AudioClip collisionSound;
     public AudioClip gameOverSound;
-    public AudioClip gameMusic;
     public AudioClip coinSound;
     public AudioClip sliceSound;
     public AudioClip boomSound;
     public AudioClip punchSound;
+    public SceneMusic[] sceneMusicMapping;
+    [System.Serializable]
+    public class SceneMusic
+    {
+        public string sceneName;  // The name of the scene
+        public AudioClip music;  // The corresponding music for the scene
+    }
 
     public static AudioManager Instance { get; private set; }
    
@@ -33,13 +40,40 @@ public class AudioManager : MonoBehaviour
     }
     private void Start()
     {
-        musicSource.clip = gameMusic;
-        musicSource.Play();
-
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        Scene currentScene = SceneManager.GetActiveScene();
+        PlayMusicForScene(currentScene.name);
     }
 
     public void PlaySFX(AudioClip clip)
     {
         SFXSource.PlayOneShot(clip);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        PlayMusicForScene(scene.name);
+
+    }
+
+    private void PlayMusicForScene(string sceneName)
+    {
+        // Find the music associated with the scene by its name
+        foreach (var sceneMusic in sceneMusicMapping)
+        {
+            if (sceneMusic.sceneName == sceneName)
+            {
+                // Play the corresponding music
+                musicSource.Stop();
+                musicSource.clip = sceneMusic.music;
+                musicSource.Play();
+                break;
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

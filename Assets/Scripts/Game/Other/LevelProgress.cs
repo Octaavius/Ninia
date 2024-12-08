@@ -8,12 +8,12 @@ public class LevelProgress : MonoBehaviour
     public delegate void DifficultyChanged(int newDifficulty);
     public event DifficultyChanged OnDifficultyChanged;
 
-    private int currentDifficulty = 0;
-    private int nextDifficultyScore = 200;
+    private int _currentDifficulty = 0;
+    private int _nextDifficultyScore = 200;
 
     void Awake()
     {
-        SpawnerManager.Instance.currentDifficulty = currentDifficulty;
+        SpawnerManager.Instance.CurrentDifficulty = _currentDifficulty;
         if (Instance == null)
         {
             Instance = this;
@@ -23,31 +23,31 @@ public class LevelProgress : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     void Update()
     {
         UpdateGameLevel(GameManager.Instance.GetScore());
     }
+
     private void UpdateGameLevel(int score)
     {
-        if (score >= nextDifficultyScore)
+        if (score >= _nextDifficultyScore)
         {
-            currentDifficulty++;
-            nextDifficultyScore = nextDifficultyScore + 100 * currentDifficulty;
-            OnDifficultyChanged?.Invoke(currentDifficulty);
+            IncreaseGameLevel();
         }
     }
 
     public void IncreaseGameLevel(){
-        currentDifficulty++;
-        //nextDifficultyScore = nextDifficultyScore + 100 * currentDifficulty;
-        nextDifficultyScore = nextDifficultyScore + 200;
-        OnDifficultyChanged?.Invoke(currentDifficulty);
+        _currentDifficulty++;
+        //_nextDifficultyScore = _nextDifficultyScore + 100 * _currentDifficulty;
+        _nextDifficultyScore += 200;
+        OnDifficultyChanged?.Invoke(_currentDifficulty);
     }
 
     public void ResetLevelProgress()
     {
-        currentDifficulty = 0;
-        nextDifficultyScore = 100;
-        OnDifficultyChanged?.Invoke(currentDifficulty);
+        _currentDifficulty = 0;
+        _nextDifficultyScore = 200;
+        OnDifficultyChanged?.Invoke(_currentDifficulty);
     }
 }

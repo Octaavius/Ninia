@@ -3,25 +3,24 @@ using UnityEngine;
 public abstract class Projectile : MonoBehaviour, IHitable
 {
     //[Header("Sprite To Rotate")]
-    private GameObject spriteToRotate;
+    private GameObject _spriteToRotate;
     [Header("Projectile basic settings")]
     
     [SerializeField] private float BasicSpeed;
     
-    private float Speed;
+    private float _speed;
 
-    public float SpawnChance;
     public Vector3 rotationSpeed = new Vector3(0, 0, 100);
 
     void Awake(){
-        Speed = BasicSpeed;
+        _speed = BasicSpeed;
         float zRotation = transform.eulerAngles.z;
         if (zRotation == 90f || zRotation == 270f)
         {
-            Speed /= 3f;
+            _speed /= 3f;
         }
 
-        spriteToRotate = transform.GetChild(0).gameObject;
+        _spriteToRotate = transform.GetChild(0).gameObject;
     }
     protected void Update()
     {
@@ -36,27 +35,24 @@ public abstract class Projectile : MonoBehaviour, IHitable
 
     public abstract void ActionOnDestroy();
     public abstract void ActionOnCollision();
-    public virtual float GetSpawnChance() => 0.0f;
+
     private void MoveForward(){
-        transform.Translate(Vector3.up * Speed * Time.deltaTime, Space.Self);
+        transform.Translate(Vector3.up * _speed * Time.deltaTime, Space.Self);
         if(transform.position.x > 20 || transform.position.y > 20 || transform.position.x < -20 || transform.position.y < -20) Destroy(gameObject);
     }
     
     public void Rotate(){
-        spriteToRotate.transform.Rotate(rotationSpeed * Time.deltaTime);
+        _spriteToRotate.transform.Rotate(rotationSpeed * Time.deltaTime);
     }
 
     public void SetProjectileSpeed(float newSpeed){
-        Speed = newSpeed;
+        _speed = newSpeed;
     }
     public float GetCurrentSpeed(){
-        return Speed;
+        return _speed;
     }
     public void ResetSpeed(){
-        Speed = BasicSpeed;
-    }
-    public void SetSpawnChance(float newSpawnChance){
-        SpawnChance = newSpawnChance;
+        _speed = BasicSpeed;
     }
     protected void ActivateBuff<T>() where T : Buff
     {

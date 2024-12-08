@@ -5,18 +5,18 @@ using TMPro;
 
 public class SpawnerManager : MonoBehaviour
 {
-    [SerializeField] private TMP_Text waveText; 
-    //SerializeField] private List<GameObject> BuffProjectilePrefabs;
-    [SerializeField] private List<GameObject> MobPrefabs;
-    [SerializeField] private List<GameObject> BossPrefabs;
-    //[SerializeField] private GameObject CoinPrefab;
-    //[SerializeField] private float BuffChance;
+    [SerializeField] private TMP_Text _waveText; 
+    [SerializeField] private List<GameObject> _projectilePrefabs;
+    [SerializeField] private List<GameObject> _buffPrefabs;
+    [SerializeField] private List<GameObject> _mobPrefabs;
+    [SerializeField] private List<GameObject> _bossPrefabs;
+    [SerializeField] private float BuffChance;
 
     public static SpawnerManager Instance { get; private set; }
 
     protected List<Spawner> spawners = new List<Spawner>();
-    private GameObject bossInstance;
-    [HideInInspector] public int currentDifficulty;
+    private GameObject _bossInstance;
+    [HideInInspector] public int CurrentDifficulty;
 
     void Awake()
     {
@@ -33,10 +33,10 @@ public class SpawnerManager : MonoBehaviour
     public void RegisterSpawner(Spawner spawner)
     {
         spawners.Add(spawner);
-        //spawner.BuffProjectilePrefabs = BuffProjectilePrefabs;
-        spawner.MobPrefabs = MobPrefabs;
-        //spawner.CoinPrefab = CoinPrefab;
-        //spawner.BuffChance = BuffChance;
+        spawner.ProjectilePrefabs = _projectilePrefabs;
+        spawner.MobPrefabs = _mobPrefabs;
+        spawner.BuffPrefabs = _buffPrefabs;
+        spawner.BuffChance = BuffChance;
         // Subscribe to the OnDifficultyChanged event
         if (LevelProgress.Instance != null)
         {
@@ -139,41 +139,50 @@ public class SpawnerManager : MonoBehaviour
             spawner.SetSpawnRate(newMinSpawnTime, newMaxSpawnTime);
         }
     }
-    // public void AdjustProjectileSpeed(int newDifficulty)
-    // {
-    //     List<GameObject> projectiles = ProjectileManager.Instance.getProjectilesPrefabs();
-    //     foreach (GameObject projectile in projectiles)
-    //     {
-    //         Projectile projectileScript = projectile.GetComponent<Projectile>();
-    //         float currentSpeed = projectileScript.GetCurrentSpeed();
-    //         currentSpeed = Mathf.Min(5.0f, currentSpeed + 0.01f * newDifficulty);
-    //         projectileScript.SetProjectileSpeed(currentSpeed + 0.01f * newDifficulty);
-    //     }
-    // }
+    public void AdjustProjectileSpeed(int newDifficulty)
+    {
+        List<GameObject> projectiles = ProjectileManager.Instance.getProjectilesPrefabs();
+        foreach (GameObject projectile in projectiles)
+        {
+            Projectile projectileScript = projectile.GetComponent<Projectile>();
+            float currentSpeed = projectileScript.GetCurrentSpeed();
+            currentSpeed = Mathf.Min(5.0f, currentSpeed + 0.01f * newDifficulty);
+            projectileScript.SetProjectileSpeed(currentSpeed + 0.01f * newDifficulty);
+        }
+    }
 
     public void AdjustMobsSpeed(int newDifficulty)
     {
-        foreach (GameObject prefab in MobPrefabs)
+        foreach (GameObject mobPrefab in _mobPrefabs)
         {
-            prefab.GetComponent<Mob>().CurrentSpeed += 0.01f * newDifficulty;
+            mobPrefab.GetComponent<Mob>().CurrentSpeed += 0.01f * newDifficulty;
         }
     }
 
     public void AdjustDifficulty(int newDifficulty)
     {
-        if (newDifficulty != currentDifficulty)
+        if (newDifficulty != CurrentDifficulty)
         {
-            currentDifficulty = newDifficulty;
-            if((newDifficulty + 1) % 2 == 0)
+            CurrentDifficulty = newDifficulty;
+            switch (SceneManagerScript.Instance.sceneName)
             {
-                BossPreparation();
-                AnnounceBoss();
-            }
-            else
-            {
-                AdjustSpawnRates(newDifficulty);
-                AdjustMobsSpeed(newDifficulty);
-                StartCoroutine(WaitEndOfTheWave());
+                case "Arcade":
+                    if((newDifficulty + 1) % 3 == 0)
+                    {
+                        BossPreparation();
+                        AnnounceBoss();
+                    }
+                    else
+                    {
+                        StartCoroutine(WaitEndOfTheWave());
+                        AdjustSpawnRates(newDifficulty);
+                        AdjustMobsSpeed(newDifficulty);
+                    }
+                    break;
+                case "Pillows":
+                    AdjustSpawnRates(newDifficulty);
+                    AdjustProjectileSpeed(newDifficulty);
+                    break;
             }
         }
     }
@@ -195,22 +204,23 @@ public class SpawnerManager : MonoBehaviour
             spawner.SetSpawnRate(2.0f, 3.0f);
         }
 
-        foreach (GameObject prefab in MobPrefabs)
+        foreach (GameObject prefab in _mobPrefabs)
         {
             prefab.GetComponent<Mob>().ResetSpeed();
         }
 
-        AnnounceWave();
+        if(SceneManagerScript.Instance.sceneName == "Arcade")
+            AnnounceWave();
     }
 
     void AnnounceBoss(){
-        waveText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, -100f);
+        _waveText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, -100f);
         MakeAnnouncement("BOSS"); 
     }
 
     void AnnounceWave(){
-        waveText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, 500f);
-        MakeAnnouncement("Wave " + (currentDifficulty + 1));
+        _waveText.gameObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(0f, 500f);
+        MakeAnnouncement("Wave " + (CurrentDifficulty + 1));
     }
 
     void BossPreparation(){
@@ -221,10 +231,10 @@ public class SpawnerManager : MonoBehaviour
         LeanTween.move(ninja, new Vector3(0, -3, 0), 1.0f).setEase(LeanTweenType.easeInOutQuad);
         NinjaController.Instance.HitScr.ChangeModeToBossMode();
 
-        bossInstance = Instantiate(BossPrefabs[0], new Vector3(0, 2.02f, 0), Quaternion.identity);
+        _bossInstance = Instantiate(_bossPrefabs[0], new Vector3(0, 2.02f, 0), Quaternion.identity);
 
         // Set the initial alpha of the boss to 0
-        SpriteRenderer bossRenderer = bossInstance.GetComponentInChildren<SpriteRenderer>();
+        SpriteRenderer bossRenderer = _bossInstance.GetComponentInChildren<SpriteRenderer>();
         if (bossRenderer != null)
         {
             Color initialColor = bossRenderer.color;
@@ -232,7 +242,7 @@ public class SpawnerManager : MonoBehaviour
             bossRenderer.color = initialColor;
 
             // Use LeanTween to smoothly change the alpha to 1
-            LeanTween.value(bossInstance, 0f, 1f, 1.0f)
+            LeanTween.value(_bossInstance, 0f, 1f, 1.0f)
                 .setOnUpdate((float val) =>
                 {
                     Color c = bossRenderer.color;
@@ -245,14 +255,14 @@ public class SpawnerManager : MonoBehaviour
 
     public void ContinueGameAfterBoss(){
         AfterBossCleanUp();
+        AnnounceWave();
         SpawnWithDelay(1f, spawners.ToArray());
     }
 
     public void AfterBossCleanUp(){
         ProjectileManager.Instance.DestroyAllProjectiles();
-        Debug.Log(MobManager.Instance == null);
         MobManager.Instance.DestroyAllMobs();
-        if (bossInstance != null) Destroy(bossInstance);
+        if (_bossInstance != null) Destroy(_bossInstance);
         GameObject ninja = NinjaController.Instance.gameObject;
         if (ninja != null)
         {
@@ -263,24 +273,24 @@ public class SpawnerManager : MonoBehaviour
     }
 
     private void MakeAnnouncement(string text){
-        waveText.gameObject.SetActive(true); // Activate the text object
-        Color initialColor = waveText.color; 
-        waveText.color = new Color(initialColor.r, initialColor.g, initialColor.b, 0); // Set initial transparency to 0
-        waveText.text = text; // Set the text to display the wave number
+        _waveText.gameObject.SetActive(true); // Activate the text object
+        Color initialColor = _waveText.color; 
+        _waveText.color = new Color(initialColor.r, initialColor.g, initialColor.b, 0); // Set initial transparency to 0
+        _waveText.text = text; // Set the text to display the wave number
 
         // Animate the transparency from 0 to 1 using LeanTween.value
         LeanTween.value(0f, 1f, 0.5f).setOnUpdate((float alpha) =>
         {
-            waveText.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+            _waveText.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
         }).setOnComplete(() =>
         {
             // After reaching full transparency, wait for 0.2 seconds and animate back to 0
             LeanTween.value(1f, 0f, 0.5f).setDelay(1f).setOnUpdate((float alpha) =>
             {
-                waveText.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+                _waveText.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
             }).setOnComplete(() =>
             {
-                waveText.gameObject.SetActive(false); // Deactivate the text object after the animation
+                _waveText.gameObject.SetActive(false); // Deactivate the text object after the animation
             });
         });
     }

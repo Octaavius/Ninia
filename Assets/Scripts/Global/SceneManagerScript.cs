@@ -12,7 +12,7 @@ public class SceneManagerScript : MonoBehaviour
     FadeIn FadeInScript; 
     [HideInInspector] public FadeOut FadeOutScript; 
     
-    [HideInInspector] public string sceneName = "Arcade";
+    [HideInInspector] public string sceneName;
 
     void Awake(){
         if (Instance == null) {
@@ -21,6 +21,7 @@ public class SceneManagerScript : MonoBehaviour
         } else {
             Destroy(gameObject);
         }
+        sceneName = SceneManager.GetActiveScene().name;
         FadeInScript = GetComponent<FadeIn>();
         FadeOutScript = GetComponent<FadeOut>();
     }

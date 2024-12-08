@@ -369,7 +369,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ProjectilePrefabs: []
+  BuffPrefabs: []
   MobPrefabs: []
+  BuffChance: 0
   minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
@@ -498,13 +501,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a7ed37a1829874d98eea9a3a53af6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveText: {fileID: 1238267766}
-  MobPrefabs:
-  - {fileID: 3791677445985977321, guid: ae5515ab42646f8cfaec121a4466fce8, type: 3}
-  - {fileID: 3791677445985977321, guid: 7912a6eadc6894562b2f459276f55ced, type: 3}
-  - {fileID: 3791677445985977321, guid: b5a9034eccb8f4280a62e47078a0219f, type: 3}
-  BossPrefabs:
-  - {fileID: 3791677445985977321, guid: 3be60d61cc9166dc1b2f74545c599be0, type: 3}
+  _waveText: {fileID: 1238267766}
+  _projectilePrefabs:
+  - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
+  - {fileID: 7208632165741971746, guid: 07703eae5d0c3464ca46a8bdd8ab8e02, type: 3}
+  - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
+  - {fileID: 3791677445985977321, guid: a8e96b53acb4904d6b8e12273cff9d27, type: 3}
+  - {fileID: 3791677445985977321, guid: 5619a7f5d765fcf25a6e46066832d2cc, type: 3}
+  - {fileID: 3791677445985977321, guid: 2bc2649d1207b3c1f860986aa6edc4d2, type: 3}
+  _buffPrefabs:
+  - {fileID: 8585960199572660824, guid: 51e8561f7a039534fa881975f12a3692, type: 3}
+  - {fileID: 2473892036989924854, guid: e4565500e0f246448bc9ff3107c97d1c, type: 3}
+  - {fileID: 2473892036989924854, guid: fdcd782201b0394438f93ffffee6dd13, type: 3}
+  - {fileID: 2473892036989924854, guid: 2744d5d11f6d9524fa2fa352cee1a5d1, type: 3}
+  _mobPrefabs: []
+  _bossPrefabs: []
+  BuffChance: 0
   CurrentDifficulty: 0
 --- !u!1 &62859583
 GameObject:
@@ -2119,7 +2131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ProjectilePrefabs: []
+  BuffPrefabs: []
   MobPrefabs: []
+  BuffChance: 0
   minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
@@ -5171,12 +5186,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBtwMultHits: 0.05
   maxHitDistance: 9.5
-  mobsLayer:
+  _layerToHit:
     serializedVersion: 2
     m_Bits: 64
-  bossLayer:
-    serializedVersion: 2
-    m_Bits: 128
   afterHitEffect: {fileID: 699703058052827229, guid: 8598b9cde20cfb09dad32b6909510068, type: 3}
   afterPunchEffect: {fileID: 699703058052827229, guid: abe34f49f9349c3728ba6ed129fe2fdf, type: 3}
   MoveDistance: 1.3
@@ -12773,7 +12785,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ProjectilePrefabs: []
+  BuffPrefabs: []
   MobPrefabs: []
+  BuffChance: 0
   minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
@@ -14082,7 +14097,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ProjectilePrefabs: []
+  BuffPrefabs: []
   MobPrefabs: []
+  BuffChance: 0
   minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1

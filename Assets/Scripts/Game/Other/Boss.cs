@@ -8,7 +8,6 @@ public class Boss : Creature
 {
     public override void ActionOnDestroy(){
         GetComponent<BossAttacks>().RemoveWarnings();
-        LevelProgress.Instance.IncreaseGameLevel();
         SpawnerManager.Instance.ContinueGameAfterBoss();
         Destroy(gameObject);
     }

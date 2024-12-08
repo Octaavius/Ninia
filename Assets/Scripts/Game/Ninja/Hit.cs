@@ -14,9 +14,7 @@ public class Hit : MonoBehaviour
     [Header("Hit Settings")]
     public float timeBtwMultHits = 0.05f;
     [SerializeField] private float maxHitDistance = 5f;
-    public LayerMask mobsLayer;
-    public LayerMask bossLayer;
-    private LayerMask currentLayer;
+    [SerializeField] private LayerMask _layerToHit;
 
     public GameObject afterHitEffect;
     public GameObject afterPunchEffect;
@@ -30,6 +28,7 @@ public class Hit : MonoBehaviour
     private float comboWindowTime = 0.7f;
     private float comboTimer; 
     private Direction firstSwipeDirection;
+    private GameObject _previouslyHitMob;
 
     void Awake(){
     	gestureDetector = GetComponent<GestureDetector>();
@@ -113,14 +112,20 @@ public class Hit : MonoBehaviour
 
         if (scalarProduct == 1)
         {
-            PerformHit(ref ulti, true);
-            comboTimer = 0;
+            // bool penetrateToTheEnd = true;
+            // PerformHit(ref ulti, penetrateToTheEnd);
+            // comboTimer = 0;
+
+            //just default punch
+            firstSwipeDirection = lastDirection;
+            comboTimer = comboWindowTime;
+            PerformHit(ref ulti);
         }
         else if (scalarProduct == -1)
         {
-            PerformHit(ref ulti);
             firstSwipeDirection = lastDirection;
             comboTimer = comboWindowTime;
+            PerformHit(ref ulti);
         }
         else if (vectorProduct > 0)
         {
@@ -137,36 +142,31 @@ public class Hit : MonoBehaviour
     }
 
     private void ClockwisePunch(ref UltimatePower ulti, bool clockwise){
-        Vector2 origin = transform.position;
-        Vector2 swipeVector = gestureDetector.DirectionToVector2(firstSwipeDirection);
-        float actualHitDistance = (swipeVector == Vector2.right || swipeVector == Vector2.left) ? maxHitDistance : maxHitDistance / 2;
-
         Direction lastDirection = gestureDetector.swipeDirection;
         Vector2 lastVector = gestureDetector.DirectionToVector2(lastDirection);
         
         float afterPunchEffectZRotation = Mathf.Atan2(lastVector.y, lastVector.x) * Mathf.Rad2Deg - 90f;
         Instantiate(afterPunchEffect, transform.position, Quaternion.Euler(0, 0, afterPunchEffectZRotation));
-
-        RaycastHit2D hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, currentLayer);
      
-        if (hit.collider != null) { // player hits something
-            MoveInEllipseWithLeanTween(hit.collider.transform, clockwise);
+        if (_previouslyHitMob != null) { // player hits something
+            MoveInEllipseWithLeanTween(_previouslyHitMob, clockwise);
         }
     }
 
-    private void MoveInEllipseWithLeanTween(Transform target, bool clockwise) {
+    private void MoveInEllipseWithLeanTween(GameObject objectToMove, bool clockwise) {
         float a; // Semi-major axis
         float b; // Semi-minor axis
         
         float screenWidth = Display.main.systemWidth;
         float screenHeight = Display.main.systemHeight;
+        Transform objectToMoveTransform = objectToMove.transform;
 
         if (firstSwipeDirection == Direction.Right || firstSwipeDirection == Direction.Left) {
-            a = Math.Abs(target.position.x);
+            a = Math.Abs(objectToMoveTransform.position.x);
             // b = a * screenHeight / screenWidth;
             b = 5;
         } else {
-            b = Math.Abs(target.position.y);
+            b = Math.Abs(objectToMoveTransform.position.y);
             //a = b * screenWidth / screenHeight;
             a = 3;
         }
@@ -175,13 +175,13 @@ public class Hit : MonoBehaviour
         float startAngle = getStartAngle();
         float endAngle = startAngle + (clockwise ? -Mathf.PI / 2 : Mathf.PI / 2);
 
-        float startRotation = target.rotation.eulerAngles.z;
+        float startRotation = objectToMoveTransform.rotation.eulerAngles.z;
 
         Direction firstSwipeDirectionCopy = firstSwipeDirection;
-        LeanTween.value(target.gameObject, startAngle, endAngle, duration).setOnUpdate((float angle) => {
+        LeanTween.value(objectToMoveTransform.gameObject, startAngle, endAngle, duration).setOnUpdate((float angle) => {
             float x = a * Mathf.Cos(angle);
             float y = b * Mathf.Sin(angle);
-            target.position = new Vector2(x, y);
+            objectToMoveTransform.position = new Vector2(x, y);
 
             float rotationZ = 0f;
             
@@ -190,7 +190,7 @@ public class Hit : MonoBehaviour
             } else {
                 rotationZ = startRotation + (clockwise ? -1 : 1) * (90f * Math.Abs(Mathf.Cos(angle)));
             }
-            target.rotation = Quaternion.Euler(0, 0, rotationZ);
+            objectToMoveTransform.rotation = Quaternion.Euler(0, 0, rotationZ);
         });
     }
 
@@ -219,25 +219,25 @@ public class Hit : MonoBehaviour
 
         AudioManager.Instance.PlaySFX(AudioManager.Instance.sliceSound);
 
-        RaycastHit2D hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, currentLayer);
+        RaycastHit2D hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, _layerToHit);
         if(hit.collider == null) yield break;
         comboTimer = comboWindowTime;
         ulti.AddCharge();
-
-        LayerMask initialLayerToHit = currentLayer; //if during coroutine current layer is changed to another, initial layer will not be changed
         
         int hitCounter = 0;
         while(true) {
-            hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, initialLayerToHit);
+            hit = Physics2D.Raycast(origin, swipeVector, actualHitDistance, _layerToHit);
             if(hit.collider == null) {
                 break;
             }
             
-            IHitable objectToHit = hit.collider.gameObject.GetComponent<IHitable>();
+            _previouslyHitMob = hit.collider.gameObject;
+            IHitable objectToHit = _previouslyHitMob.GetComponent<IHitable>();
 
             float damage = NinjaController.Instance.AtckScr.CountTotalDamage();
             bool objectIsDead = objectToHit.TakeDamage(damage, AttackType.None);
-            
+            Debug.Log(objectIsDead);
+
             if(objectToHit is Creature creature)
                 NinjaController.Instance.AtckScr.ApplyAttackEffects(creature);
             
@@ -247,7 +247,9 @@ public class Hit : MonoBehaviour
             hitCounter++;
             if(hitCounter == numberOfHits){    
                 if(objectIsDead){
+                    _previouslyHitMob = null;
                     comboTimer = 0;
+                    Debug.Log("combo timer reseted");
                 }
                 break;
             }
@@ -274,11 +276,9 @@ public class Hit : MonoBehaviour
     public void ChangeModeToBossMode(){
         comboTimer = 0;
         mode = Mode.BOSS;
-        currentLayer = bossLayer;
     }
 
     public void ChangeModeToWaveMode(){
         mode = Mode.WAVE;
-        currentLayer = mobsLayer;
     }
 }

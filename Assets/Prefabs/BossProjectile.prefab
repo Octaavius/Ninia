@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 469744613031090986}
   - component: {fileID: 6590099016667756847}
   - component: {fileID: 2417245187437671915}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: BossProjectile
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -92,7 +92,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BasicSpeed: 5
-  SpawnChance: 0
   rotationSpeed: {x: 0, y: 0, z: 100}
   scorePrice: 12
   damage: 30
@@ -106,7 +105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8645745678541630642}
   - component: {fileID: 9058963585517185497}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: projectileSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
