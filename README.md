@@ -1,9 +1,9 @@
 # Ninia
 
 ## Description
-Ninia is a game about a stickman ninja who has faced terrible monsters and bosses and in order to defeat them he has to go through a thorny path and unlock many accessories and skins. For now you can check skins in left panel, buffs in right panel and something what needs to be done when you click on ninja itself in menu.
+Ninia is mainly an arcade game about a stickman ninja who defends itself against pillows and modes. Available 2 game mode called "Monsters" and "Pillows". In " Monsters" ninja is defending against Mobs and Bosses in "Pillows" you can earn money for destroying pillows. In menu so far you can check skins in the left panel, add money using "Add money" button to try unlock them, buffs in the right panel and equipment when you click on ninja itself in menu. Equipment can be previewed only if stickman skin is equipped.
 
 
-## Installation
-1. Download .apk file on your android device 
+## Installation on Android device.
+1. Download .apk file on your android device.
 2. Install.
