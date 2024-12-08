@@ -743,14 +743,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 73482355}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1525135324}
   - {fileID: 1043850826}
-  m_Father: {fileID: 560478150}
+  m_Father: {fileID: 800015246}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4290,8 +4290,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 962737246}
-  - {fileID: 73482356}
   - {fileID: 468798526}
   - {fileID: 1422963610}
   - {fileID: 269797290}
@@ -6135,7 +6133,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -6153,6 +6151,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 47950019}
+  - {fileID: 73482356}
+  - {fileID: 962737246}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7916,7 +7916,7 @@ RectTransform:
   m_Children:
   - {fileID: 1417768731}
   - {fileID: 2103354723}
-  m_Father: {fileID: 560478150}
+  m_Father: {fileID: 800015246}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10443,7 +10443,6 @@ MonoBehaviour:
   - {fileID: 1681405639}
   - {fileID: 1664875942}
   - {fileID: 477900392}
-  - {fileID: 346526396}
   - {fileID: 1072318380}
 --- !u!1 &1260109972
 GameObject:
@@ -14692,9 +14691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e872907506241864fbc3b81c30f34865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectilesPrefabs:
-  - {fileID: 78614872330638774, guid: 5d40656c6d46d6a41811e6b45963411d, type: 3}
-  - {fileID: 3791677445985977321, guid: 71e40b5e002ef8b44a38cfe2af62f518, type: 3}
+  ProjectilesPrefabs: []
 --- !u!114 &1823422427
 MonoBehaviour:
   m_ObjectHideFlags: 0

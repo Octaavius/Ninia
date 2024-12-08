@@ -91,11 +91,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7345adfb614561ec0a57437e5db4445c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BasicSpeed: 4
-  SpawnChance: 0
+  BasicSpeed: 2
   rotationSpeed: {x: 0, y: 0, z: 100}
   scorePrice: 25
-  damage: 30
+  damage: 5
 --- !u!1 &7779030786557143894
 GameObject:
   m_ObjectHideFlags: 0

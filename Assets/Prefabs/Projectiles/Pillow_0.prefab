@@ -92,10 +92,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BasicSpeed: 1
-  SpawnChance: 0
   rotationSpeed: {x: 0, y: 0, z: 100}
   scorePrice: 12
-  damage: 30
+  damage: 20
 --- !u!1 &7779030786557143894
 GameObject:
   m_ObjectHideFlags: 0
