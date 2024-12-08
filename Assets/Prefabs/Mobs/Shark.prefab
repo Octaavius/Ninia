@@ -456,7 +456,7 @@ MonoBehaviour:
   _scorePrice: 12
   _mobSprite: {fileID: 7779030786557143894}
   SpawnChance: 0.1
-  _initialSpeed: 1
+  _initialSpeed: 0.5
   CurrentSpeed: 1
   _hpBar: {fileID: 1825174217187514313}
   _hpBarYPos: 0.55

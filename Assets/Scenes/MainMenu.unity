@@ -21691,7 +21691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &908700097
 Transform:
   m_ObjectHideFlags: 0
@@ -21701,7 +21701,7 @@ Transform:
   m_GameObject: {fileID: 908700096}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 31, y: -239.99998, z: 0}
+  m_LocalPosition: {x: 36.1, y: -14.4, z: 0}
   m_LocalScale: {x: 80, y: 80, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23500,7 +23500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &975535233
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26337,7 +26337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modesList:
-  - Arcade
+  - Monsters
   - Pillows
   modeText: {fileID: 613749320}
   nextModeText: {fileID: 783116717}
@@ -31780,10 +31780,12 @@ MonoBehaviour:
   boomSound: {fileID: 8300000, guid: c27be219125f51870bc4d066a175e0c2, type: 3}
   punchSound: {fileID: 8300000, guid: 630df04777a129b9aa2a2bc1e0451b2e, type: 3}
   sceneMusicMapping:
-  - sceneName: Arcade
+  - sceneName: Monsters
     music: {fileID: 8300000, guid: 69049d576c5444e1d998954bb899a552, type: 3}
   - sceneName: MainMenu
     music: {fileID: 8300000, guid: 1d86a96ff2cd9aeeb9abb8f74857cdaf, type: 3}
+  - sceneName: Pillows
+    music: {fileID: 8300000, guid: 69049d576c5444e1d998954bb899a552, type: 3}
 --- !u!4 &1350153734
 Transform:
   m_ObjectHideFlags: 0
@@ -46880,7 +46882,7 @@ Transform:
   m_GameObject: {fileID: 2101339034}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35.760002, y: -232.09998, z: -21077.29}
+  m_LocalPosition: {x: 22.2, y: 61.5, z: -21077.29}
   m_LocalScale: {x: 140.00002, y: 140.00002, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []

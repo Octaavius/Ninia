@@ -166,7 +166,7 @@ public class SpawnerManager : MonoBehaviour
             CurrentDifficulty = newDifficulty;
             switch (SceneManagerScript.Instance.sceneName)
             {
-                case "Arcade":
+                case "Monsters":
                     if((newDifficulty + 1) % 3 == 0)
                     {
                         BossPreparation();
@@ -209,7 +209,7 @@ public class SpawnerManager : MonoBehaviour
             prefab.GetComponent<Mob>().ResetSpeed();
         }
 
-        if(SceneManagerScript.Instance.sceneName == "Arcade")
+        if(SceneManagerScript.Instance.sceneName == "Monsters")
             AnnounceWave();
     }
 

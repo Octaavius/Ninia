@@ -34,7 +34,7 @@ public class Spawner : MonoBehaviour
         {
             switch (SceneManagerScript.Instance.sceneName)
             {
-                case "Arcade":
+                case "Monsters":
                     spawnCoroutine = StartCoroutine(SpawnMobs());
                     break;
                 case "Pillows":

@@ -516,7 +516,7 @@ MonoBehaviour:
   - {fileID: 2473892036989924854, guid: 2744d5d11f6d9524fa2fa352cee1a5d1, type: 3}
   _mobPrefabs: []
   _bossPrefabs: []
-  BuffChance: 0
+  BuffChance: 0.04
   CurrentDifficulty: 0
 --- !u!1 &62859583
 GameObject:

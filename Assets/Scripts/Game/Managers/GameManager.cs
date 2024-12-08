@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         if(LevelProgress.Instance != null)
             LevelProgress.Instance.ResetLevelProgress();
         SpawnerManager.Instance.ResetSpawners();
-        if(SceneManagerScript.Instance.sceneName == "Arcade")
+        if(SceneManagerScript.Instance.sceneName == "Monsters")
         {
             SpawnerManager.Instance.AfterBossCleanUp();
         }

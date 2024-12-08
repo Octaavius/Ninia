@@ -476,7 +476,7 @@ MonoBehaviour:
   _hpBarFilling: {fileID: 639403199661255441}
   _hpText: {fileID: 1202069362962308075}
   _shield: {fileID: 0}
-  MaxHp: 200
+  MaxHp: 100
   HpRegenPerSec: 0
   HealMult: 1
   CurrHp: 0

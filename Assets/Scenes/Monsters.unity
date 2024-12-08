@@ -369,7 +369,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ProjectilePrefabs: []
+  BuffPrefabs: []
   MobPrefabs: []
+  BuffChance: 0
   minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
@@ -498,13 +501,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a7ed37a1829874d98eea9a3a53af6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveText: {fileID: 1238267766}
-  MobPrefabs:
+  _waveText: {fileID: 1238267766}
+  _projectilePrefabs: []
+  _buffPrefabs: []
+  _mobPrefabs:
   - {fileID: 3791677445985977321, guid: ae5515ab42646f8cfaec121a4466fce8, type: 3}
   - {fileID: 3791677445985977321, guid: 7912a6eadc6894562b2f459276f55ced, type: 3}
   - {fileID: 3791677445985977321, guid: b5a9034eccb8f4280a62e47078a0219f, type: 3}
-  BossPrefabs:
+  _bossPrefabs:
   - {fileID: 3791677445985977321, guid: 3be60d61cc9166dc1b2f74545c599be0, type: 3}
+  BuffChance: 0
   CurrentDifficulty: 0
 --- !u!1 &62859583
 GameObject:
@@ -2119,7 +2125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ProjectilePrefabs: []
+  BuffPrefabs: []
   MobPrefabs: []
+  BuffChance: 0
   minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
@@ -5171,12 +5180,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBtwMultHits: 0.05
   maxHitDistance: 9.5
-  mobsLayer:
+  _layerToHit:
     serializedVersion: 2
     m_Bits: 64
-  bossLayer:
-    serializedVersion: 2
-    m_Bits: 128
   afterHitEffect: {fileID: 699703058052827229, guid: 8598b9cde20cfb09dad32b6909510068, type: 3}
   afterPunchEffect: {fileID: 699703058052827229, guid: abe34f49f9349c3728ba6ed129fe2fdf, type: 3}
   MoveDistance: 1.3
@@ -12773,7 +12779,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ProjectilePrefabs: []
+  BuffPrefabs: []
   MobPrefabs: []
+  BuffChance: 0
   minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1
@@ -14082,7 +14091,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa7cad18c931b94a8849cab8ef88b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ProjectilePrefabs: []
+  BuffPrefabs: []
   MobPrefabs: []
+  BuffChance: 0
   minSpawnTime: 2
   maxSpawnTime: 3
   maxDelta: 1

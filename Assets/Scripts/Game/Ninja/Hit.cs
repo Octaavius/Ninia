@@ -86,7 +86,7 @@ public class Hit : MonoBehaviour
         if(!gestureDetector.swipeDetected) return;
         gestureDetector.resetSwipe();
         ///////////////////////////////////
-        if(SceneManagerScript.Instance.sceneName == "Arcade"){ // can be replaced by some skill which is turning on combos or something else
+        if(SceneManagerScript.Instance.sceneName == "Monsters"){ // can be replaced by some skill which is turning on combos or something else
             if (comboTimer > 0)
             {
                 CheckCombo(ref ulti);
