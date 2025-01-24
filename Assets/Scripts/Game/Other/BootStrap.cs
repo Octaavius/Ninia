@@ -9,13 +9,9 @@ public class BootStrap : MonoBehaviour
     [SerializeField] private List<GameObject> _itemsImages;
     [SerializeField] private RectTransform _buffsStartingPoint;
 
-    void Awake()
-    {
-        Buffs = BuffsManager.Instance.BuffsTransform;
-    }
-
     void Start()
     {
+        Buffs = BuffsManager.Instance.BuffsTransform;
         StartCoroutine(StartFunction());
         LoadSkin();
         LoadBuffs();

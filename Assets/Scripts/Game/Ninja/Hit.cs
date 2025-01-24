@@ -232,11 +232,12 @@ public class Hit : MonoBehaviour
             }
             
             _previouslyHitMob = hit.collider.gameObject;
+            if(mode == Mode.WAVE)
+                PunchObject(_previouslyHitMob, NinjaController.Instance.AtckScr.PunchDistance);
             IHitable objectToHit = _previouslyHitMob.GetComponent<IHitable>();
 
             float damage = NinjaController.Instance.AtckScr.CountTotalDamage();
             bool objectIsDead = objectToHit.TakeDamage(damage, AttackType.None);
-            Debug.Log(objectIsDead);
 
             if(objectToHit is Creature creature)
                 NinjaController.Instance.AtckScr.ApplyAttackEffects(creature);
@@ -249,13 +250,17 @@ public class Hit : MonoBehaviour
                 if(objectIsDead){
                     _previouslyHitMob = null;
                     comboTimer = 0;
-                    Debug.Log("combo timer reseted");
                 }
                 break;
             }
             
             yield return new WaitForSeconds(timeBtwMultHits);   
         }
+    }
+
+    void PunchObject(GameObject objectToPunch, float punchDistance)
+    {
+        objectToPunch.transform.Translate(Vector3.down * punchDistance, Space.Self);
     }
 
     public bool UltimateActivationTry(){ 

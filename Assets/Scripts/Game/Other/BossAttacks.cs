@@ -31,13 +31,11 @@ public class BossAttacks : MonoBehaviour
             int randomIndex = Random.Range(0, AttackCoroutines.Count);
             AttackCoroutine = StartCoroutine(AttackCoroutines[randomIndex]());
             yield return AttackCoroutine;
-            Debug.Log("Attack is ended");
             yield return new WaitForSeconds(CooldownDuration);
         }
     }
 
     IEnumerator DefaultAttack(){
-        Debug.Log("ATTACKKKKK!!!!");
         int safePosition = Random.Range(0, 3);
         ShowWarnings(safePosition);
         yield return new WaitForSeconds(1f);

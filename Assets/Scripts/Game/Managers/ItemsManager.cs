@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemsManager : MonoBehaviour
 {
     public static ItemsManager Instance {get; private set;}
-    [HideInInspector] public List<Item> Items;
+    [HideInInspector] public List<GameObject> Items;
     
     void Awake()
     {
@@ -26,11 +26,7 @@ public class ItemsManager : MonoBehaviour
         Items = new();
         foreach (Transform child in gameObject.transform)
         {
-            Item item = child.GetComponent<Item>();
-            if (item != null)
-            {
-                Items.Add(item);
-            }
+            Items.Add(child.gameObject);
         }
     }
 
@@ -38,7 +34,9 @@ public class ItemsManager : MonoBehaviour
 		foreach(int itemId in itemsToActivate)
 		{
             if (itemId == -1) continue;
-			Items[itemId].ApplyEffect(NinjaController.Instance.gameObject.GetComponent<Creature>());
+			Item[] listOfItemEffects = Items[itemId].GetComponents<Item>(); 
+            foreach(Item itemEffect in listOfItemEffects)
+                itemEffect.ApplyEffect(NinjaController.Instance);
         }
 	}
 }

@@ -15,7 +15,7 @@ public class Defence : MonoBehaviour
     public AttackType[] Resistances;
 
     public float ProcessRecievedDamage(float damage, AttackType attackType){
-        float resultingDamage = 0f;
+        float resultingDamage = damage;
         if(attackType == AttackType.None){
             float randomValue = Random.Range(0f, 1f);
             if(randomValue < EvasionChance) return 0;
